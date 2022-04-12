@@ -1,16 +1,5 @@
-Character ID
-CHAR_04
-Name
-Locke Zsahbdiin
-Starting Item
-[Starting Item 1]
-Description
 A simple newly graduated blacksmith's apprentice before her world turned upside down.For her first true smithing
 assignment, she was tasked with forging a decorative warhammer to be blessed and displayed by the Church.
 Soon after she completed the task and the hammer was blessed, abominations rose from the unknown and nothing was
 right again. With the warhammer in her possession she has vowed that if humanity were to truly fall, she'd be the
 last one standing.
-HP
-125
-Dodge Chance
-0.15
