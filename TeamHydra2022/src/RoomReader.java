@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 /**
- * he RoomReader class will build the environment of the game.
+ * The RoomReader class will build the environment of the game.
  *  Upon building, the various rooms and their respected descriptions
  *  will have been read from the text file.
  *  All rooms with have the following
