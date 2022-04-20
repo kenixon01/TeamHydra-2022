@@ -23,18 +23,6 @@ public class Item {
         this._criticalHitChance = criticalHitChance;
     }
 
-    public int get_criticalHitChance() {
-        return _criticalHitChance;
-    }
-
-    public int get_totalHpModifier() {
-        return _totalHpModifier;
-    }
-
-    public String get_itemType() {
-        return _itemType;
-    }
-
     public int get_itemNumber() {
         return _itemNumber;
     }
@@ -59,20 +47,52 @@ public class Item {
         this._itemDescription = _itemDescription;
     }
 
-    public int get_itemDamageValue() {
-        return this._damageValue;
-    }
-
-    public int get_itemHealValue() {
-        return this._healValue;
-    }
-
     public int get_itemRoom() {
         return _itemRoom;
     }
 
     public void set_itemRoom(int _itemRoom) {
         this._itemRoom = _itemRoom;
+    }
+
+    public int get_damageValue() {
+        return _damageValue;
+    }
+
+    public void set_damageValue(int _damageValue) {
+        this._damageValue = _damageValue;
+    }
+
+    public int get_healValue() {
+        return _healValue;
+    }
+
+    public void set_healValue(int _healValue) {
+        this._healValue = _healValue;
+    }
+
+    public String get_itemType() {
+        return _itemType;
+    }
+
+    public void set_itemType(String _itemType) {
+        this._itemType = _itemType;
+    }
+
+    public int get_totalHpModifier() {
+        return _totalHpModifier;
+    }
+
+    public void set_totalHpModifier(int _totalHpModifier) {
+        this._totalHpModifier = _totalHpModifier;
+    }
+
+    public int get_criticalHitChance() {
+        return _criticalHitChance;
+    }
+
+    public void set_criticalHitChance(int _criticalHitChance) {
+        this._criticalHitChance = _criticalHitChance;
     }
 
 
