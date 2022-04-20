@@ -1,0 +1,11 @@
+---------------------------------------
+----Structure this file as followed----
+---------------------------------------
+-Item Number-
+-Item Name-
+-Item Description-
+-Room the Item is located in-
+-Item Damage Value-
+-Item Health Restoration Value-
+-USE A BLANK LINE AS A SEPARATOR-
+---------------------------------------
