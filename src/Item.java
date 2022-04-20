@@ -7,6 +7,33 @@ public class Item {
     private int _itemRoom;
     private int _damageValue;
     private int _healValue;
+    private String _itemType;
+    private int _totalHpModifier;
+    private int _criticalHitChance;
+
+    public Item(int itemNum, String itemName, String itemDesc, int itemRoom, int damageValue, int healValue, String itemType, int totalHpModifier, int criticalHitChance) {
+        this._itemNumber = itemNum;
+        this._itemName = itemName;
+        this._itemDescription = itemDesc;
+        this._itemRoom = itemRoom;
+        this._damageValue = damageValue;
+        this._healValue = healValue;
+        this._itemType = itemType;
+        this._totalHpModifier = totalHpModifier;
+        this._criticalHitChance = criticalHitChance;
+    }
+
+    public int get_criticalHitChance() {
+        return _criticalHitChance;
+    }
+
+    public int get_totalHpModifier() {
+        return _totalHpModifier;
+    }
+
+    public String get_itemType() {
+        return _itemType;
+    }
 
     public int get_itemNumber() {
         return _itemNumber;
@@ -48,13 +75,6 @@ public class Item {
         this._itemRoom = _itemRoom;
     }
 
-    public Item(int itemNum, String itemName, String itemDesc, int itemRoom, int damageValue, int healValue) {
-        this._itemNumber = itemNum;
-        this._itemName = itemName;
-        this._itemDescription = itemDesc;
-        this._itemRoom = itemRoom;
-        this._damageValue = damageValue;
-        this._healValue = healValue;
-    }
+
 
 }
