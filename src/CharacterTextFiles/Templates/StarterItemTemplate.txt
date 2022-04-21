@@ -1,0 +1,5 @@
+Item ID
+Item Name
+Item Effectiveness
+Description
+Location
