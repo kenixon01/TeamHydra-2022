@@ -30,7 +30,7 @@ public class Battle {
     public boolean attackPlayer() {
         if (monster.getHp() > 0) {
             if(!playerDodge()){
-                player.setHp(player.getHp() - monster.getAttack());
+                player.setHp(player.getHp() - monster.getAttack() + damageReduction());
             }
             return true;
         }
@@ -46,6 +46,20 @@ public class Battle {
     private boolean playerDodge() {
         int randomDodgeInt = Math.abs(new Random().nextInt());
         return (player.getDodgeChance() > 0 && (randomDodgeInt % (1 / player.getDodgeChance()) == 0));
+    }
+
+    /**
+     * Calculates the amount of damage reduction from an incoming monster attack if the player
+     * has a block chance percentage.
+     * @return damage reduction
+     * @author Khamilah Nixon
+     */
+    private int damageReduction() {
+        int randomBlockInt = Math.abs(new Random().nextInt());
+        if (player.getBlockChance() > 0 && randomBlockInt % (1 / player.getBlockChance()) == 0) {
+            return (int) (Math.random() * getMonsterHp() - 1) + 1;
+        }
+        return 0;
     }
 
     // Used in the view
