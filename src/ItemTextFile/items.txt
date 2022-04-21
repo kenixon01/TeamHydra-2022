@@ -18,7 +18,7 @@ Amulet
 Wearable
 A shiny and luminous black obsidian amulet and other precious gemstones around it. These amulets were only given to the high-ranking priest of the Children of the Two Gods. The wearer of these amulets will be granted a longer life.
 05
--Item Damage Value-
+0
 50
 50
 0
