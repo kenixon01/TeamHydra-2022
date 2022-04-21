@@ -1,8 +1,0 @@
-Character ID -> (int) id
-Name -> (String) name
-StartingItems/Inventory -> (LinkedList<Item>) playerItemInventory
-Character description -> (String) description
-Attribute -> (int) hitPoints
-Attribute2 -> (double) dodgeChance
-Player Damage -> (int) damage
-

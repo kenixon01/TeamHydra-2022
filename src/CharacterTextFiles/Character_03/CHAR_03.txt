@@ -1,8 +1,0 @@
-Character ID
-CHAR_03
-Name
-Artemis of the Broken Heart
-HP
-110
-Dodge Chance
-0.2
