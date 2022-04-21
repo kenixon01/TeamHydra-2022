@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /**
  * Author: Brian Smithers
  */
@@ -18,12 +20,32 @@ public class Battle {
         return false;
     }
 
+    /**
+     * Determines if a monster can attack the player.  Sets the player health points during a
+     * fight using the monster attack damage.  This method uses {@link Random} to generate a random
+     * {@code int} to determine if the player can dodge or block an incoming attack.
+     * @return if a monster is alive
+     * @author Brian Smithers and Khamilah Nixon
+     */
     public boolean attackPlayer() {
         if (monster.getHp() > 0) {
-            player.setHp(player.getHp() - monster.getAttack());
+            if(!playerDodge()){
+                player.setHp(player.getHp() - monster.getAttack());
+            }
             return true;
         }
         return false;
+    }
+
+    /**
+     * Determines if the player dodges an attack.  This is dependent on the player's dodge chance:
+     * If the player successfully dodges, then they will absorb all incoming damage.
+     * @return if the player dodges an incoming monster attack
+     * @author Khamilah Nixon
+     */
+    private boolean playerDodge() {
+        int randomDodgeInt = Math.abs(new Random().nextInt());
+        return (player.getDodgeChance() > 0 && (randomDodgeInt % (1 / player.getDodgeChance()) == 0));
     }
 
     // Used in the view
