@@ -20,7 +20,8 @@ import java.util.HashMap;
  * @version 1.0
  */
 public class Monster {
-    private final int ID, ROOM_ID, ITEM_ID, HP, DAMAGE;
+    private final int ID, ROOM_ID, ITEM_ID, DAMAGE;
+    private int Hp;
 
     private final String NAME, DESCRIPTION;
 
@@ -35,10 +36,10 @@ public class Monster {
         ID = reader.getID();
         ROOM_ID = reader.getROOM_ID();
         ITEM_ID = reader.getITEM_ID();
-        HP = reader.getHP();
         DAMAGE = reader.getDAMAGE();
         NAME = reader.getNAME();
         DESCRIPTION = reader.getDESCRIPTION();
+        this.Hp = reader.getHp();
     }
 
     public int getID() {
@@ -53,8 +54,8 @@ public class Monster {
         return ITEM_ID;
     }
 
-    public int getHP() {
-        return HP;
+    public int getHp() {
+        return Hp;
     }
 
     public int getDAMAGE() {
@@ -71,5 +72,9 @@ public class Monster {
 
     public HashMap<Integer, Item> getInventory() {
         return inventory;
+    }
+
+    public void setHp(int hp) {
+        Hp = hp;
     }
 }

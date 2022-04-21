@@ -72,7 +72,7 @@ public final class MonsterReader {
         return ITEM_ID;
     }
 
-    public int getHP() {
+    public int getHp() {
         return HP;
     }
 
