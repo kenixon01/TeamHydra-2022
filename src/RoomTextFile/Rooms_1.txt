@@ -10,7 +10,7 @@ This room is a lounge with intact but ripped up furniture with a few photos of t
 You see some burned up books, but otherwise it is a cold damp room. 
 END
 Herb Room
-Hallway2-,-,-
+Hallway2,-,-,-
 A heavy scent of sage and jasmine pierced your nose as you opened the door. 
 Lit by a few bulbs, this room is heavily forested with mysterious herbs that you have never even seen before.
 END
