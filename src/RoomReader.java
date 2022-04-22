@@ -28,6 +28,10 @@ public class RoomReader
             HashMap<String, Room> rooms = new HashMap<String, Room>();
 
             while (line != null) { // while we can still read from file
+                String roomID = line;
+
+                line = reader.readLine();
+
                 String name = line;
 
                 line = reader.readLine();
@@ -55,7 +59,7 @@ public class RoomReader
                 }
 
                 // put new room object and rooms name in HashMap
-                rooms.put(name, new Room(name, description, neighbors));
+                rooms.put(name, new Room(roomID,name, description, neighbors));
 
                 line = reader.readLine();
             }

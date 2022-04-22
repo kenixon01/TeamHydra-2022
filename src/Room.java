@@ -5,6 +5,7 @@
  * The Room class define a room's description and
  * its neighbors. It will reference the RoomReader class
  * and has the following attributes:
+ *      Room ID
  *      Room Name
  *      Room Description
  *      Neighboring Rooms or Hallways
@@ -16,50 +17,22 @@
 public class Room
 {
     private String name_; //name of room
+    private String roomID_; //A room's ID need for item sorting
     private String[] neighbors_; //names of neighboring rooms
     private String description_; //short description
 
 
-
-    public Room(String name, String description, String[] neighbors) {
+    public Room(String roomID, String name, String description, String[] neighbors) {
+        roomID_ = roomID;
         name_ = name;
         description_ = description;
         neighbors_ = neighbors;
 
     }
 
-
-    /**
-     * The look method allows the player to see their exits.
-     */
-    public void look() {
-        System.out.println(description_);
-
-        System.out.println("Can exit to the ");
-        // traverse neighbors array
-        if (!neighbors_[0].equals("-")) { // if there is spot to north
-            System.out.print("N, ");
-        }
-
-        if (!neighbors_[1].equals("-")) { // if there is spot to south
-            System.out.print("S, ");
-        }
-
-        if (!neighbors_[2].equals("-")) { // if there is spot to east
-            System.out.print("E, ");
-        }
-
-        if (!neighbors_[3].equals("-")) { // if there is spot to west
-            System.out.print("W, ");
-        }
-
-        System.out.println();
-        System.out.println();
-
-
-        }
-
-
+    public String getRoomID_() {
+        return roomID_;
+    }
     public String[] getNeighbors() {
         return neighbors_;
     }

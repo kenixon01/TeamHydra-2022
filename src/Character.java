@@ -1,4 +1,6 @@
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * Author: Brian Smithers
@@ -14,6 +16,8 @@ public class Character {
     private double dodgeChance;
     private double criticalHitChance;
     private int damage;
+    private static String location_;
+
 
     public Character(String id, String name, LinkedList<Item> playerItemInventory,
                      String description, int hitPoints, double dodgeChance, int damage) {
@@ -85,11 +89,58 @@ public class Character {
     // TODO Character select
 
     // TODO Help Command
-
+    /**
+     * Help method that will display a
+     * list of commands the player can use.
+     * @author David Huber
+     */
+    public void help()
+    {
+        System.out.println();
+    }
     // TODO Inventory Command
 
     // TODO N, S, E, W Command for changing rooms
+    /**
+     * The move method will take the user's input
+     * and allow them to move accordingly
+     * @author David Huber
+     */
+    public void move(String direction, HashMap<String, Room> rooms)
+    {
+        direction = direction.toLowerCase();
+        Room current = rooms.get(location_);
 
+        String[] temp = current.getNeighbors();
+
+        if (direction.equalsIgnoreCase("n")) {
+            if (!temp[0].equals("-")) {//if there is a room in said direction
+                location_ = temp[0];
+            } else {
+                System.out.println("Sorry, cannot go this way.");
+            }
+        } else if (direction.equalsIgnoreCase("s")) {
+            if (!temp[1].equals("-")) {//if there is a room in said direction
+                location_ = temp[1];
+            } else {
+                System.out.println("Sorry, cannot go this way.");
+            }
+        } else if (direction.equalsIgnoreCase("e")) {
+            if (!temp[2].equals("-")) { //if there is a room in said direction
+                location_ = temp[2];
+            } else {
+                System.out.println("Sorry, cannot go this way.");
+            }
+        } else if (direction.equalsIgnoreCase("w")) {
+            if (!temp[3].equals("-")) {//if there is a room in said direction
+                location_ = temp[3];
+            } else {
+                System.out.println("Sorry, cannot go this way.");
+            }
+        } else { //else
+            System.out.println("Sorry, not valid direction or not a movement command!");
+        }
+    }
 
     @Override
     public String toString() {
