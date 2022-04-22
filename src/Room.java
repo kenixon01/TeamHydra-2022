@@ -16,12 +16,13 @@
 public class Room
 {
     private String name_; //name of room
+    private String roomID_; //A room's ID need for item sorting
     private String[] neighbors_; //names of neighboring rooms
     private String description_; //short description
 
 
-
-    public Room(String name, String description, String[] neighbors) {
+    public Room(String roomID, String name, String description, String[] neighbors) {
+        roomID_ = roomID;
         name_ = name;
         description_ = description;
         neighbors_ = neighbors;
@@ -59,7 +60,9 @@ public class Room
 
         }
 
-
+    public String getRoomID_() {
+        return roomID_;
+    }
     public String[] getNeighbors() {
         return neighbors_;
     }
