@@ -7,14 +7,14 @@ public class Item {
     private int _itemNumber;
     private String _itemName;
     private String _itemDescription;
-    private int _itemRoom;
+    private String _itemRoom;
     private int _damageValue;
     private int _healValue;
     private String _itemType;
     private int _totalHpModifier;
-    private int _criticalHitChance;
+    private float _criticalHitChance;
 
-    public Item(int itemNum, String itemName, String itemDesc, int itemRoom, int damageValue, int healValue, String itemType, int totalHpModifier, int criticalHitChance) {
+    public Item(int itemNum, String itemName, String itemDesc, String itemRoom, int damageValue, int healValue, String itemType, int totalHpModifier, float criticalHitChance) {
         this._itemNumber = itemNum;
         this._itemName = itemName;
         this._itemDescription = itemDesc;
@@ -50,11 +50,11 @@ public class Item {
         this._itemDescription = _itemDescription;
     }
 
-    public int get_itemRoom() {
+    public String get_itemRoom() {
         return _itemRoom;
     }
 
-    public void set_itemRoom(int _itemRoom) {
+    public void set_itemRoom(String _itemRoom) {
         this._itemRoom = _itemRoom;
     }
 
@@ -90,7 +90,7 @@ public class Item {
         this._totalHpModifier = _totalHpModifier;
     }
 
-    public int get_criticalHitChance() {
+    public float get_criticalHitChance() {
         return _criticalHitChance;
     }
 
