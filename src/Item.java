@@ -1,3 +1,6 @@
+/**
+ *  Author: Jayson Dasher
+ */
 public class Item {
 
     // define variables
