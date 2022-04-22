@@ -89,7 +89,15 @@ public class Character {
     // TODO Character select
 
     // TODO Help Command
-
+    /**
+     * Help method that will display a
+     * list of commands the player can use.
+     * @author David Huber
+     */
+    public void help()
+    {
+        System.out.println();
+    }
     // TODO Inventory Command
 
     // TODO N, S, E, W Command for changing rooms
