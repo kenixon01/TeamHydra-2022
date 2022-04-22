@@ -1,0 +1,184 @@
+---------------------------------------
+----Structure this file as followed----
+---------------------------------------
+-Item Number-
+-Item Name-
+-Item Type-
+-Item Description-
+-Room the Item is located in-
+-Item Damage Value-
+-Item Health Restoration Value-
+-Total HP Modifier-
+-Critical Hit Chance-
+-USE A BLANK LINE AS A SEPARATOR-
+---------------------------------------
+
+01
+Amulet
+Wearable
+A shiny and luminous black obsidian amulet and other precious gemstones around it. These amulets were only given to the high-ranking priest of the Children of the Two Gods. The wearer of these amulets will be granted a longer life.
+05
+-Item Damage Value-
+50
+50
+0
+
+02
+Axe
+Weapon
+A black double-sided bearded axe. The engraving on the side reads "Tyr!". Just by glancing at it, you can tell it was made by a skilled smith and wielded by an even better warrior. As you grasp it in your hands, flashback fragments of its battles flood your mind. How old is this thing?
+11
+50
+0
+0
+0
+
+03
+Spear
+Weapon
+A long spear capable of attacking from a distance.
+13
+45
+0
+0
+0
+
+04
+8x Bandage
+Consumable
+A box of bandages already opened. Could probably cover a scratch or two, there’s only two of them left in the box anyways.
+18
+0
+20
+0
+0
+
+05
+1x Medkit
+Consumable
+A fully stocked medical emergency kit. For really big paper cuts.
+17
+0
+150
+0
+0
+
+06
+Sword
+Weapon
+The sword called “Gate Keeper”  will be able to be picked up and used against monster
+07
+50
+0
+0
+0
+
+07
+Key Piece 1
+Key
+This key piece could be obtained by defeating High Priest Elwyn in room 5. This key piece will help you unlock the basement door.
+06
+0
+0
+0
+0
+
+08
+Key Piece 2
+Key
+Lodged in the enormous calf of Bonkreig, this is one of the 4 key pieces tos unlock the basement
+19
+0
+0
+0
+0
+
+09
+Key Piece 3
+Key
+This key piece can be obtained by opening the safe in the study room.
+14
+0
+0
+0
+0
+
+10
+Key Piece 4
+Key
+By defeating the  monster from room 7, this key piece will help you unlock the basement door
+10
+0
+0
+0
+0
+
+11
+Armory Key
+Key
+Worn as a necklace around his neck, Robert Fitz drops it when defeated. A key with engraving on the side that reads “ARMORY”.
+12
+0
+0
+0
+0
+
+12
+Flintlock pistol and a dagger
+Weapon
+Starting item for Leuthere, the Vampire Slayer. A 1482 Slitz & Williamson Flintlock pistol and a silver platted steel dagger given by Leuthere adoptive parents.
+0
+25
+0
+0
+.15
+
+13
+Shadow Bow
+Weapon
+Given to Artemis as a gift for joining the Order of the Broken Heart, this bow is imbued with dark magic. The shadow arrows shot from it regenerate using the power of the darkness. In exchange for reduced damage, the bow steals the health from enemies.
+0
+45
+5
+0
+0
+
+14
+Eyes of the Two Gods
+Wearable
+Two set of sacred rings resembles the eyes of the Two Gods.
+15
+20
+0
+0
+.10
+
+15
+Dagger of dragons
+Weapon
+A dagger made from a dragon's tooth.
+0
+40
+0
+0
+0
+
+16
+Warhammer of the Revenant
+Weapon
+A blessed ornamental warhammer, never to break and gives its user a boost of innate vitality and tenacity. Equally beautiful as it is deadly.
+0
+35
+0
+0
+0
+
+17
+2x Wine Potion
+Consumable
+A wine potion,instead of getting you drunk, it gives you health.
+16
+-5
+30
+0
+0
