@@ -1,0 +1,63 @@
+---------------------------------------
+----Structure this file as followed----
+---------------------------------------
+-Puzzle Number-
+-Puzzle Name-
+-Puzzle Description-
+-Room the Puzzle is located in-
+-Puzzle Hint-
+-Puzzle Solution-
+-USE A BLANK LINE AS A SEPARATOR-
+---------------------------------------
+
+1
+Sacred Verse of the Two Gods
+15
+The player must be able to rehearse a sacred verse from the Bible of the Two Gods that can be found in RMN_05 to open a bronze safe containing an item in RMN_15.
+Hint: Sacred scrolls, texts and religious books can be found in the East wing/hallway 2 of the estate.
+All hail the mighty Fathers Anemis and Aaldir. Give us light and give us dark! Luce et Tenebris!
+
+2
+Mantra
+6
+The player must search for the mantra to unlock room 6 to encounter High Priest Elwyn.
+Hint: visit the art gallery.
+Luce et Tenebris
+
+3
+Random Number of life
+8
+The player enters the room and unfortunately, they get locked in as soon as the door closes behind them. In order to leave the player needs to finish a puzzle. This puzzle will ask the  player to guess a number between 0 and 20. They will be told if the number is too high or too low. If they get it right they will be free. Note: player cannot exit room unless the puzzle is solved
+Hint: one and two do not equal three but it equals...
+12
+
+4
+Word Padlock
+14
+The player finds a safe after exploring. For the player to solve the puzzle, they must use the description of the room to help them. They must then proceed to enter 3 letters into the padlock.Upon solving, they open the safe to reveal Key Piece 3.
+Hint: Maybe the paper you read earlier and the numbers on the wall have something in common?
+DIE
+
+5
+Game Trivia
+16
+You find yourself sitting on the floor against the wall. The effects of the wine are strong, you start hallucinating... The bottles start sprouting eyes,mouths,legs, and arms. A big bottle approaches you and speaks in a deep voice. “You’ve drank the blood of my brethren, you must answer my riddle or die! What is the title of Phenrik who guards ROOM 1? Your choices are 1. The Bellhop , 2. The Butler , 3. The Doorman” .
+Hint: You think his name might have had something to do with doors?
+3
+
+6
+Room Number Book Pull
+17
+You get a strange feeling from a group of numbered books from 0-9, they are seemingly prompting you to pick them up and read them. You resist and take a step back to think. Surely there’s a rhyme or reason for the choice.
+Hint: Check the map’s room number
+9 5 3
+
+7
+Matching Book Pull
+17
+You happen upon 10 books of varying colors arranged in a row, With a box made out of wood with gold linings and inscriptions under them. Out of curiosity, you reach out to pull the box free. In your attempt, you are blasted with a mysterious vision of a world full of red. The sky, the trees, the grass all a deep red. The vision flashes white and you’re back in the library, with an impression that you’re supposed to pull certain books in the row to open the box
+Hint: What colors were seen in the vision?
+red white
+
+
+
