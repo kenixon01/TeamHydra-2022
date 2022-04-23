@@ -1,6 +1,7 @@
-/**
+package Item; /**
  *  Author: Jayson Dasher
  */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class ItemReader {
 
     private String _itemsFilePath;
 
-    public ItemReader() { this._itemsFilePath = (System.getProperty("user.dir") + "\\src\\ItemTextFile\\"); }
+    public ItemReader() { this._itemsFilePath = (System.getProperty("user.dir") + "\\src\\Item\\"); }
 
     // Purpose: to only attempt to reach the file and create it.
     // Read the user's input of "gameRooms.txt"
@@ -39,8 +40,8 @@ public class ItemReader {
     }
 /*
     to call on item creation:
-    ItemReader itemReader = new ItemReader();
-    Map<String, List<Item>> items = itemReader.CreateItems();
+    Item.ItemReader itemReader = new Item.ItemReader();
+    Map<String, List<Item.Item>> items = itemReader.CreateItems();
  */
     public Map<String, List<Item>> CreateItems() {
         Scanner reader = this.GetFileInputString();

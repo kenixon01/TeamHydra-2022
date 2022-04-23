@@ -1,3 +1,5 @@
+package Puzzle;
+
 /**
  *  Author: Jayson Dasher
  */
