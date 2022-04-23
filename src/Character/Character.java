@@ -139,7 +139,7 @@ public class Character {
                 }
                 else
                 {
-                    System.out.println("Room.Room locked");
+                    System.out.println("Room locked");
                 }
             } else {
                 System.out.println("Sorry, cannot go this way, try again!");
@@ -152,7 +152,7 @@ public class Character {
                 }
                 else
                 {
-                    System.out.println("Room.Room locked");
+                    System.out.println("Room locked");
                 }
             } else {
                 System.out.println("Sorry, cannot go this way, try again!");
@@ -165,7 +165,7 @@ public class Character {
                 }
                 else
                 {
-                    System.out.println("Room.Room locked");
+                    System.out.println("Room locked");
                 }
 
             } else {
@@ -179,7 +179,7 @@ public class Character {
                 }
                 else
                 {
-                    System.out.println("Room.Room locked");
+                    System.out.println("Room locked");
                 }
             } else {
                 System.out.println("Sorry, cannot go this way, try again!");
