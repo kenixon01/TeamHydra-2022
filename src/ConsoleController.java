@@ -13,7 +13,7 @@ public class ConsoleController {
             console.enterCommand();
 
             switch (console.inputValidator()) {
-                
+
             }
         }
     }

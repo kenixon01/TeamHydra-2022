@@ -1,0 +1,18 @@
+Character ID
+CHAR_01
+Name
+Leuthere, the Vampire Slayer
+Starting Item
+[Starting Item 1]
+Starting Item
+[Starting Item 2]
+Description
+Leuthere grew up in the shadow lands of Nevermore. His parents were kidnapped and sacrificed by the Children of
+The Two Gods. Leuthere was raised by his adoptive parents who were well-known vampire hunters. Growing up, Leuthere
+grew hatred towards the Children of The Two Gods. Filled with hatred, Leuthere seeks revenge for the death of his
+parents.
+Agile, sharp-witted, and ambitious, Leuthere is always ready to embark a new dark journey ahead.
+HP
+100
+Dodge Chance
+0.25

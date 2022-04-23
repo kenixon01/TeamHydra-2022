@@ -1,0 +1,15 @@
+Character ID
+CHAR_03
+Name
+Artemis of the Broken Heart
+Starting Item
+[Starting Item 1]
+Description
+A member of the Order of the Broken Heart. Artemis was raised as a child by powerful Dark Elves.Having been exposed
+to their archery since birth, he joined their highest ranks off skill alone. While he doesn't have any of their
+abilities, he is a dangerous ranger. He’d be a famous archer if he didn’t stick to the shadows, a trait he picked up
+from his upbringing.
+HP
+110
+Dodge Chance
+0.2
