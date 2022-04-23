@@ -94,10 +94,9 @@ public class Character {
         return cr.getCharacter();
     }
     //TODO Character Location
-    public void getLocation(HashMap<String, Room> rooms)
+    public String getLocation()
     {
-        Room currentLocation = rooms.get(location_);
-        System.out.println(currentLocation);
+      return location_;
     }
     /**
      * Help method that will display a
