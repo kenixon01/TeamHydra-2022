@@ -23,7 +23,7 @@ public class CharacterReader {
     private double dodgeChance;
     private int damage;
 
-    private java.lang.Character character;
+    private Character character;
 
     public CharacterReader(String characterFilePath, String startingItemFilePath,
                            String characterDescriptionFilePath) {
@@ -39,11 +39,11 @@ public class CharacterReader {
         readChar();
         readCharDescription();
 
-        character = new java.lang.Character(id, name, new LinkedList<>(), description,
+        character = new Character(id, name, new LinkedList<>(), description,
                 hitPoints, dodgeChance, damage);
     }
 
-    public java.lang.Character getCharacter() {
+    public Character getCharacter() {
         return character;
     }
 
