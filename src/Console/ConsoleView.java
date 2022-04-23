@@ -69,7 +69,9 @@ public class ConsoleView {
         System.out.println(player.getPlayerItemInventory());
     }
 
+    /*
     public void playerLocation(Character player) {
         System.out.println("You are in " + player.getLocation());
     }
+     */
 }

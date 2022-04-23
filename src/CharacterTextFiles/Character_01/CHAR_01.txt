@@ -1,4 +1,4 @@
-Character.Character ID
+Character ID
 CHAR_01
 Name
 Leuthere, the Vampire Slayer

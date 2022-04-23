@@ -1,5 +1,7 @@
 package Character;
 
+import Item.Item;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
@@ -17,7 +19,7 @@ public class CharacterReader {
 
     private String id;
     private String name;
-    private LinkedList<CharacterItem> playerItemInventory;
+    private LinkedList<Item> playerItemInventory;
     private String description;
     private int hitPoints;
     private double dodgeChance;
@@ -38,7 +40,6 @@ public class CharacterReader {
         // Read in character's description
         readChar();
         readCharDescription();
-
         character = new Character(id, name, new LinkedList<>(), description,
                 hitPoints, dodgeChance, damage);
     }
@@ -52,7 +53,6 @@ public class CharacterReader {
         try {
             File file = new File(characterFilePath);
             scanner = new Scanner(file);
-
             while (scanner.hasNext()) {
                 if (scanner.nextLine().equalsIgnoreCase("character id")) {
                     id = scanner.nextLine();

@@ -1,4 +1,4 @@
-Character.Character ID
+Character ID
 CHAR_02
 Name
 Aldred Kiyotosuna
