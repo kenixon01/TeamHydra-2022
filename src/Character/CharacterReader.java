@@ -1,8 +1,11 @@
+package Character;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+/*** Author: Brian Smithers */
 public class CharacterReader {
 
     private File file;
@@ -20,7 +23,7 @@ public class CharacterReader {
     private double dodgeChance;
     private int damage;
 
-    private Character character;
+    private java.lang.Character character;
 
     public CharacterReader(String characterFilePath, String startingItemFilePath,
                            String characterDescriptionFilePath) {
@@ -36,11 +39,11 @@ public class CharacterReader {
         readChar();
         readCharDescription();
 
-        character = new Character(id, name, new LinkedList<>(), description,
+        character = new java.lang.Character(id, name, new LinkedList<>(), description,
                 hitPoints, dodgeChance, damage);
     }
 
-    public Character getCharacter() {
+    public java.lang.Character getCharacter() {
         return character;
     }
 

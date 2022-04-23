@@ -1,15 +1,15 @@
+package Character;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 
 /**
  * Author: Brian Smithers
  */
 
 public class Character {
-
     private final String id;
     private final String name;
     private final LinkedList<Item> playerItemInventory;
@@ -19,7 +19,6 @@ public class Character {
     private double criticalHitChance;
     private int damage;
     private static String location_;
-
 
     public Character(String id, String name, LinkedList<Item> playerItemInventory,
                      String description, int hitPoints, double dodgeChance, int damage) {
@@ -32,7 +31,7 @@ public class Character {
         this.damage = damage;
     }
 
-    // Create new Character object with choice 1 - 4.
+    // Create new Character.Character object with choice 1 - 4.
     public static Character loadCharacterData(int number) {
         String characterFilePath;
         String startingItemFilePath;
@@ -88,7 +87,7 @@ public class Character {
 
     //TODO Save Game Feature
 
-    // TODO Character select
+    // TODO Character.Character select
 
     // TODO Help Command
     /**
@@ -157,7 +156,7 @@ public class Character {
 
     @Override
     public String toString() {
-        return "Character{" +
+        return "Character.Character{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", playerItemInventory=" + playerItemInventory +

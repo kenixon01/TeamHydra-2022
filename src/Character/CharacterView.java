@@ -1,3 +1,5 @@
+package Character;
+
 /**
  * Author: Brian Smithers
  */

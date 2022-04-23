@@ -1,4 +1,4 @@
-Character ID
+Character.Character ID
 CHAR_04
 Name
 Locke Zsahbdiin
