@@ -1,7 +1,10 @@
 package Character;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+
+import Item.Item;
 import Room.Room;
 
 import java.util.HashMap;
@@ -81,7 +84,6 @@ public class Character {
                 break;
             default: // TODO make default
         }
-        assert cr != null;
         return cr.getCharacter();
     }
     //TODO Character Location
@@ -90,13 +92,6 @@ public class Character {
         Room currentLocation = rooms.get(location_);
         System.out.println(currentLocation);
     }
-    //TODO Start Game Feature
-
-    //TODO Save Game Feature
-
-    // TODO Character.Character select
-
-    // TODO Help Command
     /**
      * Help method that will display a
      * list of commands the player can use.
@@ -117,9 +112,6 @@ public class Character {
         }
         return commandList.toString();
     }
-    // TODO Inventory Command
-
-    // TODO N, S, E, W Command for changing rooms
     /**
      * The move method will take the user's input
      * and allow them to move accordingly
@@ -209,6 +201,8 @@ public class Character {
     public String getDescription() {
         return description;
     }
+
+
 }
 
 class CharacterItem {
