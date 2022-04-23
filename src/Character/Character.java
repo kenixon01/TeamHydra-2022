@@ -36,16 +36,19 @@ public class Character {
         this.hitPoints = hitPoints;
         this.dodgeChance = dodgeChance;
         this.damage = damage;
+        //TODO set default location_
+        //TODO figure out where blockChance comes from
+        //TODO set critical hit chance
     }
 
-    // Create new Character.Character object with choice 1 - 4.
+    // Create new Character object with choice 1 - 4.
     public static Character loadCharacterData(int number) {
         String characterFilePath;
         String startingItemFilePath;
         String characterDescriptionFilePath;
         CharacterReader cr = null;
         switch (number) {
-            case 1:
+            case 1 -> {
                 characterFilePath = "src/CharacterTextFiles/Character_01/CHAR_01.txt";
                 startingItemFilePath = "src/CharacterTextFiles/Character_01/" +
                         "FlintLockPistolAndDagger.txt";
@@ -54,8 +57,8 @@ public class Character {
                 cr = new CharacterReader(characterFilePath, startingItemFilePath,
                         characterDescriptionFilePath);
                 cr.read();
-                break;
-            case 2:
+            }
+            case 2 -> {
                 characterFilePath = "src/CharacterTextFiles/Character_02/CHAR_02.txt";
                 startingItemFilePath = "src/CharacterTextFiles/Character_02/" +
                         "DaggerOfDragons.txt";
@@ -64,8 +67,8 @@ public class Character {
                 cr = new CharacterReader(characterFilePath, startingItemFilePath,
                         characterDescriptionFilePath);
                 cr.read();
-                break;
-            case 3:
+            }
+            case 3 -> {
                 characterFilePath = "src/CharacterTextFiles/Character_03/CHAR_03.txt";
                 startingItemFilePath = "src/CharacterTextFiles/Character_03/" +
                         "ShadowBow.txt";
@@ -74,8 +77,8 @@ public class Character {
                 cr = new CharacterReader(characterFilePath, startingItemFilePath,
                         characterDescriptionFilePath);
                 cr.read();
-                break;
-            case 4:
+            }
+            case 4 -> {
                 characterFilePath = "src/CharacterTextFiles/Character_04/CHAR_04.txt";
                 startingItemFilePath = "";
                 characterDescriptionFilePath = "src/CharacterTextFiles/Character_04/" +
@@ -83,16 +86,17 @@ public class Character {
                 cr = new CharacterReader(characterFilePath, startingItemFilePath,
                         characterDescriptionFilePath);
                 cr.read();
-                break;
-            default: // TODO make default
+            }
+            default -> {
+            } // TODO make default
         }
+        assert cr != null;
         return cr.getCharacter();
     }
     //TODO Character Location
-    public void getLocation(HashMap<String, Room> rooms)
+    public String getLocation()
     {
-        Room currentLocation = rooms.get(location_);
-        System.out.println(currentLocation);
+      return location_;
     }
     /**
      * Help method that will display a
@@ -188,16 +192,14 @@ public class Character {
 
     @Override
     public String toString() {
-        return "Character.Character{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", playerItemInventory=" + playerItemInventory +
-                ", description='" + description + '\'' +
-                ", hitPoints=" + hitPoints +
-                ", dodgeChance=" + dodgeChance +
-                ", criticalHitChance=" + criticalHitChance +
-                ", damage=" + damage +
-                '}';
+        return "id: " + id + "\n" + "name: " + name + "\n" +
+                "description: " + description +
+                "hit points: " + hitPoints + "\n" +
+                "dodge chance: " + dodgeChance + "\n" +
+                "critical hit chance: " + criticalHitChance + "\n" +
+                "damage: " + damage + "\n" +
+                "location: " + location_ + "\n" +
+                "block chance: " + blockChance + "\n";
     }
 
     public String getDescription() {
@@ -256,7 +258,7 @@ class CharacterItem {
 
 class Tester {
     public static void main(String[] args) {
-        Character testChar = Character.loadCharacterData(4);
+        Character testChar = Character.loadCharacterData(3);
         System.out.println(testChar);
     }
 }
