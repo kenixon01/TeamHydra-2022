@@ -1,5 +1,10 @@
-import Monster.Monster;
+package Battle;
 
+import Item.Item;
+import Monster.Monster;
+import Character.Character;
+
+import java.util.LinkedList;
 import java.util.Random;
 
 /**
@@ -14,13 +19,40 @@ public class Battle {
         this.monster = monster;
     }
 
+    /**
+     * Determines if a player can attack the monster.  Sets the monster health points
+     * during the player's attack.  If the player equipped an item that can
+     * regenerate player health after attacking, then the player's health
+     * points will increase accordingly.
+     * @return if the player is alive
+     * @author Brian Smithers and Khamilah Nixon
+     */
     public boolean attackMonster() {
-        if (player.getHp() > 0) {
-            monster.setHp(monster.getHp() - player.getAttack());
+        LinkedList<Item> inventory = player.getEquippedItems();
+        if (getPlayerHp() > 0) {
+            monster.setHp(getMonsterHp() - player.getAttack());
+            player.setHp(getPlayerHp() + playerHealthRestore(inventory, inventory.size() - 1));
             return true;
         }
         return false;
     }
+
+    /**
+     * This method will determine to total amount of health points the player will
+     * receive if they use an item that restores health during a fight
+     * @param inventory Array of equipped inventory items
+     * @param length size of inventory
+     * @return total health points restored to player
+     * @author Khamilah Nixon
+     */
+    private int playerHealthRestore(LinkedList<Item> inventory, int length) {
+        int hp = inventory.get(length).get_healValue();
+        if(length == 0) {
+            return hp;
+        }
+        return hp + playerHealthRestore(inventory, length - 1);
+    }
+
 
     /**
      * Determines if a monster can attack the player.  Sets the player health points during a
@@ -30,9 +62,9 @@ public class Battle {
      * @author Brian Smithers and Khamilah Nixon
      */
     public boolean attackPlayer() {
-        if (monster.getHp() > 0) {
+        if (getMonsterHp() > 0) {
             if(!playerDodge()){
-                player.setHp(player.getHp() - monster.getAttack() + damageReduction());
+                player.setHp(getPlayerHp() - monster.getDAMAGE() + damageReduction());
             }
             return true;
         }
@@ -65,7 +97,7 @@ public class Battle {
     }
 
     // Used in the view
-    public int getMonsterHp() {
+    public int getPlayerHp() {
         return player.getHp();
     }
 
@@ -81,6 +113,6 @@ public class Battle {
 
     // Used in the view
     public String getMonsterName() {
-        return monster.getName();
+        return monster.getNAME();
     }
 }
