@@ -11,24 +11,35 @@ import java.util.Scanner;
  * Author: Brian Smithers
  */
 public class Entry {
+
+    //Brian Smithers and Khamilah Nixon
     public static void main(String[] args) {
-        System.out.println("Do you want to start the game? (y) (n)");
+        Console console = new Console();
+        ConsoleView consoleView = new ConsoleView();
+        ConsoleController consoleController = new ConsoleController(console, consoleView);
+
+
         try {
-            Scanner scanner = new Scanner(System.in);
-            String input = scanner.nextLine();
-            if (input.equalsIgnoreCase("y")) {
-                Console console = new Console();
-                ConsoleView consoleView = new ConsoleView();
-                ConsoleController consoleController =
-                        new ConsoleController(console, consoleView);
-                consoleController.enterCommand();
-            }
-            else {
-                System.out.println("Exiting game");
-            }
+            consoleController.startGame();
+
+            //main menu displays on console
+            //enter start, continue, or exit on main menu
+            consoleController.mainMenu();
+
+            //character select menu displays on console
+            //player can select and verify their character
+            consoleController.characterSelect();
+
+
+
+            /*
+              allows player to enter commands once the game
+              environment and first room loads
+            */
+            consoleController.enterCommand();
         }
         catch (InputMismatchException e) {
-            System.out.println("Invalid input.");
+            consoleController.invalidCommand();
         }
     }
 }

@@ -12,7 +12,11 @@ public class ConsoleView {
     }
 
     public void startGame() {
-        System.out.println("Do you want to start the game?");
+        System.out.println("Do you want to start the game? [y] or [n]");
+    }
+
+    public void exitGame() {
+        System.out.println("Exiting game.");
     }
 
     public void gameCrash(String message) {
@@ -54,7 +58,7 @@ public class ConsoleView {
                 scope out the front area in order to make sure it is clear to move in for a scavenge and loot run.
                 Unknown to them, this particular abode belongs to the Honthin family, a heretical cult-like lineage
                 that has been rumored to be the cause of all of this mess.\s
-                                
+                           
                 When the chosen survivor walks up to the house and opens the front door to take a look 
                 inside, an unnatural force from behind pushes them in and slams the door shut with a loud knock 
                 as the door is sealed.\s
@@ -68,10 +72,6 @@ public class ConsoleView {
     public void verifyCharacter(Character player) {
         System.out.println("Would you like to continue as " + player.getName() + "? Yes or no\n" +
                 "This decision is final");
-    }
-
-    public void commandList(Character player) {
-        System.out.println(player.help());
     }
 
     public void saveGame() {
