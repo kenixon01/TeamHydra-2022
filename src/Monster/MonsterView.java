@@ -4,7 +4,7 @@ package Monster;
  * Prints all related information related to a Monster to the console
  * @author Khamilah Nixon
  */
-public class MonsterView {
+public final class MonsterView {
     public void print(String message) {
         System.out.println(message);
     }
