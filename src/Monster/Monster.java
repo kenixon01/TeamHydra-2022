@@ -1,16 +1,18 @@
+package Monster;
+
 import java.util.HashMap;
 
 /**
- * The Monster class defines the functionality of a monster.  It will reference the
+ * The Monster.Monster class defines the functionality of a monster.  It will reference the
  * {@link MonsterReader} class to define the following attributes for a monster:
  * <blockquote>
  *     <ul>
- *         <li>ID - Monster's unique identifier</li>
+ *         <li>ID - Monster.Monster's unique identifier</li>
  *         <li>ROOM ID - Unique identification of the room where the monster lies</li>
  *         <li>ITEM ID - Unique identification of the item that the monster drops upon death</li>
- *         <li>HP - Monster's initial health point</li>
- *         <li>DAMAGE - Monster's attack damage</li>
- *         <li>NAME - Monster's name</li>
+ *         <li>HP - Monster.Monster's initial health point</li>
+ *         <li>DAMAGE - Monster.Monster's attack damage</li>
+ *         <li>NAME - Monster.Monster's name</li>
  *         <li>DESCRIPTION - Information about the monster</li>
  *     </ul>
  * </blockquote>
@@ -25,7 +27,7 @@ public class Monster {
 
     private final String NAME, DESCRIPTION;
 
-    private HashMap<Integer,Item> inventory = new HashMap<>();
+    private HashMap<Integer, Item> inventory = new HashMap<>();
 
     /**
      * Creates a monster object and assigns values to fields using
