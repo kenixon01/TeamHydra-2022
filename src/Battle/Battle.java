@@ -28,7 +28,7 @@ public class Battle {
      * @author Brian Smithers and Khamilah Nixon
      */
     public boolean attackMonster() {
-        LinkedList<Item> inventory = player.getEquippedItems();
+        LinkedList<Item> inventory = player.getPlayerItemInventory();
         if (getPlayerHp() > 0) {
             monster.setHp(getMonsterHp() - player.getAttack());
             player.setHp(getPlayerHp() + playerHealthRestore(inventory, inventory.size() - 1));

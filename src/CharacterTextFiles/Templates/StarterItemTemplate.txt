@@ -1,5 +1,9 @@
 Item ID
 Item Name
-Item Effectiveness
+Item Type
 Description
-Location
+Room the Item is located in
+Damage Value
+Health Restoration value
+Total HP Modifier
+Critical Hit Chance

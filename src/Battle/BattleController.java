@@ -15,6 +15,7 @@ public class BattleController {
         this.view = view;
     }
 
+    /*
     public void printBattleDetails() {
         // Player attacks monster
         if (model.attackMonster()) {
@@ -27,4 +28,5 @@ public class BattleController {
                     model.getMonsterAttackPoints(), model.getPlayerName());
         }
     }
+     */
 }
