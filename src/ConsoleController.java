@@ -10,7 +10,11 @@ public class ConsoleController {
 
     public void enterCommand() {
         while (!console.getInput().equalsIgnoreCase("exit")) {
-            
+            console.enterCommand();
+
+            switch (console.inputValidator()) {
+
+            }
         }
     }
 }
