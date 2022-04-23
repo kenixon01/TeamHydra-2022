@@ -71,7 +71,7 @@ public class ItemReader {
 
                 //Check if a previous item has been added to a room.
                 if(items.get(currItem.get_itemRoom()) != null) {
-                    //Room exists in items
+                    //Room.Room exists in items
                     items.get(currItem.get_itemRoom()).add(currItem);
                 }
                 else {

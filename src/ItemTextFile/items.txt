@@ -5,7 +5,7 @@
 -Item Name-
 -Item Type-
 -Item Description-
--Room the Item is located in-
+-Room.Room the Item is located in-
 -Item Damage Value-
 -Item Health Restoration Value-
 -Total HP Modifier-
