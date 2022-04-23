@@ -1,15 +1,19 @@
+package Room;
+
+import Room.Room;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
 /**
- * The RoomReader class will build the environment of the game.
+ * The Room.RoomReader class will build the environment of the game.
  *  Upon building, the various rooms and their respected descriptions
  *  will have been read from the text file.
  *  All rooms with have the following
- *     Room Name
- *     Room Description
+ *     Room.Room Name
+ *     Room.Room Description
  *     Neighboring Rooms or Hallways
  *  @since 1.0
  *  @author David W. Huber
@@ -36,7 +40,7 @@ public class RoomReader
 
                 line = reader.readLine();
 
-                boolean roomLocked = Boolean.parseBoolean((reader.readLine()));
+                boolean roomLocked = Boolean.parseBoolean(line);
 
                 line = reader.readLine();
                 /**

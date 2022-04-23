@@ -14,7 +14,7 @@ This room is a lounge with intact but ripped up furniture with a few photos of t
 You see some burned up books, but otherwise it is a cold damp room. 
 END
 3
-Herb Room
+Herb Room.Room
 False
 Hallway2,-,-,-
 A heavy scent of sage and jasmine pierced your nose as you opened the door. 
@@ -30,14 +30,14 @@ Painting 2 is an imagery of the Two Gods; Anemis, God of the Sun, and Aaldir, Go
 Painting 3 is a portrait of Doctor Honthin’s late father, Alfred Honthin Sr, a wealthy surgeon and devout follower of the Children of the Two Gods. 
 END
 5
-Room of Antiquities
+Room.Room of Antiquities
 False
 -,Hallway2,-,-
 Prayer beads, mysterious bottles, religious ornaments, varieties of incense, and sacred scrolls fill the room. 
 The Bible of the Two Gods is left open on the table.
 END
 6
-Prayer Room
+Prayer Room.Room
 False
 -,-,-,Hallway2
 The room is dark with a few candles lit in all 4 corners of the room. 
@@ -83,7 +83,7 @@ You continue to scan the room and see various corpses on the floor with arrows p
 You see a hooded figure in the corner readying his bow.
 END
 13
-Music Room
+Music Room.Room
 False
 -,-,-,Hallway8
 Music stands with musical manuscripts stock the room. You see several percussion instruments laying about. 
@@ -104,7 +104,7 @@ Doctor Honthin’s bedroom. Dimly lit, gloomy, dark, and somber. All four walls 
 A huge bronze safe is located next to his bed. Sacred scrolls are all scattered as far as the eyes could see. 
 END
 16
-Wine Room
+Wine Room.Room
 False
 -,-,Hallway8,-
 As you enter, you notice wine racks surround the room. The vast quantity of alcohol seems enticing. 
@@ -147,7 +147,7 @@ END
 22
 Hallway2
 False
-Room of Antiquities,Herb Room,Prayer Room,Hallway1
+Room.Room of Antiquities,Herb Room.Room,Prayer Room.Room,Hallway1
 At the end of this hallway you see two rooms to your left and right which way do you wish to go?
 END
 23
@@ -184,7 +184,7 @@ END
 28
 Hallway8
 False
-Hallway9,Hallway7,Music Room,Wine Room
+Hallway9,Hallway7,Music Room.Room,Wine Room.Room
 At the beginning of this hallway you see two doors to your left and right, and more of the hallway ahead of you. 
 Which way do you wish to go?
 END
@@ -195,7 +195,7 @@ False
 At the end of this hallway you see two rooms to your left and right which way do you wish to go?
 END
 30
-Item Holder Room
+Item Holder Room.Room
 False
 -,-,-,-
 Blank room
