@@ -1,3 +1,10 @@
+package Character;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+import Item.Item;
 import Room.Room;
 
 import java.util.HashMap;
@@ -8,7 +15,6 @@ import java.util.LinkedList;
  */
 
 public class Character {
-
     private final String id;
     private final String name;
     private final LinkedList<Item> playerItemInventory;
@@ -18,7 +24,6 @@ public class Character {
     private double criticalHitChance;
     private int damage;
     private static String location_;
-
 
     public Character(String id, String name, LinkedList<Item> playerItemInventory,
                      String description, int hitPoints, double dodgeChance, int damage) {
@@ -31,7 +36,7 @@ public class Character {
         this.damage = damage;
     }
 
-    // Create new Character object with choice 1 - 4.
+    // Create new Character.Character object with choice 1 - 4.
     public static Character loadCharacterData(int number) {
         String characterFilePath;
         String startingItemFilePath;
@@ -79,7 +84,6 @@ public class Character {
                 break;
             default: // TODO make default
         }
-        assert cr != null;
         return cr.getCharacter();
     }
     //TODO Character Location
@@ -88,25 +92,26 @@ public class Character {
         Room currentLocation = rooms.get(location_);
         System.out.println(currentLocation);
     }
-    //TODO Start Game Feature
-
-    //TODO Save Game Feature
-
-    // TODO Character select
-
-    // TODO Help Command
     /**
      * Help method that will display a
      * list of commands the player can use.
-     * @author David Huber
+     * @author David Huber and Khamilah Nixon
+     * @return a list of commands
      */
-    public void help()
+    public String help()
     {
-
+        StringBuilder commandList = new StringBuilder();
+        BufferedReader file = null;
+        try {
+            file = new BufferedReader(new FileReader("list_of_commands.txt"));
+            while(file.ready()) {
+                commandList.append(file.readLine()).append("\n");
+            }
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+        return commandList.toString();
     }
-    // TODO Inventory Command
-
-    // TODO N, S, E, W Command for changing rooms
     /**
      * The move method will take the user's input
      * and allow them to move accordingly
@@ -181,7 +186,7 @@ public class Character {
 
     @Override
     public String toString() {
-        return "Character{" +
+        return "Character.Character{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", playerItemInventory=" + playerItemInventory +
@@ -196,6 +201,8 @@ public class Character {
     public String getDescription() {
         return description;
     }
+
+
 }
 
 class CharacterItem {
