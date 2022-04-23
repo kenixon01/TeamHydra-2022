@@ -1,3 +1,13 @@
+package Character;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+import Item.Item;
+import Room.Room;
+
+import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
@@ -5,7 +15,6 @@ import java.util.LinkedList;
  */
 
 public class Character {
-
     private final String id;
     private final String name;
     private final LinkedList<Item> playerItemInventory;
@@ -14,6 +23,7 @@ public class Character {
     private double dodgeChance;
     private double criticalHitChance;
     private int damage;
+    private static String location_;
 
     public Character(String id, String name, LinkedList<Item> playerItemInventory,
                      String description, int hitPoints, double dodgeChance, int damage) {
@@ -26,7 +36,7 @@ public class Character {
         this.damage = damage;
     }
 
-    // Create new Character object with choice 1 - 4.
+    // Create new Character.Character object with choice 1 - 4.
     public static Character loadCharacterData(int number) {
         String characterFilePath;
         String startingItemFilePath;
@@ -74,26 +84,109 @@ public class Character {
                 break;
             default: // TODO make default
         }
-        assert cr != null;
         return cr.getCharacter();
     }
+    //TODO Character Location
+    public void getLocation(HashMap<String, Room> rooms)
+    {
+        Room currentLocation = rooms.get(location_);
+        System.out.println(currentLocation);
+    }
+    /**
+     * Help method that will display a
+     * list of commands the player can use.
+     * @author David Huber and Khamilah Nixon
+     * @return a list of commands
+     */
+    public String help()
+    {
+        StringBuilder commandList = new StringBuilder();
+        BufferedReader file = null;
+        try {
+            file = new BufferedReader(new FileReader("list_of_commands.txt"));
+            while(file.ready()) {
+                commandList.append(file.readLine()).append("\n");
+            }
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+        return commandList.toString();
+    }
+    /**
+     * The move method will take the user's input
+     * and allow them to move accordingly
+     * @author David Huber
+     */
+    public void move(String direction, HashMap<String, Room> rooms) {
+        direction = direction.toLowerCase();
+        Room current = rooms.get(location_);
 
-    //TODO Start Game Feature
+        String[] temp = current.getNeighbors();
 
-    //TODO Save Game Feature
+        Room next = null;
 
-    // TODO Character select
+        if (direction.equals("north")) {
+            if (!temp[0].equals("-")) {//if there is a room in said direction
+                next = rooms.get(temp[0]);
+                if(!next.isLocked()) {
+                    location_ = temp[0];
+                }
+                else
+                {
+                    System.out.println("Room.Room locked");
+                }
+            } else {
+                System.out.println("Sorry, cannot go this way, try again!");
+            }
+        } else if (direction.equals("south")) {
+            if (!temp[1].equals("-")) {//if there is a room in said direction
+                next = rooms.get(temp[1]);
+                if(!next.isLocked()) {
+                    location_ = temp[1];
+                }
+                else
+                {
+                    System.out.println("Room.Room locked");
+                }
+            } else {
+                System.out.println("Sorry, cannot go this way, try again!");
+            }
+        } else if (direction.equals("east")) {
+            if (!temp[2].equals("-")) { //if there is a room in said direction
+                next = rooms.get(temp[2]);
+                if(!next.isLocked()) {
+                    location_ = temp[2];
+                }
+                else
+                {
+                    System.out.println("Room.Room locked");
+                }
 
-    // TODO Help Command
+            } else {
+                System.out.println("Sorry, cannot go this way, try again!");
+            }
+        } else if (direction.equals("west")) {
+            if (!temp[3].equals("-")) {//if there is a room in said direction
+                next = rooms.get(temp[3]);
+                if(!next.isLocked()) {
+                    location_ = temp[3];
+                }
+                else
+                {
+                    System.out.println("Room.Room locked");
+                }
+            } else {
+                System.out.println("Sorry, cannot go this way, try again!");
+            }
+        } else { //else
+            System.out.println("Sorry, not valid direction, try again!");
+        }
 
-    // TODO Inventory Command
-
-    // TODO N, S, E, W Command for changing rooms
-
+    }
 
     @Override
     public String toString() {
-        return "Character{" +
+        return "Character.Character{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", playerItemInventory=" + playerItemInventory +
@@ -108,6 +201,8 @@ public class Character {
     public String getDescription() {
         return description;
     }
+
+
 }
 
 class CharacterItem {
