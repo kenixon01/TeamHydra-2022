@@ -1,3 +1,5 @@
+package Battle;
+
 import java.util.Random;
 
 /**
