@@ -1,4 +1,5 @@
 import Monster.Monster;
+import Character.Character;
 
 import java.util.Random;
 
@@ -32,7 +33,7 @@ public class Battle {
     public boolean attackPlayer() {
         if (monster.getHp() > 0) {
             if(!playerDodge()){
-                player.setHp(player.getHp() - monster.getAttack() + damageReduction());
+                player.setHp(player.getHp() - monster.getDAMAGE() + damageReduction());
             }
             return true;
         }
@@ -66,11 +67,6 @@ public class Battle {
 
     // Used in the view
     public int getMonsterHp() {
-        return player.getHp();
-    }
-
-    // Used in the view
-    public int getMonsterHp() {
         return monster.getHp();
     }
 
@@ -81,6 +77,6 @@ public class Battle {
 
     // Used in the view
     public String getMonsterName() {
-        return monster.getName();
+        return monster.getNAME();
     }
 }
