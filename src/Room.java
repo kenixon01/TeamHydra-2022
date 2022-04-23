@@ -18,13 +18,15 @@ public class Room
 {
     private String name_; //name of room
     private String roomID_; //A room's ID need for item sorting
+    private boolean isLocked_;
     private String[] neighbors_; //names of neighboring rooms
     private String description_; //short description
 
 
-    public Room(String roomID, String name, String description, String[] neighbors) {
+    public Room(String roomID, String name, boolean isLocked, String description, String[] neighbors) {
         roomID_ = roomID;
         name_ = name;
+        isLocked_ = isLocked;
         description_ = description;
         neighbors_ = neighbors;
 
@@ -39,6 +41,10 @@ public class Room
 
     public String getName() {
         return name_;
+    }
+
+    public boolean isLocked_() {
+        return isLocked_;
     }
 
     public String getDescription_() {
