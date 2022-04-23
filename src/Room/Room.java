@@ -2,12 +2,12 @@ package Room;//import java.util.HashMap;
 //import java.util.Map;
 
 /**
- * The Room.Room class define a room's description and
- * its neighbors. It will reference the Room.RoomReader class
+ * The Room class define a room's description and
+ * its neighbors. It will reference the RoomReader class
  * and has the following attributes:
- *      Room.Room ID
- *      Room.Room Name
- *      Room.Room Description
+ *      Room ID
+ *      Room Name
+ *      Room Description
  *      Neighboring Rooms or Hallways
  * @Since 1.0
  * @author David W. Huber
