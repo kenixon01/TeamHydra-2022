@@ -1,7 +1,6 @@
-import Room.Room;
-
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * Author: Brian Smithers
@@ -112,71 +111,41 @@ public class Character {
      * and allow them to move accordingly
      * @author David Huber
      */
-    public void move(String direction, HashMap<String, Room> rooms) {
+    public void move(String direction, HashMap<String, Room> rooms)
+    {
         direction = direction.toLowerCase();
         Room current = rooms.get(location_);
 
         String[] temp = current.getNeighbors();
 
-        Room next = null;
-
-        if (direction.equals("north")) {
+        if (direction.equalsIgnoreCase("n")) {
             if (!temp[0].equals("-")) {//if there is a room in said direction
-                next = rooms.get(temp[0]);
-                if(!next.isLocked()) {
-                    location_ = temp[0];
-                }
-                else
-                {
-                    System.out.println("Room.Room locked");
-                }
-            } else {
-                System.out.println("Sorry, cannot go this way, try again!");
+                location_ = temp[0];
             }
-        } else if (direction.equals("south")) {
+            else {
+                System.out.println("Sorry, cannot go this way.");
+            }
+        } else if (direction.equalsIgnoreCase("s")) {
             if (!temp[1].equals("-")) {//if there is a room in said direction
-                next = rooms.get(temp[1]);
-                if(!next.isLocked()) {
-                    location_ = temp[1];
-                }
-                else
-                {
-                    System.out.println("Room.Room locked");
-                }
+                location_ = temp[1];
             } else {
-                System.out.println("Sorry, cannot go this way, try again!");
+                System.out.println("Sorry, cannot go this way.");
             }
-        } else if (direction.equals("east")) {
+        } else if (direction.equalsIgnoreCase("e")) {
             if (!temp[2].equals("-")) { //if there is a room in said direction
-                next = rooms.get(temp[2]);
-                if(!next.isLocked()) {
-                    location_ = temp[2];
-                }
-                else
-                {
-                    System.out.println("Room.Room locked");
-                }
-
+                location_ = temp[2];
             } else {
-                System.out.println("Sorry, cannot go this way, try again!");
+                System.out.println("Sorry, cannot go this way.");
             }
-        } else if (direction.equals("west")) {
+        } else if (direction.equalsIgnoreCase("w")) {
             if (!temp[3].equals("-")) {//if there is a room in said direction
-                next = rooms.get(temp[3]);
-                if(!next.isLocked()) {
-                    location_ = temp[3];
-                }
-                else
-                {
-                    System.out.println("Room.Room locked");
-                }
+                location_ = temp[3];
             } else {
-                System.out.println("Sorry, cannot go this way, try again!");
+                System.out.println("Sorry, cannot go this way.");
             }
         } else { //else
-            System.out.println("Sorry, not valid direction, try again!");
+            System.out.println("Sorry, not valid direction or not a movement command!");
         }
-
     }
 
     @Override
