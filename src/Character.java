@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -92,11 +94,22 @@ public class Character {
     /**
      * Help method that will display a
      * list of commands the player can use.
-     * @author David Huber
+     * @author David Huber and Khamilah Nixon
+     * @return a list of commands
      */
-    public void help()
+    public String help()
     {
-        System.out.println();
+        StringBuilder commandList = new StringBuilder();
+        BufferedReader file = null;
+        try {
+            file = new BufferedReader(new FileReader("list_of_commands.txt"));
+            while(file.ready()) {
+                commandList.append(file.readLine()).append("\n");
+            }
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+        return commandList.toString();
     }
     // TODO Inventory Command
 
