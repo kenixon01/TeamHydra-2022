@@ -1,3 +1,5 @@
+package Puzzle;
+
 import java.io.File;
 import java.util.*;
 
@@ -7,7 +9,7 @@ import java.util.*;
 public class PuzzleReader {
     private String _puzzlesFilePath;
 
-    public PuzzleReader() { this._puzzlesFilePath = (System.getProperty("user.dir") + "\\src\\PuzzleTextFiles\\"); }
+    public PuzzleReader() { this._puzzlesFilePath = (System.getProperty("user.dir") + "\\src\\Puzzle\\"); }
 
     private Scanner GetFileInputString() {
         Scanner reader;
@@ -38,16 +40,16 @@ public class PuzzleReader {
             }
 
             /*
-            -Puzzle Number-
-            -Puzzle Name-
-            -Puzzle Description-
-            -Room the Puzzle is located in-
-            -Puzzle Hint-
-            -Puzzle Solution-
+            -Puzzle.Puzzle Number-
+            -Puzzle.Puzzle Name-
+            -Puzzle.Puzzle Description-
+            -Room the Puzzle.Puzzle is located in-
+            -Puzzle.Puzzle Hint-
+            -Puzzle.Puzzle Solution-
             -USE A BLANK LINE AS A SEPARATOR-
              */
 
-            if (currLine.equals("")) { // New Puzzle
+            if (currLine.equals("")) { // New Puzzle.Puzzle
                 int puzzleNum = reader.nextInt();
                 reader.nextLine();
                 String puzzleName = reader.nextLine();

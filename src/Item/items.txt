@@ -1,13 +1,13 @@
 ---------------------------------------
 ----Structure this file as followed----
 ---------------------------------------
--Item Number-
--Item Name-
--Item Type-
--Item Description-
--Room the Item is located in-
--Item Damage Value-
--Item Health Restoration Value-
+-Item.Item Number-
+-Item.Item Name-
+-Item.Item Type-
+-Item.Item Description-
+-Room the Item.Item is located in-
+-Item.Item Damage Value-
+-Item.Item Health Restoration Value-
 -Total HP Modifier-
 -Critical Hit Chance-
 -USE A BLANK LINE AS A SEPARATOR-

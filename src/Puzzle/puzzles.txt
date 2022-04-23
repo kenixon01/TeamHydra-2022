@@ -1,12 +1,12 @@
 ---------------------------------------
 ----Structure this file as followed----
 ---------------------------------------
--Puzzle Number-
--Puzzle Name-
--Puzzle Description-
--Room the Puzzle is located in-
--Puzzle Hint-
--Puzzle Solution-
+-Puzzle.Puzzle Number-
+-Puzzle.Puzzle Name-
+-Puzzle.Puzzle Description-
+-Room the Puzzle.Puzzle is located in-
+-Puzzle.Puzzle Hint-
+-Puzzle.Puzzle Solution-
 -USE A BLANK LINE AS A SEPARATOR-
 ---------------------------------------
 
