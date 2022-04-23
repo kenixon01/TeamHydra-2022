@@ -12,6 +12,7 @@ import java.util.LinkedList;
 
 /**
  * Author: Brian Smithers
+ * Co Authors: David Khamilah
  */
 
 public class Character {
@@ -24,6 +25,7 @@ public class Character {
     private double criticalHitChance;
     private int damage;
     private static String location_;
+    private double blockChance;
 
     public Character(String id, String name, LinkedList<Item> playerItemInventory,
                      String description, int hitPoints, double dodgeChance, int damage) {
@@ -202,7 +204,37 @@ public class Character {
         return description;
     }
 
+    public double getDodgeChance() {
+        return dodgeChance;
+    }
 
+    public int getHp() {
+        return hitPoints;
+    }
+
+    public void setHp(int hitPoints) {
+        this.hitPoints = hitPoints;
+    }
+
+    public double getCriticalHitChance() {
+        return criticalHitChance;
+    }
+
+    public double getBlockChance() {
+        return blockChance;
+    }
+
+    public int getAttack() {
+        return damage;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public LinkedList<Item> getPlayerItemInventory() {
+        return playerItemInventory;
+    }
 }
 
 class CharacterItem {

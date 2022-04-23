@@ -1,5 +1,11 @@
 package Console;
 
+import Character.Character;
+import Item.Item;
+import Monster.Monster;
+import Puzzle.Puzzle;
+import Room.Room;
+
 public class ConsoleView {
     public void print(String message) {
         System.out.println(message);

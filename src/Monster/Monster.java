@@ -1,5 +1,7 @@
 package Monster;
 
+import Item.Item;
+
 import java.util.HashMap;
 
 /**
