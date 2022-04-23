@@ -1,4 +1,4 @@
-package Room;//import java.util.HashMap;
+//import java.util.HashMap;
 //import java.util.Map;
 
 /**
@@ -43,7 +43,7 @@ public class Room
         return name_;
     }
 
-    public boolean isLocked() {
+    public boolean isLocked_() {
         return isLocked_;
     }
 

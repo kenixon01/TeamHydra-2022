@@ -14,7 +14,7 @@ This room is a lounge with intact but ripped up furniture with a few photos of t
 You see some burned up books, but otherwise it is a cold damp room. 
 END
 3
-Herb Room.Room
+Herb Room
 False
 Hallway2,-,-,-
 A heavy scent of sage and jasmine pierced your nose as you opened the door. 
@@ -69,7 +69,7 @@ This room has ripped-up walls and creaky floorboards. A very dark scary room wit
 END
 11
 Armory
-True
+False
 -,-,-,Hallway6
 You enter the room and see lanterns, armor stands, and wall mounts surrounding the perimeter of the room. 
 Although they are mostly empty, you might be able to find something useful here.
@@ -79,7 +79,7 @@ Treasury
 False
 -,-,-,Hallway5
 Open chests line up the walls of the room with various heirlooms on display. 
-You continue to scan the room and see various corpses on the floor with arrows protruding from them.
+You continue to scan the room and see various corpses on the floor with arrows protruding from them. 
 You see a hooded figure in the corner readying his bow.
 END
 13
