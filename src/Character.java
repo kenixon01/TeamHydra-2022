@@ -81,7 +81,12 @@ public class Character {
         assert cr != null;
         return cr.getCharacter();
     }
-
+    //TODO Character Location
+    public void getLocation(HashMap<String, Room> rooms)
+    {
+        Room currentLocation = rooms.get(location_);
+        System.out.println(currentLocation);
+    }
     //TODO Start Game Feature
 
     //TODO Save Game Feature
@@ -96,7 +101,7 @@ public class Character {
      */
     public void help()
     {
-        System.out.println();
+
     }
     // TODO Inventory Command
 
@@ -116,7 +121,8 @@ public class Character {
         if (direction.equalsIgnoreCase("n")) {
             if (!temp[0].equals("-")) {//if there is a room in said direction
                 location_ = temp[0];
-            } else {
+            }
+            else {
                 System.out.println("Sorry, cannot go this way.");
             }
         } else if (direction.equalsIgnoreCase("s")) {

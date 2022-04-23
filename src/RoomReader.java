@@ -35,6 +35,10 @@ public class RoomReader
                 String name = line;
 
                 line = reader.readLine();
+
+                boolean roomLocked = Boolean.parseBoolean((reader.readLine()));
+
+                line = reader.readLine();
                 /**
                  * This reads from the text file and makes
                  * assigns the neighboring rooms accordingly
@@ -59,7 +63,7 @@ public class RoomReader
                 }
 
                 // put new room object and rooms name in HashMap
-                rooms.put(name, new Room(roomID,name, description, neighbors));
+                rooms.put(name, new Room(roomID,name, roomLocked, description, neighbors));
 
                 line = reader.readLine();
             }
