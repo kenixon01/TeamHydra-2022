@@ -17,8 +17,8 @@
 Amulet
 Wearable
 A shiny and luminous black obsidian amulet and other precious gemstones around it. These amulets were only given to the high-ranking priest of the Children of the Two Gods. The wearer of these amulets will be granted a longer life.
-05
--Item Damage Value-
+5
+0
 50
 50
 0
@@ -67,7 +67,7 @@ A fully stocked medical emergency kit. For really big paper cuts.
 Sword
 Weapon
 The sword called “Gate Keeper”  will be able to be picked up and used against monster
-07
+7
 50
 0
 0
@@ -77,7 +77,7 @@ The sword called “Gate Keeper”  will be able to be picked up and used agains
 Key Piece 1
 Key
 This key piece could be obtained by defeating High Priest Elwyn in room 5. This key piece will help you unlock the basement door.
-06
+6
 0
 0
 0
@@ -123,26 +123,6 @@ Worn as a necklace around his neck, Robert Fitz drops it when defeated. A key wi
 0
 0
 
-12
-Flintlock pistol and a dagger
-Weapon
-Starting item for Leuthere, the Vampire Slayer. A 1482 Slitz & Williamson Flintlock pistol and a silver platted steel dagger given by Leuthere adoptive parents.
-0
-25
-0
-0
-.15
-
-13
-Shadow Bow
-Weapon
-Given to Artemis as a gift for joining the Order of the Broken Heart, this bow is imbued with dark magic. The shadow arrows shot from it regenerate using the power of the darkness. In exchange for reduced damage, the bow steals the health from enemies.
-0
-45
-5
-0
-0
-
 14
 Eyes of the Two Gods
 Wearable
@@ -152,26 +132,6 @@ Two set of sacred rings resembles the eyes of the Two Gods.
 0
 0
 .10
-
-15
-Dagger of dragons
-Weapon
-A dagger made from a dragon's tooth.
-0
-40
-0
-0
-0
-
-16
-Warhammer of the Revenant
-Weapon
-A blessed ornamental warhammer, never to break and gives its user a boost of innate vitality and tenacity. Equally beautiful as it is deadly.
-0
-35
-0
-0
-0
 
 17
 2x Wine Potion
