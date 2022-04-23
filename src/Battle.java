@@ -1,3 +1,5 @@
+import Monster.Monster;
+
 import java.util.Random;
 
 /**
