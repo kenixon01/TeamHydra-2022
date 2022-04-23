@@ -1,4 +1,4 @@
-Character ID
+Character.Character ID
 CHAR_03
 Name
 Artemis of the Broken Heart

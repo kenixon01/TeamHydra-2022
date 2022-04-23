@@ -21,7 +21,7 @@ public class BattleController {
             view.attackTurnResult(model.getPlayerName(),
                     model.getPlayerAttackPoints(), model.getMonsterName());
         }
-        // Monster attacks player
+        // Monster.Monster attacks player
         if (model.attackPlayer()) {
             view.attackTurnResult(model.getMonsterName(),
                     model.getMonsterAttackPoints(), model.getPlayerName());
