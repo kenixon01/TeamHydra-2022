@@ -43,6 +43,7 @@ public class ItemReader {
     Item.ItemReader itemReader = new Item.ItemReader();
     Map<String, List<Item.Item>> items = itemReader.CreateItems();
  */
+    //TODO: add character starting item to inventory.
     public Map<String, List<Item>> CreateItems() {
         Scanner reader = this.GetFileInputString();
 

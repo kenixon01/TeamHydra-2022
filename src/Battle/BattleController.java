@@ -1,3 +1,7 @@
+package Battle;
+
+import Battle.Battle;
+
 /**
  *  Author: Brian Smithers
  */
@@ -11,6 +15,7 @@ public class BattleController {
         this.view = view;
     }
 
+    /*
     public void printBattleDetails() {
         // Player attacks monster
         if (model.attackMonster()) {
@@ -23,4 +28,5 @@ public class BattleController {
                     model.getMonsterAttackPoints(), model.getPlayerName());
         }
     }
+     */
 }
