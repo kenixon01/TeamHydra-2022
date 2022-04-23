@@ -1,16 +1,18 @@
+package Monster;
+
 import java.util.HashMap;
 
 /**
- * The Monster class defines the functionality of a monster.  It will reference the
+ * The Monster.Monster class defines the functionality of a monster.  It will reference the
  * {@link MonsterReader} class to define the following attributes for a monster:
  * <blockquote>
  *     <ul>
- *         <li>ID - Monster's unique identifier</li>
+ *         <li>ID - Monster.Monster's unique identifier</li>
  *         <li>ROOM ID - Unique identification of the room where the monster lies</li>
  *         <li>ITEM ID - Unique identification of the item that the monster drops upon death</li>
- *         <li>HP - Monster's initial health point</li>
- *         <li>DAMAGE - Monster's attack damage</li>
- *         <li>NAME - Monster's name</li>
+ *         <li>HP - Monster.Monster's initial health point</li>
+ *         <li>DAMAGE - Monster.Monster's attack damage</li>
+ *         <li>NAME - Monster.Monster's name</li>
  *         <li>DESCRIPTION - Information about the monster</li>
  *     </ul>
  * </blockquote>
@@ -20,11 +22,12 @@ import java.util.HashMap;
  * @version 1.0
  */
 public class Monster {
-    private final int ID, ROOM_ID, ITEM_ID, HP, DAMAGE;
+    private final int ID, ROOM_ID, ITEM_ID, DAMAGE;
+    private int Hp;
 
     private final String NAME, DESCRIPTION;
 
-    private HashMap<Integer,Item> inventory = new HashMap<>();
+    private HashMap<Integer, Item> inventory = new HashMap<>();
 
     /**
      * Creates a monster object and assigns values to fields using
@@ -35,10 +38,10 @@ public class Monster {
         ID = reader.getID();
         ROOM_ID = reader.getROOM_ID();
         ITEM_ID = reader.getITEM_ID();
-        HP = reader.getHP();
         DAMAGE = reader.getDAMAGE();
         NAME = reader.getNAME();
         DESCRIPTION = reader.getDESCRIPTION();
+        this.Hp = reader.getHp();
     }
 
     public int getID() {
@@ -53,8 +56,8 @@ public class Monster {
         return ITEM_ID;
     }
 
-    public int getHP() {
-        return HP;
+    public int getHp() {
+        return Hp;
     }
 
     public int getDAMAGE() {
@@ -71,5 +74,9 @@ public class Monster {
 
     public HashMap<Integer, Item> getInventory() {
         return inventory;
+    }
+
+    public void setHp(int hp) {
+        Hp = hp;
     }
 }
