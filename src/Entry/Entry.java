@@ -1,3 +1,9 @@
+package Entry;
+
+import Console.Console;
+import Console.ConsoleController;
+import Console.ConsoleView;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 

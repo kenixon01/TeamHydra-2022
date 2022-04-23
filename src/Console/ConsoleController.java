@@ -1,3 +1,5 @@
+package Console;
+
 public class ConsoleController {
 
     private Console console;
