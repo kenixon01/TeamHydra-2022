@@ -1,5 +1,0 @@
-ITM_15
-Dagger of dragons
-40
-A dagger made from a dragon's tooth.
-CHAR_01
