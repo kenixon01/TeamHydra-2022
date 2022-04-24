@@ -6,9 +6,11 @@ import java.io.IOException;
 
 import Item.Item;
 import Room.Room;
+import Room.RoomReader;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Objects;
 
 /**
  * Author: Brian Smithers
@@ -24,7 +26,8 @@ public class Character {
     private double dodgeChance;
     private double criticalHitChance;
     private int damage;
-    private static String location_;
+    private String location_ = RoomReader.roomReader().firstEntry().getValue().getName();
+
     private double blockChance;
 
     public Character(String id, String name, LinkedList<Item> playerItemInventory,
@@ -96,7 +99,7 @@ public class Character {
     //TODO Character Location
     public String getLocation()
     {
-      return location_;
+        return location_;
     }
     /**
      * Help method that will display a
@@ -247,7 +250,7 @@ class CharacterItem {
     private String location;
 
     public CharacterItem(String itemId, String itemName, String itemEffectiveness, String description,
-                String location) {
+                         String location) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.itemEffectiveness = itemEffectiveness;
