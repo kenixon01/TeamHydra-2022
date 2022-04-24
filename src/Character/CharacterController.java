@@ -11,4 +11,18 @@ public class CharacterController {
         this.model = model;
         this.view = view;
     }
+
+    /**
+     * Author: Brian Smithers
+     */
+    public void printHelp(Character model) {
+        view.printHelp(model.help());
+    }
+
+    /**
+     * Author: Brian Smithers
+     */
+    public void printPlayerDetails(Character model) {
+        view.printPlayerDetails(model.help());
+    }
 }
