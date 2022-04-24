@@ -1,7 +1,19 @@
 package Console;
 
-public class ConsoleController {
+import Character.CharacterController;
+import Battle.BattleController;
+import Item.ItemController;
+import Monster.MonsterController;
+import Puzzle.PuzzleController;
+import Room.RoomController;
 
+public class ConsoleController {
+    private BattleController battleController;
+    private CharacterController characterController;
+    private ItemController itemController;
+    private MonsterController monsterController;
+    private PuzzleController puzzleController;
+    private RoomController roomController;
     private Console console;
     private ConsoleView consoleView;
 
@@ -23,6 +35,7 @@ public class ConsoleController {
         if(!userOption.equalsIgnoreCase("y")) {
             exitGame();
         }
+        consoleView.gameDescription();
     }
 
     /**
@@ -43,17 +56,47 @@ public class ConsoleController {
     }
 
     /**
+     * Saves player's current progress and prints a
+     * confirmation message in the console
+     * @author Khamilah Nixon
+     */
+    public void saveGame() {
+        //placeholder comment for save game functionality
+        consoleView.saveGame();
+    }
+
+    /**
+     * Loads player's last save game and prints a
+     * confirmation message in the console
+     * @author Khamilah Nixon
+     */
+    public void continueGame() {
+        //placeholder comment for load game functionality
+        consoleView.continueGame();
+    }
+
+    /**
      * Displays the main menu in the console and allows the
      * user to select their menu choice
      * @author Khamilah Nixon
      */
     public void mainMenu() {
-        //displays menu in console
+        //displays main menu in console
         consoleView.mainMenu();
         String userOption = console.menuInputValidator(
                 new String[]{"start","continue","exit"}
         ).toLowerCase();
-
+        switch (userOption) {
+            case "start" -> {
+                //start a new game functionality
+            }
+            case "continue" -> {
+                //load save game functionality
+            }
+            case "exit" -> {
+                exitGame();
+            }
+        }
     }
 
     /**
@@ -62,13 +105,15 @@ public class ConsoleController {
      * @author Khamilah Nixon
      */
     public void characterSelect() {
-        consoleView.characterSelect();
+        //call the CharacterView characterSelect
         String userOption = console.menuInputValidator(
                 new String[]{"1","2","3","4"}
         );
+        //placeholder for character selection functionality
     }
 
     /**
+     * Allows player to enter commands during gameplay
      * @author Brian Smithers and Khamilah Nixon
      */
     public void enterCommand() {
@@ -76,7 +121,6 @@ public class ConsoleController {
             console.enterCommand();
 
             switch (console.inputValidator()) {
-
 
 
                 default -> invalidCommand();
