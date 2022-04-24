@@ -11,6 +11,11 @@ public class ConsoleView {
         System.out.println(message);
     }
 
+    public void continueGame() {
+        System.out.println("Save game loaded.");
+    }
+
+
     public void startGame() {
         System.out.println("Do you want to start the game? [y] or [n]");
     }
@@ -39,6 +44,7 @@ public class ConsoleView {
 
     public void playerDescription(Character player) {
         System.out.println(player.getDescription());
+    }
 
     public void gameDescription() {
         System.out.println("""
