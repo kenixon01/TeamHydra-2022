@@ -10,7 +10,7 @@ import Room.RoomReader;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Objects;
+import java.util.Scanner;
 
 /**
  * Author: Brian Smithers
@@ -22,7 +22,8 @@ public class Character {
     private final String name;
     private final LinkedList<Item> playerItemInventory;
     private final String description;
-    private int hitPoints;
+    private int maxHitPoints;
+    private int currentHitPoints;
     private double dodgeChance;
     private double criticalHitChance;
     private int damage;
@@ -31,12 +32,13 @@ public class Character {
     private double blockChance;
 
     public Character(String id, String name, LinkedList<Item> playerItemInventory,
-                     String description, int hitPoints, double dodgeChance, int damage) {
+                     String description, int maxHitPoints, double dodgeChance, int damage) {
         this.id = id;
         this.name = name;
         this.playerItemInventory = playerItemInventory;
         this.description = description;
-        this.hitPoints = hitPoints;
+        this.maxHitPoints = maxHitPoints;
+        this.currentHitPoints = maxHitPoints;
         this.dodgeChance = dodgeChance;
         this.damage = damage;
         //TODO set default location_
@@ -197,12 +199,21 @@ public class Character {
     public String toString() {
         return "id: " + id + "\n" + "name: " + name + "\n" +
                 "description: " + description +
-                "hit points: " + hitPoints + "\n" +
+                "max hit points: " + maxHitPoints + "\n" +
+                "current hit points: " + currentHitPoints + "\n" +
                 "dodge chance: " + dodgeChance + "\n" +
                 "critical hit chance: " + criticalHitChance + "\n" +
                 "damage: " + damage + "\n" +
                 "location: " + location_ + "\n" +
                 "block chance: " + blockChance + "\n";
+    }
+
+    private Scanner scanner() {
+        return new Scanner(System.in);
+    }
+
+    public int scanUserInput() {
+        return scanner().nextInt();
     }
 
     public String getDescription() {
@@ -214,11 +225,11 @@ public class Character {
     }
 
     public int getHp() {
-        return hitPoints;
+        return maxHitPoints;
     }
 
     public void setHp(int hitPoints) {
-        this.hitPoints = hitPoints;
+        this.maxHitPoints = hitPoints;
     }
 
     public double getCriticalHitChance() {

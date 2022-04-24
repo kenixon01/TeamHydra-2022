@@ -15,14 +15,29 @@ public class CharacterController {
     /**
      * Author: Brian Smithers
      */
-    public void printHelp(Character model) {
+    public void printHelp() {
         view.printHelp(model.help());
     }
 
     /**
      * Author: Brian Smithers
      */
-    public void printPlayerDetails(Character model) {
+    public void printPlayerDetails() {
         view.printPlayerDetails(model.help());
+    }
+
+    /**
+     * Author: Brian Smithers
+     */
+    public void printPlayerLocation() {
+        view.printPlayerLocation(model.getLocation());
+    }
+
+    /**
+     * Author: Brian Smithers
+     */
+    public void chooseCharacter() {
+        view.characterSelect();
+        Character.loadCharacterData(model.scanUserInput());
     }
 }

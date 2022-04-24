@@ -27,14 +27,6 @@ public class ConsoleView {
 
     }
 
-    public void characterSelect() {
-        System.out.println("Choose your character:");
-        System.out.println("1.\tLeuthere, the Vampire Slayer");
-        System.out.println("2.\tAldred Kiyotosuna");
-        System.out.println("3.\tArtemis of the Broken Heart");
-        System.out.println("4.\tLocke Zsahbdiin");
-    }
-
     public void playerDescription(Character player) {
         System.out.println(player.getDescription());
     }
