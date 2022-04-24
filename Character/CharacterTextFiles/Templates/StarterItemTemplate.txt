@@ -1,0 +1,7 @@
+Item ID
+Item Name
+Item Type
+Room the Item is located in
+Damage Value
+Health Restoration value
+Total HP Modifier
