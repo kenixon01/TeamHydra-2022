@@ -1,7 +1,5 @@
 package Console;
 
-import Character.Character;
-
 /**
  * This class will print any general game messages and information
  * @author Khamilah Nixon
@@ -14,7 +12,6 @@ public class ConsoleView {
     public void continueGame() {
         System.out.println("Save game loaded.");
     }
-
 
     public void startGame() {
         System.out.println("Do you want to start the game? [y] or [n]");
@@ -42,10 +39,6 @@ public class ConsoleView {
                 """);
     }
 
-    public void playerDescription(Character player) {
-        System.out.println(player.getDescription());
-    }
-
     public void gameDescription() {
         System.out.println("""
                 On an alternate earth in the year 1515. A mysterious cataclysm has claimed the world, giving rise to
@@ -66,11 +59,6 @@ public class ConsoleView {
                 windows. What happened? Where are the others? The only way is forward, since we now have to 
                 Escape from Honthin Estate.\s
                 """);
-    }
-
-    public void verifyCharacter(Character player) {
-        System.out.println("Would you like to continue as " + player.getName() + "? Yes or no\n" +
-                "This decision is final");
     }
 
     public void saveGame() {
