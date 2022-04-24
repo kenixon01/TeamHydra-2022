@@ -19,32 +19,76 @@ public class ItemController {
     }
 
     //TODO: EQUIP ITEM
-    public void equipItem(){
+    public void equipItem(Character character){
+        //print inventory
         view.printinventory(model.get("0"));
         //get input
+        Scanner reader = new Scanner(System.in);
+        String input = reader.nextLine();
+        Item currentItem = model.get("0").get(Integer.parseInt(input)-1);
         //if item is weapon, check if there is an equipped item and reduce damage modifier accordingly, set isEquipped to false
             //use inputted item damage value to alter character damage value and set isEquipped to true
-        //if item is wearable, add total hp modifier to characters total allowed hp, add hp to actual hp value
-        //else , that item is not equippable.
-
-
-
-        //
-
+        if(currentItem.get_itemType().equalsIgnoreCase("weapon")){
+            //find if another weapon is equipped. unequip it and deduct damage value from character
+            for (int i = 0; i < model.get("0").size(); i++) {
+                if ((model.get("0").get(i).get_itemType().equalsIgnoreCase("weapon")
+                        && model.get("0").get(i).getEquipped())){
+                    //set boolean for original equipped item to false (unequipping it)
+                    model.get("0").get(i).setEquipped(false);
+                    //reduce character damage by weapons damage modifier
+                    character.setDamage(character.getDamage() - model.get("0").get(i).get_damageValue());
+                    //set input selection eqipped value to true
+                    currentItem.setEquipped(true);
+                    //add weapon damage modifier to character damage
+                    character.setDamage(character.getDamage() + currentItem.get_damageValue());
+                }
+            }
+        }
+        //if item selected is wearable
+        else if(currentItem.get_itemType().equalsIgnoreCase("wearable")){
+            //set equipped to true
+            currentItem.setEquipped(true);
+            //TODO: set player max health value to current value plus modifier
+            //TODO: set player health to current health plus modifier
+        }
+        //input is an item that is not equippable
+        else {
+            view.notEquipable(currentItem);
+        }
     }
 
-    //TODO: UNEQUIP ITEM
-    public void unequipItem(){
+    public void unequipItem(Character character){
+        int equippedCount = 0;
         //check if any items in inventory are currently equipped
-        //if not, print out message
-        //if so, print list of items marked equipped.
-        //get input
-        //if input is equipped item, mark item unequipped and alter character values accordingly.
+        for (int i = 0; i < model.get("0").size(); i++) {
+            if (model.get("0").get(i).getEquipped() == true) {
+                equippedCount += 1;
+                view.printNumName(model.get("0").get(i));
+            }
+        }
+            //if not, print out message
+            if (equippedCount == 0) {
+                view.noneEquipped();
+            }
+            else {
+                //get input
+                Scanner reader = new Scanner(System.in);
+                String input = reader.nextLine();
+                Item currentItem = model.get("0").get(Integer.parseInt(input));
+                //if input is equipped item, mark item unequipped and alter character values accordingly.
+                if (currentItem.getEquipped() == true){
+                    currentItem.setEquipped(false);
+                    character.setDamage(character.getDamage() - currentItem.get_damageValue());
+                    character.setHp(character.getHp() + currentItem.get_healValue());
+                }
+            }
+
+
+
     }
 
-    //TODO: USE ITEM
     public void useItem(Character character){
-        inventory();
+        view.printinventory(model.get("0"));
         Scanner reader = new Scanner(System.in);
         String input = reader.nextLine();
         //find item
@@ -53,19 +97,17 @@ public class ItemController {
         if (currentItem.get_itemType().equalsIgnoreCase("Consumable")) {
             //alter health
             character.setHp(character.getHp() + currentItem.get_healValue());
+            //alter character damage output
+            character.setDamage(character.getDamage() + currentItem.get_damageValue());
             // delete item from local inventory and character inventory
             model.get("0").remove(Integer.parseInt(input)-1);
             character.getPlayerItemInventory().remove(Integer.parseInt(input)-1);
-            //TODO: alter character damage based on item damage value modifier
         }
         else {
              view.notEquipable(currentItem);
         }
     }
 
-    public void inventory(){
-        view.printinventory(model.get("0"));
-    }
 
     //if calling function, required inputs are roomnumber and character.
     public void pickupItem(String roomNum, Character character){
@@ -84,6 +126,10 @@ public class ItemController {
         else {
             view.itemIgnored(currentItem);
         }
+    }
+
+    public void addToInventory(String roomNum, Character character){
+        //TODO: method to add items to inventory
     }
 
 

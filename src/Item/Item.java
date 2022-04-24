@@ -103,6 +103,7 @@ public class Item {
     public void set_criticalHitChance(int _criticalHitChance) {
         this._criticalHitChance = _criticalHitChance;
     }
+
     public Boolean getEquipped() {
         return isEquipped;
     }
