@@ -28,21 +28,10 @@ public class Battle {
      * @author Brian Smithers and Khamilah Nixon
      */
     public boolean attackMonster() {
-        LinkedList<Item> playerInventory = player.getPlayerItemInventory();
+        LinkedList<Item> inventory = player.getPlayerItemInventory();
         if (getPlayerHp() > 0) {
-            monster.setHp(getMonsterHp() - getPlayerAttackPoints());
-
-            //health restoration functionality
-            if(playerInventory.size() > 0) { //verifies that the player has items in their inventory
-
-                // Determines the total player health restoration points.
-                // If that value is greater than 0, then increase player health by that amount
-
-                int healthRestoration = playerHealthRestore(playerInventory, playerInventory.size() - 1);
-                if(healthRestoration > 0) {
-                    player.setHp(getPlayerHp() + healthRestoration);
-                }
-            }
+            monster.setHp(getMonsterHp() - player.getAttack());
+            player.setHp(getPlayerHp() + playerHealthRestore(inventory, inventory.size() - 1));
             return true;
         }
         return false;
@@ -75,7 +64,7 @@ public class Battle {
     public boolean attackPlayer() {
         if (getMonsterHp() > 0) {
             if(!playerDodge()){
-                player.setHp(getPlayerHp() - getMonsterAttackPoints() + damageReduction());
+                player.setHp(getPlayerHp() - monster.getDAMAGE() + damageReduction());
             }
             return true;
         }
@@ -105,26 +94,6 @@ public class Battle {
             return (int) (Math.random() * getMonsterHp() - 1) + 1;
         }
         return 0;
-    }
-
-    // Used in the view
-    /**
-     * Determines the monster deal damage
-     * @return monster damage
-     * @author Khamilah Nixon
-     */
-    public int getMonsterAttackPoints() {
-        return monster.getDAMAGE();
-    }
-
-    // Used in the view
-    /**
-     * Determines the player deal damage
-     * @return player damage
-     * @author Khamilah Nixon
-     */
-    public int getPlayerAttackPoints() {
-        return player.getAttack();
     }
 
     // Used in the view

@@ -21,7 +21,7 @@ import java.util.HashMap;
  *
  * @since 1.0
  * @author Khamilah E. Nixon
- * @version 1.1
+ * @version 1.0
  */
 public class Monster {
     private final int ID, ROOM_ID, ITEM_ID, DAMAGE;
@@ -80,10 +80,5 @@ public class Monster {
 
     public void setHp(int hp) {
         Hp = hp;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
     }
 }

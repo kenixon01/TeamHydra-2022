@@ -1,5 +1,7 @@
 package Battle;
 
+import Battle.Battle;
+
 /**
  *  Author: Brian Smithers
  */
@@ -13,11 +15,7 @@ public class BattleController {
         this.view = view;
     }
 
-    /**
-     * Allows player and monster to engage in battle.  Displays
-     * attack damage information after each attack.
-     * @author Brian Smithers
-     */
+    /*
     public void printBattleDetails() {
         // Player attacks monster
         if (model.attackMonster()) {
@@ -30,4 +28,5 @@ public class BattleController {
                     model.getMonsterAttackPoints(), model.getPlayerName());
         }
     }
+     */
 }
