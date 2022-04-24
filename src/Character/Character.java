@@ -41,62 +41,55 @@ public class Character {
         this.currentHitPoints = maxHitPoints;
         this.dodgeChance = dodgeChance;
         this.damage = damage;
+        //TODO set default location_
+        //TODO figure out where blockChance comes from
+        //TODO set critical hit chance
     }
 
     // Create new Character object with choice 1 - 4.
     public static Character loadCharacterData(int number) {
         String characterFilePath;
         String startingItemFilePath;
-        String startingItemDescriptionFilePath;
         String characterDescriptionFilePath;
         CharacterReader cr = null;
         switch (number) {
             case 1 -> {
-                characterFilePath = "src/Character/CharacterTextFiles/Character_01/CHAR_01.txt";
-                startingItemFilePath = "src/Character/CharacterTextFiles/Character_01/" +
+                characterFilePath = "src/CharacterTextFiles/Character_01/CHAR_01.txt";
+                startingItemFilePath = "src/CharacterTextFiles/Character_01/" +
                         "FlintLockPistolAndDagger.txt";
-                startingItemDescriptionFilePath = "src/Character/CharacterTextFiles/Character_01/" +
-                        "CHAR_01_Weapon_Description.txt";
-                characterDescriptionFilePath = "src/Character/CharacterTextFiles/Character_01/" +
+                characterDescriptionFilePath = "src/CharacterTextFiles/Character_01/" +
                         "CHAR_01_Description.txt";
                 cr = new CharacterReader(characterFilePath, startingItemFilePath,
-                        characterDescriptionFilePath, startingItemDescriptionFilePath);
+                        characterDescriptionFilePath);
                 cr.read();
             }
             case 2 -> {
-                characterFilePath = "src/Character.CharacterTextFiles/Character_02/CHAR_02.txt";
-                startingItemFilePath = "src/Character.CharacterTextFiles/Character_02/" +
+                characterFilePath = "src/CharacterTextFiles/Character_02/CHAR_02.txt";
+                startingItemFilePath = "src/CharacterTextFiles/Character_02/" +
                         "DaggerOfDragons.txt";
-                startingItemDescriptionFilePath = "src/Character/CharacterTextFiles/Character_02/" +
-                        "CHAR_02_Weapon_Description.txt";
-                characterDescriptionFilePath = "src/Character.CharacterTextFiles/" +
+                characterDescriptionFilePath = "src/CharacterTextFiles/" +
                         "Character_02/CHAR_02_Description.txt";
                 cr = new CharacterReader(characterFilePath, startingItemFilePath,
-                        characterDescriptionFilePath, startingItemDescriptionFilePath);
+                        characterDescriptionFilePath);
                 cr.read();
             }
             case 3 -> {
-                characterFilePath = "src/Character.CharacterTextFiles/Character_03/CHAR_03.txt";
-                startingItemFilePath = "src/Character.CharacterTextFiles/Character_03/" +
+                characterFilePath = "src/CharacterTextFiles/Character_03/CHAR_03.txt";
+                startingItemFilePath = "src/CharacterTextFiles/Character_03/" +
                         "ShadowBow.txt";
-                startingItemDescriptionFilePath = "src/Character/CharacterTextFiles/Character_03/" +
-                        "CHAR_03_Weapon_Description.txt";
-                characterDescriptionFilePath = "src/Character.CharacterTextFiles/Character_03/" +
+                characterDescriptionFilePath = "src/CharacterTextFiles/Character_03/" +
                         "CHAR_03_Description.txt";
                 cr = new CharacterReader(characterFilePath, startingItemFilePath,
-                        characterDescriptionFilePath, startingItemDescriptionFilePath);
+                        characterDescriptionFilePath);
                 cr.read();
             }
             case 4 -> {
-                characterFilePath = "src/Character.CharacterTextFiles/Character_04/CHAR_04.txt";
-                startingItemFilePath = "src/Character/CharacterTextFiles/Character_04/" +
-                        "WarhammerOfTheRevenant.txt";
-                startingItemDescriptionFilePath = "src/Character/CharacterTextFiles/Character_04/" +
-                        "CHAR_04_Weapon_Description.txt";
-                characterDescriptionFilePath = "src/Character.CharacterTextFiles/Character_04/" +
+                characterFilePath = "src/CharacterTextFiles/Character_04/CHAR_04.txt";
+                startingItemFilePath = "";
+                characterDescriptionFilePath = "src/CharacterTextFiles/Character_04/" +
                         "CHAR_04_Description.txt";
                 cr = new CharacterReader(characterFilePath, startingItemFilePath,
-                        characterDescriptionFilePath, startingItemDescriptionFilePath);
+                        characterDescriptionFilePath);
                 cr.read();
             }
             default -> {
@@ -105,7 +98,7 @@ public class Character {
         assert cr != null;
         return cr.getCharacter();
     }
-
+    //TODO Character Location
     public String getLocation()
     {
       return location_;
@@ -265,46 +258,6 @@ public class Character {
 
     public void setDamage(int damage) {
         this.damage = damage;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public int getMaxHitPoints() {
-        return maxHitPoints;
-    }
-
-    public int getCurrentHitPoints() {
-        return currentHitPoints;
-    }
-
-    public String getLocation_() {
-        return location_;
-    }
-
-    public void setMaxHitPoints(int maxHitPoints) {
-        this.maxHitPoints = maxHitPoints;
-    }
-
-    public void setCurrentHitPoints(int currentHitPoints) {
-        this.currentHitPoints = currentHitPoints;
-    }
-
-    public void setDodgeChance(double dodgeChance) {
-        this.dodgeChance = dodgeChance;
-    }
-
-    public void setCriticalHitChance(double criticalHitChance) {
-        this.criticalHitChance = criticalHitChance;
-    }
-
-    public void setLocation_(String location_) {
-        this.location_ = location_;
-    }
-
-    public void setBlockChance(double blockChance) {
-        this.blockChance = blockChance;
     }
 }
 
