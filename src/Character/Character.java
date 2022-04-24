@@ -237,6 +237,14 @@ public class Character {
     public LinkedList<Item> getPlayerItemInventory() {
         return playerItemInventory;
     }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
 }
 
 class CharacterItem {
