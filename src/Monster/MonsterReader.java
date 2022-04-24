@@ -35,13 +35,13 @@ public final class MonsterReader {
 
     static {
         try {
-            idFile = new BufferedReader(new FileReader("src/Monster.Monster.MonsterTextFiles/ID.txt"));
-            roomIDFile = new BufferedReader(new FileReader("src/Monster.Monster.MonsterTextFiles/RoomID.txt"));
-            itemIDFile = new BufferedReader(new FileReader("src/Monster.Monster.MonsterTextFiles/ItemID.txt"));
-            hpFile = new BufferedReader(new FileReader("src/Monster.Monster.MonsterTextFiles/HP.txt"));
-            damageFile = new BufferedReader(new FileReader("src/Monster.Monster.MonsterTextFiles/Damage.txt"));
-            nameFile = new BufferedReader(new FileReader("src/Monster.Monster.MonsterTextFiles/Name.txt"));
-            descriptionFile = new BufferedReader(new FileReader("src/Monster.Monster.MonsterTextFiles/Description.txt"));
+            idFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/ID.txt"));
+            roomIDFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/RoomID.txt"));
+            itemIDFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/ItemID.txt"));
+            hpFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/HP.txt"));
+            damageFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/Damage.txt"));
+            nameFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/Name.txt"));
+            descriptionFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/Description.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
