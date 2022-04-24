@@ -1,0 +1,16 @@
+Item Number
+12
+Item Name
+Flintlock pistol and a dagger
+Item Room
+CHAR_01
+Damage Value
+25
+Heal Value
+0
+Item Type
+Weapon
+Total Hp Modifier
+0
+Is Equipped
+true

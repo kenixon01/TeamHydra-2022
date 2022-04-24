@@ -1,5 +1,0 @@
-ITEM_12
-Flintlock Pistol and a dagger
-25
-15
-CHAR_01
