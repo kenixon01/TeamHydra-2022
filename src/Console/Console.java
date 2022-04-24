@@ -16,6 +16,22 @@ public class Console {
         input = scanner.nextLine().toLowerCase();
     }
 
+    /**
+     * This method will verify if the player enters a valid
+     * menu option in the console
+     * @return the player's menu choice
+     * @author Khamilah Nixon
+     */
+    public String menuInputValidator(String[] menuOptions) {
+        enterCommand();
+        for(String option : menuOptions) {
+            if(input.equalsIgnoreCase(option)) {
+                return input;
+            }
+        }
+        return input;
+    }
+
     // This is used to validate input that is done to an object
     public String inputValidator() {
         String[] inputValidator = input.split("\\s+");
