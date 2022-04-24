@@ -17,8 +17,6 @@ public class Item {
     private float _criticalHitChance;
     private Boolean isEquipped;
 
-
-
     public Item(int itemNum, String itemName, String itemDesc, String itemRoom, int damageValue, int healValue, String itemType, int totalHpModifier, float criticalHitChance) {
         this._itemNumber = itemNum;
         this._itemName = itemName;
@@ -111,6 +109,4 @@ public class Item {
     public void setEquipped(Boolean equipped) {
         isEquipped = equipped;
     }
-
-
 }

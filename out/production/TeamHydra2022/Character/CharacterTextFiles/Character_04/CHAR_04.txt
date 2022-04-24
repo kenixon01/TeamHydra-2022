@@ -1,0 +1,8 @@
+Character ID
+CHAR_04
+Name
+Locke Zsahbdiin
+HP
+125
+Dodge Chance
+0.15

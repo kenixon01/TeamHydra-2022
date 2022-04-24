@@ -1,0 +1,14 @@
+Item ID
+14
+Item Name
+Shadow Bow
+Item Type
+Weapon
+Room the Item is located in
+CHAR_03
+Damage Value
+45
+Health Restoration value
+5
+Total HP Modifier
+0

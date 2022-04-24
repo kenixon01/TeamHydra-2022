@@ -13,35 +13,60 @@ public class CharacterReader {
     private File file;
     private Scanner scanner;
 
-    private String characterFilePath;
-    private String startingItemFilePath;
-    private String characterDescriptionFilePath;
+    private final String characterFilePath;
+    private final String startingItemFilePath;
+    private final String characterDescriptionFilePath;
+    private final String starterItemDescriptionFilePath;
 
-    private String id;
-    private String name;
+    private String charId;
+    private String charName;
     private LinkedList<Item> playerItemInventory;
-    private String description;
+    private String charDescription;
     private int hitPoints;
     private double dodgeChance;
     private int damage;
 
+    private int itemId;
+    private String itemName;
+    private String itemType;
+    private String itemDescription;
+    private String itemRoomId;
+    private int itemDamage;
+    private int itemHealthRestoration;
+    private int itemTotalHitPointsModifier;
+
     private Character character;
 
     public CharacterReader(String characterFilePath, String startingItemFilePath,
-                           String characterDescriptionFilePath) {
+                           String characterDescriptionFilePath,
+                           String starterItemDescriptionFilePath) {
         this.characterFilePath = characterFilePath;
         this.startingItemFilePath = startingItemFilePath;
         this.characterDescriptionFilePath = characterDescriptionFilePath;
+        this.starterItemDescriptionFilePath = starterItemDescriptionFilePath;
     }
 
     public void read() {
-        // Read in character's id, name, hp and dodge chance
-        // Read in character's starter item
-        // Read in character's description
         readChar();
         readCharDescription();
-        character = new Character(id, name, new LinkedList<>(), description,
+        readCharStarterItem();
+        readCharStarterItemDescription();
+    }
+
+    public void createCharacter() {
+        character = new Character(charId, charName, new LinkedList<>(), charDescription,
                 hitPoints, dodgeChance, damage);
+        addStarterItemToPlayerInventory();
+    }
+
+    private Item createStarterItem() {
+        return new Item(itemId, itemName, itemDescription,
+                itemRoomId, itemDamage, itemHealthRestoration, itemType,
+                itemTotalHitPointsModifier, 0.0f);
+    }
+
+    private void addStarterItemToPlayerInventory() {
+        character.getPlayerItemInventory().add(createStarterItem());
     }
 
     public Character getCharacter() {
@@ -55,10 +80,10 @@ public class CharacterReader {
             scanner = new Scanner(file);
             while (scanner.hasNext()) {
                 if (scanner.nextLine().equalsIgnoreCase("character id")) {
-                    id = scanner.nextLine();
+                    charId = scanner.nextLine();
                 }
                 if (scanner.nextLine().equalsIgnoreCase("name")) {
-                    name = scanner.nextLine();
+                    charName = scanner.nextLine();
                 }
                 if (scanner.nextLine().equalsIgnoreCase("hp")) {
                     hitPoints = Integer.parseInt(scanner.nextLine());
@@ -79,10 +104,10 @@ public class CharacterReader {
         try {
             file = new File(characterDescriptionFilePath);
             scanner = new Scanner(file);
-            description = "";
+            charDescription = "";
 
             while (scanner.hasNext()) {
-                description += scanner.nextLine() + "\n";
+                charDescription += scanner.nextLine() + "\n";
             }
         }
         catch (FileNotFoundException ex) {
@@ -91,7 +116,6 @@ public class CharacterReader {
         }
     }
 
-    // TODO implement the readCharStarterItem function
     // Read in character's starter item
     public void readCharStarterItem() {
         try {
@@ -99,11 +123,47 @@ public class CharacterReader {
             scanner = new Scanner(file);
 
             while (scanner.hasNext()) {
-
+                if (scanner.nextLine().equalsIgnoreCase("item id")) {
+                     itemId = Integer.parseInt(scanner.nextLine());
+                }
+                if (scanner.nextLine().equalsIgnoreCase("item name")) {
+                     itemName = scanner.nextLine();
+                }
+                if (scanner.nextLine().equalsIgnoreCase("item type")) {
+                     itemType = scanner.nextLine();
+                }
+                if (scanner.nextLine().equalsIgnoreCase("room the item is located in")) {
+                     itemRoomId = scanner.nextLine();
+                }
+                if (scanner.nextLine().equalsIgnoreCase("damage value")) {
+                     itemDamage = Integer.parseInt(scanner.nextLine());
+                }
+                if (scanner.nextLine().equalsIgnoreCase("health restoration value")) {
+                     itemHealthRestoration = Integer.parseInt(scanner.nextLine());
+                }
+                if (scanner.nextLine().equalsIgnoreCase("total hp modifier")) {
+                     itemTotalHitPointsModifier = Integer.parseInt(scanner.nextLine());;
+                }
             }
-        } catch (FileNotFoundException ex) {
+        }
+        catch (FileNotFoundException ex) {
             System.out.println(getClass() + " " + ex + " while reading " +
                     " startingItemFilePath.txt");
+        }
+    }
+
+    public void readCharStarterItemDescription() {
+        try {
+            file = new File(starterItemDescriptionFilePath);
+            scanner = new Scanner(file);
+
+            while (scanner.hasNext()) {
+                itemDescription += scanner.nextLine() + "\n";
+            }
+        }
+        catch (FileNotFoundException ex) {
+            System.out.println(getClass() + " " + ex + " while reading " +
+                    " starterItemDescriptionFilePath.txt");
         }
     }
 }

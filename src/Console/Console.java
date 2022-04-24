@@ -41,7 +41,20 @@ public class Console {
                 || inputValidator[0].equalsIgnoreCase("drop")
                 || inputValidator[0].equalsIgnoreCase("use")
                 || inputValidator[0].equalsIgnoreCase("equip")
-                || inputValidator[0].equalsIgnoreCase("unequip")) {
+                || inputValidator[0].equalsIgnoreCase("unequip")
+                || inputValidator[0].equalsIgnoreCase("north")
+                || inputValidator[0].equalsIgnoreCase("east")
+                || inputValidator[0].equalsIgnoreCase("south")
+                || inputValidator[0].equalsIgnoreCase("west")
+                || inputValidator[0].equalsIgnoreCase("help")
+                || inputValidator[0].equalsIgnoreCase("attack")
+                || inputValidator[0].equalsIgnoreCase("inventory")
+                || inputValidator[0].equalsIgnoreCase("save")
+                || inputValidator[0].equalsIgnoreCase("resume")
+                || inputValidator[0].equalsIgnoreCase("block")
+                || inputValidator[0].equalsIgnoreCase("dodge")
+                || inputValidator[0].equalsIgnoreCase("hint")
+        ) {
             input = inputValidator[0];
             // recombine string to pass for method
             for (int i = 1; i < inputValidator.length; i++) {
