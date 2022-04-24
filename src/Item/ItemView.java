@@ -11,9 +11,15 @@ public class ItemView {
     public void printItemName(Item item){
         System.out.println(item.get_itemName());
     }
+
     public void printItemDescription(Item item){
         System.out.println(item.get_itemDescription());
     }
+
+    public void printNumName(Item item){
+       System.out.println(item.get_itemNumber() + ". " + item.get_itemName());
+    }
+
     public void itemPromt(Item item){
         System.out.println(item.get_itemName() + " is in your vicinity. Would you like to pick it up?");
     }
@@ -28,5 +34,9 @@ public class ItemView {
     }
     public void notEquipable(Item item){
        System.out.println(item.get_itemName() + " is not equipable.");
+    }
+
+    public void noneEquipped(){
+       System.out.println("You do not have any items to unequip.");
     }
 }
