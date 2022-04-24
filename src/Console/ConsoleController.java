@@ -88,10 +88,10 @@ public class ConsoleController {
         ).toLowerCase();
         switch (userOption) {
             case "start" -> {
-                //start a new game functionality
+                startGame();
             }
             case "continue" -> {
-                //load save game functionality
+                continueGame();
             }
             case "exit" -> {
                 exitGame();
