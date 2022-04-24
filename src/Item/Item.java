@@ -15,6 +15,9 @@ public class Item {
     private String _itemType;
     private int _totalHpModifier;
     private float _criticalHitChance;
+    private Boolean isEquipped;
+
+
 
     public Item(int itemNum, String itemName, String itemDesc, String itemRoom, int damageValue, int healValue, String itemType, int totalHpModifier, float criticalHitChance) {
         this._itemNumber = itemNum;
@@ -26,6 +29,7 @@ public class Item {
         this._itemType = itemType;
         this._totalHpModifier = totalHpModifier;
         this._criticalHitChance = criticalHitChance;
+        this.isEquipped = false;
     }
 
     public int get_itemNumber() {
@@ -99,7 +103,13 @@ public class Item {
     public void set_criticalHitChance(int _criticalHitChance) {
         this._criticalHitChance = _criticalHitChance;
     }
+    public Boolean getEquipped() {
+        return isEquipped;
+    }
 
+    public void setEquipped(Boolean equipped) {
+        isEquipped = equipped;
+    }
 
 
 }

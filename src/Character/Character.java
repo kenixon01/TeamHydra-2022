@@ -6,9 +6,11 @@ import java.io.IOException;
 
 import Item.Item;
 import Room.Room;
+import Room.RoomReader;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Objects;
 
 /**
  * Author: Brian Smithers
@@ -24,7 +26,8 @@ public class Character {
     private double dodgeChance;
     private double criticalHitChance;
     private int damage;
-    private static String location_;
+    private String location_ = RoomReader.roomReader().firstEntry().getValue().getName();
+
     private double blockChance;
 
     public Character(String id, String name, LinkedList<Item> playerItemInventory,
@@ -139,7 +142,7 @@ public class Character {
                 }
                 else
                 {
-                    System.out.println("Room.Room locked");
+                    System.out.println("Room locked");
                 }
             } else {
                 System.out.println("Sorry, cannot go this way, try again!");
@@ -152,7 +155,7 @@ public class Character {
                 }
                 else
                 {
-                    System.out.println("Room.Room locked");
+                    System.out.println("Room locked");
                 }
             } else {
                 System.out.println("Sorry, cannot go this way, try again!");
@@ -165,7 +168,7 @@ public class Character {
                 }
                 else
                 {
-                    System.out.println("Room.Room locked");
+                    System.out.println("Room locked");
                 }
 
             } else {
@@ -179,7 +182,7 @@ public class Character {
                 }
                 else
                 {
-                    System.out.println("Room.Room locked");
+                    System.out.println("Room locked");
                 }
             } else {
                 System.out.println("Sorry, cannot go this way, try again!");
@@ -247,7 +250,7 @@ class CharacterItem {
     private String location;
 
     public CharacterItem(String itemId, String itemName, String itemEffectiveness, String description,
-                String location) {
+                         String location) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.itemEffectiveness = itemEffectiveness;
