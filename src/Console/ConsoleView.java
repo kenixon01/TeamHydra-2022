@@ -37,15 +37,8 @@ public class ConsoleView {
                 """);
     }
 
-    public void characterSelect() {
-        System.out.println("""
-                Choose your character:
-                \tLeuthere, the Vampire Slayer
-                \tAldred Kiyotosuna
-                \tArtemis of the Broken Heart
-                \tLocke Zsahbdiin
-                """);
-    }
+    public void playerDescription(Character player) {
+        System.out.println(player.getDescription());
 
     public void gameDescription() {
         System.out.println("""
