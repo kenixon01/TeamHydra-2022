@@ -224,14 +224,6 @@ public class Character {
         return dodgeChance;
     }
 
-    public int getHp() {
-        return maxHitPoints;
-    }
-
-    public void setHp(int hitPoints) {
-        this.maxHitPoints = hitPoints;
-    }
-
     public double getCriticalHitChance() {
         return criticalHitChance;
     }
@@ -258,6 +250,22 @@ public class Character {
 
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    public int getMaxHitPoints() {
+        return maxHitPoints;
+    }
+
+    public void setMaxHitPoints(int maxHitPoints) {
+        this.maxHitPoints = maxHitPoints;
+    }
+
+    public int getCurrentHitPoints() {
+        return currentHitPoints;
+    }
+
+    public void setCurrentHitPoints(int currentHitPoints) {
+        this.currentHitPoints = currentHitPoints;
     }
 }
 
