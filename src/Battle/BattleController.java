@@ -39,6 +39,9 @@ public class BattleController {
         view.remainingHealth(model.getMonster(),model.getPlayer());
     }
 
+    /**
+     * @author Khamilah Nixon
+     */
     public Battle getModel() {
         return model;
     }

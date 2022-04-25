@@ -181,6 +181,7 @@ public class ConsoleController {
         roomView = new RoomView();
         roomController = new RoomController(room, roomView);
 
+        // TODO if/else to verify if a room is locked
         roomController.printRoomDescription();
     }
 
