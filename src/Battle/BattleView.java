@@ -19,4 +19,8 @@ public class BattleView {
         System.out.println(character.getName() + "'s Remaining Health: " + character.getHp());
         System.out.println(monster.getName() + "'s Remaining Health: " + monster.getHp());
     }
+
+    public void printMonsterDead(){
+        System.out.println("Monster died");
+    }
 }

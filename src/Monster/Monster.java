@@ -55,7 +55,6 @@ public class Monster {
     public static HashMap<Integer,Monster>createMonsters() throws FileNotFoundException {
         HashMap<Integer,Monster> hashMap = new HashMap<>();
         MonsterReader monsterReader = new MonsterReader(ITEM_FILE_PATH);
-        int roomNum = 1;
         for(int i = 0; i < 7; i++) {
             int id = monsterReader.getID();
             int roomid = monsterReader.getROOM_ID();
@@ -77,16 +76,14 @@ public class Monster {
             int itemCriticalHit = monsterReader.getItemCriticalHit();
 
             if(hasItem) {
-                hashMap.put(roomNum, new Monster(id,roomid,itemid,damage,hp,name,description,
-                        createItem(itemid, itemName, itemDescription, itemRoomID, itemDamage, itemHeal,
+                hashMap.put(roomid, new Monster(id,roomid,itemid,damage,hp,name,description,
+                        createItem(itemID, itemName, itemDescription, itemRoomID, itemDamage, itemHeal,
                         itemType, itemHP, itemCriticalHit))
                 );
             }
             else {
-                hashMap.put(roomNum, new Monster(id,roomid,itemid,damage,hp,name,description,null)
-                );
+                hashMap.put(roomid, new Monster(id,roomid,itemid,damage,hp,name,description,null));
             }
-            roomNum++;
         }
         return hashMap;
     }

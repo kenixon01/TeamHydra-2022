@@ -24,7 +24,7 @@ public class CharacterController {
      * Author: Brian Smithers
      */
     public void printPlayerDetails() {
-        view.printPlayerDetails(model.help());
+        view.printPlayerDetails(model.toString());
     }
 
     /**

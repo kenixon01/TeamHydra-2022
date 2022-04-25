@@ -21,7 +21,6 @@ public class CharacterReader {
 
     private String charId;
     private String charName;
-    private LinkedList<Item> playerItemInventory;
     private String charDescription;
     private int hitPoints;
     private double dodgeChance;

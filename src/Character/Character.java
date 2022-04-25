@@ -12,7 +12,7 @@ import java.util.*;
 
 /**
  * Author: Brian Smithers
- * Co Authors: David, Khamilah
+ * Co Authors: Khamilah
  */
 
 public class Character {
@@ -30,9 +30,6 @@ public class Character {
     private Item wearable;
 
     private final InventoryController inventoryController;
-
-//    private TreeMap<Integer,Room> rooms = RoomReader.roomReader();
-//    private String location_ = RoomReader.roomReader().firstEntry().getValue().getName();
 
     private double blockChance;
 
@@ -238,12 +235,6 @@ public class Character {
                         int newRoomNumber = Integer.parseInt(room[j - 1]);
 
                         setRoomNumber(newRoomNumber);
-                        //check if a room is locked
-//                        if(Room.listOfRooms.get(newRoomNumber).isLocked()) {
-//                            System.out.println("room locked"); // <= TESTER PRINT STATEMENT
-//                        }
-//                        else{
-//                        }
                         nextPass = true; // Stop iterating
                         return true;
                     }
@@ -253,36 +244,6 @@ public class Character {
         return false;
     }
 
-    /*
-
-    public boolean traverseRooms(String direction) {
-        //TODO fix issue with currentRoom
-        // Copy room object for the players current room
-        Room currentRoom = Objects.requireNonNull(Room.getRoom(getRoomNumber()));
-
-        // Get connections from copied room object
-        String[][] roomConnections = currentRoom.getRoomConnections();
-
-        // Do not iterate if direction is "-1"
-        boolean nextPass = direction.equalsIgnoreCase("-1");
-
-        for (String[] room : roomConnections) {
-            if (!nextPass) {
-                for (int j = 0; j < room.length; j++) {
-                    // Look for direction (N, S, E, W)
-                    if (room[j].equalsIgnoreCase(direction)) {
-                        // Get players new room number and assign it to player
-                        int newRoomNumber = Integer.parseInt(room[j - 1]);
-                        setRoomNumber(newRoomNumber);
-                        nextPass = true; // Stop iterating
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-     */
     @Override
     public String toString() {
         return "id: " + id + "\n" + "name: " + name + "\n" +
@@ -293,7 +254,8 @@ public class Character {
                 "critical hit chance: " + criticalHitChance + "\n" +
                 "damage: " + damage + "\n" +
                 "location: " + Room.getRoom(roomNumber).getRoomDescription() + "\n" +
-                "block chance: " + blockChance + "\n";
+                "block chance: " + blockChance + "\n" +
+                "equipped weapon: " + weapon.get_itemName() + "\n";
     }
 
     private Scanner scanner() {
@@ -370,10 +332,6 @@ public class Character {
         return currentHitPoints;
     }
 
-//    public String getLocation_() {
-//        return location_;
-//    }
-
     public void setMaxHitPoints(int maxHitPoints) {
         this.maxHitPoints = maxHitPoints;
     }
@@ -389,10 +347,6 @@ public class Character {
     public void setCriticalHitChance(double criticalHitChance) {
         this.criticalHitChance = criticalHitChance;
     }
-
-//    public void setLocation_(String location_) {
-//        this.location_ = location_;
-//    }
 
     public void setBlockChance(double blockChance) {
         this.blockChance = blockChance;

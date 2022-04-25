@@ -1,8 +1,6 @@
 package Character;
 
-/**
- * Author: Brian Smithers
- */
+
 public class CharacterView {
 
     /**
@@ -46,10 +44,9 @@ public class CharacterView {
         System.out.println("4.\tLocke Zsahbdiin");
     }
 
-    public void characterConfirm(Character character) {
-        System.out.println("Would you like to continue as " + character.getName() + "? Yes or No");
-    }
-
+    /**
+     * Author: Khamilah Nixon
+     */
     public void printInventory(Character character) {
         System.out.println(character.getName() + "' Inventory:");
         System.out.println("-*-*-*-*-*-*-*-*-*-*-*-*-");

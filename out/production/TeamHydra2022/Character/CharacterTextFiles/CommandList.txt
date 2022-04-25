@@ -1,6 +1,6 @@
 List of Commands
-To save the game, enter "Save"
-To access your inventory, enter "Inventory"
+To save the game, enter "Save" (not implemented)
+To access your inventory, enter "Inventory" 
 To move your character, enter "N, S, E, or W"
 To attack a monster during combat, enter "attack"
 To block in combat, enter "block" (this takes up the players turn)
@@ -12,3 +12,4 @@ To use an item from your inventory, enter "Use" followed by the item's name.
 To pickup an item, enter "yes" when prompted "Do you wish to take it?" or any dialogue that asks if you want an item
 To receive a hint during a puzzle, enter "Puzzle Hint"
 To exit a puzzle, enter "Exit Puzzle"
+To see a player's stats enter "Stats"

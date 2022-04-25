@@ -128,18 +128,14 @@ public class ConsoleController {
     public void characterSelect() throws IOException {
         itemView = new ItemView();
         itemController = new ItemController(new ItemReader().CreateItems(),itemView);
-        // TODO initialize puzzle, room, monster, and battle controller
 
-        //call the CharacterView characterSelect
         characterView = new CharacterView();
         characterView.characterSelect();
         String userOption = console.menuInputValidator(
                 new String[]{"1","2","3","4"}
         );
-        // Create new character object
         character = Character.loadCharacterData(Integer.parseInt(userOption));
         character.setRoomNumber(1);
-//        itemController.addToInventory("-" + userOption, character);
         characterController = new CharacterController(character, characterView);
 
         monsterView = new MonsterView();
@@ -176,6 +172,8 @@ public class ConsoleController {
             Room room1 = new Room(i, roomName, roomDescriptions,
                     isLocked, roomConnections, new InventoryController(
                             new Inventory(), new InventoryView()));
+
+            // add items to room from hashmap if the item matches the room number
             Room.addRoom(room1);
         }
         // Make model and view for controller
@@ -197,15 +195,15 @@ public class ConsoleController {
             room = Room.getRoom(character.getRoomNumber());
             roomController.setModel(room);
             int roomID = characterController.getModel().getRoomNumber();
-//            if (monsterController.getModel() != null) {
-//                if (monsterController.getModel().get(roomID).getHp() > 0) {
-//                    System.out.println();
-//                    monsterController.monsterDescription(roomID);
-//                    battleView = new BattleView();
-//                    battle = new Battle(characterController.getModel(),monsterController.getModel().get(roomID));
-//                    battleController = new BattleController(battle, battleView);
-//                }
-//            }
+                if (monsterController.getModel().get(roomID) != null &&
+                monsterController.getModel().get(roomID).getHp() > 0) {
+                    System.out.println();
+                    monsterController.monsterDescription(roomID);
+                    battleView = new BattleView();
+                    battle = new Battle(characterController.getModel(),monsterController.getModel().get(roomID));
+                    battleController = new BattleController(battle, battleView);
+
+            }
             System.out.println();
             while (!validCommand) {
                 console.enterCommand();
@@ -222,6 +220,7 @@ public class ConsoleController {
      */
     public boolean isValidGameCommand() {
         switch (console.inputValidator()) {
+            case "stats" -> characterController.printPlayerDetails();
             case "use" -> {
                 System.out.println("use");
                 itemController.useItem(characterController.getModel());
@@ -289,6 +288,9 @@ public class ConsoleController {
         if (battleController.getModel().getPlayer().getHp() <= 0) {
             consoleView.gameOver();
             exitGame();
+        }
+        if(battleController.getModel().getMonster().getHp() <= 0) {
+            battleController.monsterDead();
         }
     }
 }
