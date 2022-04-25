@@ -31,19 +31,38 @@ public class Monster {
 
     private HashMap<Integer, Item> inventory = new HashMap<>();
 
+    public static HashMap<Integer, Monster> monsterHashMap = new HashMap<>();
+
     /**
      * Creates a monster object and assigns values to fields using
      * a {@link MonsterReader} reference
      */
-    public Monster() {
-        MonsterReader reader = new MonsterReader();
-        ID = reader.getID();
-        ROOM_ID = reader.getROOM_ID();
-        ITEM_ID = reader.getITEM_ID();
-        DAMAGE = reader.getDAMAGE();
-        NAME = reader.getNAME();
-        DESCRIPTION = reader.getDESCRIPTION();
-        this.Hp = reader.getHp();
+    public Monster(int ID, int ROOM_ID, int ITEM_ID, int DAMAGE, int hp, String NAME, String DESCRIPTION) {
+        this.ID = ID;
+        this.ROOM_ID = ROOM_ID;
+        this.ITEM_ID = ITEM_ID;
+        this.DAMAGE = DAMAGE;
+        Hp = hp;
+        this.NAME = NAME;
+        this.DESCRIPTION = DESCRIPTION;
+    }
+
+    public static HashMap<Integer,Monster>createMonsters() {
+        HashMap<Integer,Monster> hashMap = new HashMap<>();
+        for(int i = 0; i < 7; i++) {
+            MonsterReader monsterReader = new MonsterReader();
+            hashMap.put(i + 1,
+                    new Monster(
+                            monsterReader.getHP(),
+                            monsterReader.getROOM_ID(),
+                            monsterReader.getITEM_ID(),
+                            monsterReader.getHP(),
+                            monsterReader.getDAMAGE(),
+                            monsterReader.getNAME(),
+                            monsterReader.getDESCRIPTION()
+                    ));
+        }
+        return hashMap;
     }
 
     public int getID() {

@@ -7,7 +7,7 @@ package Room;
 public class RoomView {
     public void roomDescription(Room room)
     {
-        System.out.println(room.getDescription_());
+        System.out.println(room.getRoomDescription());
     }
 
 }

@@ -1,5 +1,7 @@
 package Character;
 
+import Room.Room;
+
 /**
  * Author: Brian Smithers
  */
@@ -30,7 +32,8 @@ public class CharacterController {
      * Author: Brian Smithers
      */
     public void printPlayerLocation() {
-        view.printPlayerLocation(model.getLocation());
+        view.printPlayerLocation(
+                Room.listOfRooms.get(model.getRoomNumber()).getRoomDescription());
     }
 
     /**
@@ -41,5 +44,28 @@ public class CharacterController {
         Character.loadCharacterData(model.scanUserInput());
         //if console input is 1
         //addToInventory(-1, character);
+    }
+
+    /**
+     * author: Brian Smithers
+     * 
+     */
+    public void move(String direction) {
+        view.failedRoomTraversal(model.traverseRooms(direction));
+    }
+
+    /**
+     * @author Khamilah Nixon
+     */
+    public void printInventory() {
+        view.printInventory(model);
+    }
+
+    public Character getModel() {
+        return model;
+    }
+
+    public CharacterView getView() {
+        return view;
     }
 }

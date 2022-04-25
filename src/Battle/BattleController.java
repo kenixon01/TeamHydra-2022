@@ -1,5 +1,9 @@
 package Battle;
 
+import Item.Item;
+
+import java.util.List;
+
 /**
  *  Author: Brian Smithers
  */
@@ -16,16 +20,16 @@ public class BattleController {
     /**
      * Allows player and monster to engage in battle.  Displays
      * attack damage information after each attack.
-     * @author Brian Smithers
+     * @author Brian Smithers and Khamilah Nixon
      */
-    public void printBattleDetails() {
+    public void printBattleDetails(List<Item> inventory, boolean playerSelectedDodge, boolean playerSelectedBlock) {
         // Player attacks monster
-        if (model.attackMonster()) {
+        if (model.attackMonster(inventory)) {
             view.attackTurnResult(model.getPlayerName(),
                     model.getPlayerAttackPoints(), model.getMonsterName());
         }
         // Monster.Monster attacks player
-        if (model.attackPlayer()) {
+        if (model.attackPlayer(playerSelectedDodge, playerSelectedBlock)) {
             view.attackTurnResult(model.getMonsterName(),
                     model.getMonsterAttackPoints(), model.getPlayerName());
         }

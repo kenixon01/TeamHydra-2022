@@ -1,22 +1,22 @@
 package Monster;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+        import java.io.FileNotFoundException;
+        import java.io.FileReader;
+        import java.io.IOException;
 
 /**
- * The Monster.MonsterReader class defines a monster's attributes and assigns values to those attributes
+ * The MonsterReader class defines a monster's attributes and assigns values to those attributes
  * by reading multiple text files. All monsters are constants, and instances of this class
  * cannot alter their initial states.  All monsters have the following attributes:
  * <blockquote>
  *     <ul>
- *         <li>ID - Monster.Monster's unique identifier</li>
+ *         <li>ID - Monster's unique identifier</li>
  *         <li>ROOM ID - Unique identification of the room where the monster lies</li>
  *         <li>ITEM ID - Unique identification of the item that the monster drops upon death</li>
- *         <li>HP - Monster.Monster's initial health point</li>
- *         <li>DAMAGE - Monster.Monster's attack damage</li>
- *         <li>NAME - Monster.Monster's name</li>
+ *         <li>HP - Monster's initial health point</li>
+ *         <li>DAMAGE - Monster's attack damage</li>
+ *         <li>NAME - Monster's name</li>
  *         <li>DESCRIPTION - Information about the monster</li>
  *     </ul>
  * </blockquote>
@@ -74,7 +74,7 @@ public final class MonsterReader {
         return ITEM_ID;
     }
 
-    public int getHp() {
+    public int getHP() {
         return HP;
     }
 

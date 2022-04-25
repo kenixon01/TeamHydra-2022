@@ -4,13 +4,7 @@ package Entry;
 import Console.Console;
 import Console.ConsoleController;
 import Console.ConsoleView;
-import Battle.*;
-import Character.Character;
-import Item.*;
-import Room.*;
-import Character.*;
-import Monster.*;
-import Puzzle.*;
+import Room.RoomController;
 
 import java.util.InputMismatchException;
 
@@ -21,40 +15,11 @@ public class Entry {
 
     //Brian Smithers and Khamilah Nixon
     public static void main(String[] args) {
-        Character character = new Character();
-        CharacterView characterView = new CharacterView();
-        CharacterController characterController;
-
-        Item item = new Item();
-        ItemView itemView = new ItemView();
-        ItemController itemController = new ItemController();
-
-        Monster monster = new Monster();
-        MonsterView monsterView = new MonsterView();
-        MonsterController monsterController = new MonsterController(monster, monsterView);
-
-        Puzzle puzzle = new Puzzle();
-        PuzzleView puzzleView = new PuzzleView();
-        PuzzleController puzzleController = new PuzzleController();
-
-        Room room = new Room();
-        RoomView roomView = new RoomView();
-        RoomController roomController = new RoomController(room, roomView);
-
-        Battle battle = new Battle(character,monster);
-        BattleView battleView = new BattleView();
-        BattleController battleController = new BattleController(battle,battleView);
+        // TODO ask Jason how the item's initialize. When should it init?
 
         Console console = new Console();
         ConsoleView consoleView = new ConsoleView();
-        ConsoleController consoleController = new ConsoleController(
-                battleController,battle,battleView,
-                characterController, character, characterView,
-                itemController,item,itemView,
-                monsterController, monster,monsterView,
-                puzzleController, puzzle, puzzleView,
-                roomController, room, roomView, console, consoleView);
-
+        ConsoleController consoleController = new ConsoleController(console, consoleView);
 
         try {
             consoleController.startGame();
@@ -67,6 +32,8 @@ public class Entry {
             //player can select and verify their character
             consoleController.characterSelect();
 
+            //load rooms
+            consoleController.createRooms();
 
 
             /*

@@ -9,4 +9,12 @@ public class RoomController {
         this.model = model;
         this.view = view;
     }
+
+    public void printRoomDescription() {
+        view.roomDescription(model);
+    }
+
+    public void setModel(Room model) {
+        this.model = model;
+    }
 }

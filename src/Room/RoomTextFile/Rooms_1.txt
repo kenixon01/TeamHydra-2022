@@ -1,202 +1,87 @@
-1
 Foyer
 False
-Hallway3,-,Hallway1,Hallway7
-The foyer is grand from what you can see, from the little light that comes through the closed drapes. 
-Several credenzas and numerous paintings of unknown pompous individuals line the room, assembled high to the 30-foot tall ceiling. 
-Dust swirls around in abundance. The air is stale and reeks of death and agony.
-END
-2
+----
 Lounge
 False
-Hallway1,-,-,-
-This room is a lounge with intact but ripped up furniture with a few photos of the family who previously lived there. 
-You see some burned up books, but otherwise it is a cold damp room. 
-END
-3
-Herb Room.Room
+----
+Herb Room
 False
-Hallway2,-,-,-
-A heavy scent of sage and jasmine pierced your nose as you opened the door. 
-Lit by a few bulbs, this room is heavily forested with mysterious herbs that you have never even seen before.
-END
-4
+----
 Art Gallery
 False
--,Hallway1,-,-
-This room is untouched. There is a big chandelier in the middle of the room and a red velvet bench underneath it. 
-3 paintings were spread out in the 3 corners of the room. Painting 1 is a portrait of Doctor Honthin in his lab coat. 
-Painting 2 is an imagery of the Two Gods; Anemis, God of the Sun, and Aaldir, God of the Moon, and a Latin script underneath that says “Luce et Tenebris”
-Painting 3 is a portrait of Doctor Honthin’s late father, Alfred Honthin Sr, a wealthy surgeon and devout follower of the Children of the Two Gods. 
-END
-5
-Room.Room of Antiquities
+----
+Room of Antiquities
 False
--,Hallway2,-,-
-Prayer beads, mysterious bottles, religious ornaments, varieties of incense, and sacred scrolls fill the room. 
-The Bible of the Two Gods is left open on the table.
-END
-6
-Prayer Room.Room
+----
+Prayer Room
 False
--,-,-,Hallway2
-The room is dark with a few candles lit in all 4 corners of the room. 
-There is two black and white banners behind the black altar that reads “Luce et Tenebris”.
-END
-7
+----
 Knight
 False
--,-,-,Hallway3
-This room is luckily an organized room with minimum furniture, but it is covered in an extreme amount of dust.
-END
-8
+----
 Pawn
 False
--,-,-,Hallway4
-The room has random splatters of black and white paint everywhere and has a weird smell of rotten meat.
-END
-9
+----
 Storage
 False
--,-,Hallway3,-
-This room was for storing cleaning utensils for maintaining the mansion, but now it belongs to Lady Swan.
-END
-10
+----
 Havok
 False
--,-,Hallway4,-
-This room has ripped-up walls and creaky floorboards. A very dark scary room with a smell of death in the air.
-END
-11
+----
 Armory
 False
--,-,-,Hallway6
-You enter the room and see lanterns, armor stands, and wall mounts surrounding the perimeter of the room. 
-Although they are mostly empty, you might be able to find something useful here.
-END
-12
+----
 Treasury
 False
--,-,-,Hallway5
-Open chests line up the walls of the room with various heirlooms on display. 
-You continue to scan the room and see various corpses on the floor with arrows protruding from them. 
-You see a hooded figure in the corner readying his bow.
-END
-13
-Music Room.Room
+----
+Music Room
 False
--,-,-,Hallway8
-Music stands with musical manuscripts stock the room. You see several percussion instruments laying about. 
-You’d like to play something to lighten up the mood, but you remember you have no musical talent.
-END
-14
+----
 Study
 False
--,-,-,Hallway9
-The walls appear to have writing on them in blood, “495” you read. 
-A desk sitting in the center of the room is illuminated by the faint beams that come out of the barred window. 
-END
-15
+----
 Master Bedroom
 False
--,-,Hallway9,-
-Doctor Honthin’s bedroom. Dimly lit, gloomy, dark, and somber. All four walls are covered by bookshelves.
-A huge bronze safe is located next to his bed. Sacred scrolls are all scattered as far as the eyes could see. 
-END
-16
-Wine Room.Room
+----
+Wine Room
 False
--,-,Hallway8,-
-As you enter, you notice wine racks surround the room. The vast quantity of alcohol seems enticing. 
-You shudder at the thought of the price, your life probably pales in comparison.
-END
-17
+----
 Library
 False
--,-,Hallway6,-
-You enter what appears to be the library. Reading chairs dot the floor and bookshelves line the walls. 
-Not one thing seems out of place here, this might be the most well-kept room in the entire building
-END
-18
+----
 Bathroom
 False
--,-,Hallway5,-
-The bathroom is in disarray. The shower curtain is limply hanging off the rod, torn and bloodstained. 
-The white floor tile is only just visible through the gore that squishes beneath your feet as you enter.
-END
-19
+----
 Sunroom
 False
--,-,Hallway7,-
-The drapes are closed, casting the large circular room in a gloomy ambience. Couches and chairs appear 
-to be smashed and strewn about, as if a Behemoth- the ones with thumbs - stepped on a particularly sharp rock.
-END
-20
+----
 Basement
 True
--,Hallway4,-,-
-After finally forming the key to unlock the Basement, you open the door to what seems to be a 
-medical laboratory, dimly lit only by a steam powered light bulb haphazardly hanging from the ceiling.
-END
-21
-Hallway1
+----
+Hallway 1
 False
-Art Gallery,Lounge,Hallway2,Foyer
-At the beginning of this hallway you see two doors to your left and right, and more of the hallway ahead of you?
-END
-22
-Hallway2
+----
+Hallway 2
 False
-Room.Room of Antiquities,Herb Room.Room,Prayer Room.Room,Hallway1
-At the end of this hallway you see two rooms to your left and right which way do you wish to go?
-END
-23
-Hallway3
+----
+Hallway 3
 False
-Hallway4,Foyer,Knight,Storage
-At the beginning of this hallway you see two doors to your left and right, and more of the hallway ahead of you?
-END
-24
-Hallway4
+----
+Hallway 4
 False
-Basement,Hallway3,Pawn,Havok
-In this hallway you see a door at the end, and two hallways to the left and right, which way do you wish to go?
-END
-25
-Hallway5
+----
+Hallway 5
 False
-Hallway6,-,Treasury,Bathroom
-At the end of this hallway you see two rooms to your left and right which way do you wish to go?
-END
-26
-Hallway6
+----
+Hallway 6
 False
-Hallway7,Hallway5,Armory,Library
-At the beginning of this hallway you see two doors to your left and right, and more of the hallway ahead of you. 
-Which way do you wish to go?
-END
-27
-Hallway7
+----
+Hallway 7
 False
-Hallway8,Hallway6,Foyer,Sunroom
-In this hallway you see a door at the end, and two hallways to the left and right, which way do you wish to go?
-END
-28
-Hallway8
+----
+Hallway 8
 False
-Hallway9,Hallway7,Music Room.Room,Wine Room.Room
-At the beginning of this hallway you see two doors to your left and right, and more of the hallway ahead of you. 
-Which way do you wish to go?
-END
-29
-Hallway9
+----
+Hallway 9
 False
--,Hallway8,Study,Master Bedroom
-At the end of this hallway you see two rooms to your left and right which way do you wish to go?
-END
-30
-Item Holder Room.Room
-False
--,-,-,-
-Blank room
-END
+----

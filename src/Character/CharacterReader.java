@@ -49,14 +49,17 @@ public class CharacterReader {
     public void read() {
         readChar();
         readCharDescription();
-        readCharStarterItem();
+        //readCharStarterItem();
         readCharStarterItemDescription();
+        createCharacter();
     }
 
     public void createCharacter() {
-        character = new Character(charId, charName, new LinkedList<>(), charDescription,
+        character = new Character(charId, charName, playerItemInventory, charDescription,
                 hitPoints, dodgeChance, damage);
+        /*
         addStarterItemToPlayerInventory();
+         */
     }
 
     private Item createStarterItem() {
@@ -64,10 +67,11 @@ public class CharacterReader {
                 itemRoomId, itemDamage, itemHealthRestoration, itemType,
                 itemTotalHitPointsModifier, 0.0f);
     }
-
+    /*
     private void addStarterItemToPlayerInventory() {
         character.getPlayerItemInventory().add(createStarterItem());
     }
+     */
 
     public Character getCharacter() {
         return character;

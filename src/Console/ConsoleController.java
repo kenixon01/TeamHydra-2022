@@ -8,6 +8,8 @@ import Character.*;
 import Monster.*;
 import Puzzle.*;
 
+import java.util.List;
+
 public class ConsoleController {
     private BattleController battleController;
     private Battle battle;
@@ -35,25 +37,7 @@ public class ConsoleController {
     private Console console;
     private ConsoleView consoleView;
 
-    public ConsoleController(BattleController battleController, Battle battle, BattleView battleView, CharacterController characterController, Character character, CharacterView characterView, ItemController itemController, Item item, ItemView itemView, MonsterController monsterController, Monster monster, MonsterView monsterView, PuzzleController puzzleController, Puzzle puzzle, PuzzleView puzzleView, RoomController roomController, Room room, RoomView roomView, Console console, ConsoleView consoleView) {
-        this.battleController = battleController;
-        this.battle = battle;
-        this.battleView = battleView;
-        this.characterController = characterController;
-        this.character = character;
-        this.characterView = characterView;
-        this.itemController = itemController;
-        this.item = item;
-        this.itemView = itemView;
-        this.monsterController = monsterController;
-        this.monster = monster;
-        this.monsterView = monsterView;
-        this.puzzleController = puzzleController;
-        this.puzzle = puzzle;
-        this.puzzleView = puzzleView;
-        this.roomController = roomController;
-        this.room = room;
-        this.roomView = roomView;
+    public ConsoleController(Console console, ConsoleView consoleView) {
         this.console = console;
         this.consoleView = consoleView;
     }
@@ -138,16 +122,66 @@ public class ConsoleController {
     /**
      * Displays the character selection in the console
      * and allows the user to select their character choice
-     * @author Khamilah Nixon
+     * @author Khamilah Nixon, Brian Smithers, Jayson Dasher
      */
     public void characterSelect() {
-        characterController.chooseCharacter();
+        itemView = new ItemView();
+        itemController = new ItemController(new ItemReader().CreateItems(),itemView);
+        // TODO initialize puzzle, room, monster, and battle controller
+
         //call the CharacterView characterSelect
+        characterView = new CharacterView();
+        characterView.characterSelect();
         String userOption = console.menuInputValidator(
                 new String[]{"1","2","3","4"}
         );
-        System.out.println("character selected");
-        //placeholder for character selection functionality
+        // Create new character object
+        character = Character.loadCharacterData(Integer.parseInt(userOption));
+        character.setRoomNumber(1);
+//        itemController.addToInventory("-" + userOption, character);
+        characterController = new CharacterController(character, characterView);
+
+        monsterView = new MonsterView();
+        monsterController = new MonsterController(Monster.createMonsters(),monsterView);
+
+        puzzleView = new PuzzleView();
+        puzzleController = new PuzzleController(puzzleView);
+
+    }
+
+    /**
+     * Author: Brian Smithers
+     */
+    public void createRooms() {
+        ReadRoomConnections readRoomConnections =
+                new ReadRoomConnections("src/Room/RoomTextFile/RoomConnections.txt");
+        readRoomConnections.read();
+
+        ReadRoomDescription readRoomDescription =
+                new ReadRoomDescription("src/Room/RoomTextFile/RoomDescriptions.txt");
+        readRoomDescription.read();
+
+        RoomReader roomReader = new RoomReader("src/Room/RoomTextFile/Rooms_1.txt");
+        roomReader.read();
+
+        int numberOfRooms = readRoomDescription.getRoomNumber();
+        for (int i = 1; i < numberOfRooms + 1; i++) {
+            String[][] roomConnections = readRoomConnections.getHashMap().get(i);
+            String roomDescriptions = readRoomDescription.getRoomDescriptionHashMap().get(i);
+            String[] roomDetails = roomReader.getHashMap().get(i);
+
+            String roomName = roomDetails[1];
+            boolean isLocked = Boolean.parseBoolean(roomDetails[2]);
+            Room room1 = new Room(i, roomName, roomDescriptions,
+                    isLocked, roomConnections);
+            Room.addRoom(room1);
+        }
+        // Make model and view for controller
+        room = Room.getRoom(1);
+        roomView = new RoomView();
+        roomController = new RoomController(room, roomView);
+
+        roomController.printRoomDescription();
     }
 
     /**
@@ -156,27 +190,68 @@ public class ConsoleController {
      */
     public void enterCommand() {
         while (!console.getInput().equalsIgnoreCase("exit")) {
-            console.enterCommand();
-            switch (console.inputValidator()) {
-                case "inspect" -> System.out.println("inspect");
-                case "drop" -> System.out.println("drop");
-                case "use" -> System.out.println("use");
-                case "equip" -> System.out.println("equip");
-                case "unequip" -> System.out.println("unequip");
-                case "north" -> System.out.println("north");
-                case "east" -> System.out.println("east");
-                case "south" -> System.out.println("south");
-                case "west" -> System.out.println("west");
-                case "attack" -> System.out.println("attack");
-                case "inventory" -> System.out.println("inventory");
-                case "save" -> System.out.println("save");
-                case "resume" -> System.out.println("resume");
-                case "block" -> System.out.println("block");
-                case "dodge" -> System.out.println("dodge");
-                case "hint" -> System.out.println("hint");
-                default -> invalidCommand();
+            boolean validCommand = false;
+            room = Room.getRoom(character.getRoomNumber());
+            roomController.setModel(room);
+            int roomID = characterController.getModel().getRoomNumber();
+            if(monsterController.getModel().get(roomID) != null) {
+                System.out.println();
+                monsterController.monsterDescription(roomID);
+                battleView = new BattleView();
+                battle = new Battle(characterController.getModel(),monsterController.getModel().get(roomID));
+                battleController = new BattleController(battle,battleView);
+            }
+            while(!validCommand) {
+                console.enterCommand();
+                validCommand = isValidGameCommand();
             }
         }
         exitGame();
+    }
+
+    /**
+     *
+     * @return if player entered a valid command
+     * @author Khamilah Nixon, Brian Smithers, Jayson Dasher
+     */
+    public boolean isValidGameCommand() {
+        switch (console.inputValidator()) {
+            case "use" -> {
+                System.out.println("use");
+                itemController.useItem(characterController.getModel());
+            }
+            case "equip" -> itemController.equipItem(characterController.getModel());
+            case "unequip" -> itemController.unequipItem(characterController.getModel());
+            case "north", "south", "east", "west" -> {
+                characterController.move(console.inputValidator());
+            }
+            case "attack" -> battleController.printBattleDetails(itemController.getModel().get("0"),false, false);
+            case "block" -> battleController.printBattleDetails(itemController.getModel().get("0"),false, true);
+            case "location" -> characterController.printPlayerLocation();
+            case "inventory" -> characterController.printInventory();
+            case "save" -> System.out.println("save");
+            case "resume" -> System.out.println("resume");
+            case "dodge" -> battleController.printBattleDetails(itemController.getModel().get("0"),true,false);
+            case "hint" -> {
+                int roomID = characterController.getModel().getRoomNumber();
+                List<Puzzle> puzzleList = puzzleController.getPuzzles().get(roomID + "");
+                int chRoomID = characterController.getModel().getRoomNumber();
+                for(Puzzle pz : puzzleList) {
+                    if(pz.getRoom().equalsIgnoreCase(chRoomID + "")) {
+                        puzzleController.puzzleHint(characterController.getModel().getRoomNumber(), pz.getId());
+                    }
+                }
+            }
+            case "help" -> characterController.printHelp();
+            case "solve" -> {
+                System.out.println("solve");
+            }
+            default -> {
+                invalidCommand();
+                return false;
+            }
+        }
+        System.out.println();
+        return true;
     }
 }

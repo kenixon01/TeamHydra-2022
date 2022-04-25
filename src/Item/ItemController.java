@@ -9,13 +9,6 @@ import java.util.Scanner;
 /**
  *  Author: Jayson Dasher
  */
-
-/** //to initialize at start of game//
- * ItemReader itemReader = new ItemReader();
- * Map<String, List<Item>> masterItemsList = itemReader.CreateItems();
- * ItemController itemController = new ItemController(masterItemsList, new ItemView());
- * */
-
 public class ItemController {
     private Map<String, List<Item>> model;
     private ItemView view;
@@ -25,6 +18,7 @@ public class ItemController {
         this.view = view;
     }
 
+    // EQUIP ITEM
     public void equipItem(Character character){
         //print inventory
         view.printinventory(model.get("0"));
@@ -54,9 +48,9 @@ public class ItemController {
         else if(currentItem.get_itemType().equalsIgnoreCase("wearable")){
             //set equipped to true
             currentItem.setEquipped(true);
-            //set player max health value to current value plus modifier
+            // set player max health value to current value plus modifier
             character.setMaxHitPoints(character.getMaxHitPoints() + currentItem.get_totalHpModifier());
-            //set player health to current health plus modifier
+            // set player health to current health plus modifier
             character.setCurrentHitPoints(character.getCurrentHitPoints() + currentItem.get_healValue());
         }
         //input is an item that is not equippable
@@ -87,7 +81,7 @@ public class ItemController {
                 if (currentItem.getEquipped() == true){
                     currentItem.setEquipped(false);
                     character.setDamage(character.getDamage() - currentItem.get_damageValue());
-                    character.setCurrentHitPoints(character.getCurrentHitPoints() + currentItem.get_healValue());
+                    character.setHp(character.getHp() + currentItem.get_healValue());
                 }
             }
 
@@ -95,7 +89,7 @@ public class ItemController {
 
     }
 
-    public void useItem(Character character){
+    public void useItem(Character character) {
         view.printinventory(model.get("0"));
         Scanner reader = new Scanner(System.in);
         String input = reader.nextLine();
@@ -104,12 +98,12 @@ public class ItemController {
         //check to see if consumable
         if (currentItem.get_itemType().equalsIgnoreCase("Consumable")) {
             //alter health
-            character.setCurrentHitPoints(character.getCurrentHitPoints() + currentItem.get_healValue());
+            character.setHp(character.getHp() + currentItem.get_healValue());
             //alter character damage output
             character.setDamage(character.getDamage() + currentItem.get_damageValue());
             // delete item from local inventory and character inventory
             model.get("0").remove(Integer.parseInt(input)-1);
-            character.getPlayerItemInventory().remove(Integer.parseInt(input)-1);
+            //character.getPlayerItemInventory().remove(Integer.parseInt(input)-1);
         }
         else {
              view.notEquipable(currentItem);
@@ -129,22 +123,21 @@ public class ItemController {
             currentItem = model.remove(roomNum).get(0);
             playerInventory.add(currentItem);
             model.put("0", playerInventory);
-            character.getPlayerItemInventory().add(currentItem);
+            //character.getPlayerItemInventory().add(currentItem);
         }
         else {
             view.itemIgnored(currentItem);
         }
     }
-    //TODO: add starting items to items.txt using (-)CharacterNumber as room number
-    //for a starting item, the character number it corresponds with(but the negative value) will act as room number
+
     public void addToInventory(String roomNum, Character character){
         List<Item> playerInventory = model.get("0");
         Item currentItem = model.remove(roomNum).get(0);
         playerInventory.add(currentItem);
         model.put("0", playerInventory);
-        character.getPlayerItemInventory().add(currentItem);
+        //character.getPlayerItemInventory().add(currentItem);
     }
-
+    //main controller calls upon this to check for any items in the room
     public void checkRoomItem(String roomNum, Character character){
         if (model.get(roomNum).size() > 0) {
             for (int i = 0; i < model.get(roomNum).size(); i++) {
@@ -152,6 +145,11 @@ public class ItemController {
             }
         }
     }
+    public void getPlayerStarterItems(Character character){
+        model.get("0").add(character.getPlayerItemInventory().get(0));
+    }
 
-
+    public Map<String, List<Item>> getModel() {
+        return model;
+    }
 }

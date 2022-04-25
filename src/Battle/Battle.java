@@ -5,6 +5,7 @@ import Monster.Monster;
 import Character.Character;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -27,22 +28,24 @@ public class Battle {
      * @return if the player is alive
      * @author Brian Smithers and Khamilah Nixon
      */
-    public boolean attackMonster() {
-        LinkedList<Item> playerInventory = player.getPlayerItemInventory();
+    public boolean attackMonster(List<Item> inventory) {
+        //inventory is "itemController.model.get("0")
+//        LinkedList<Item> playerInventory = (LinkedList<Item>) inventory;
         if (getPlayerHp() > 0) {
             monster.setHp(getMonsterHp() - getPlayerAttackPoints());
 
             //health restoration functionality
-            if(playerInventory.size() > 0) { //verifies that the player has items in their inventory
-
-                // Determines the total player health restoration points.
-                // If that value is greater than 0, then increase player health by that amount
-
-                int healthRestoration = playerHealthRestore(playerInventory, playerInventory.size() - 1);
-                if(healthRestoration > 0) {
-                    player.setHp(getPlayerHp() + healthRestoration);
-                }
-            }
+//            if(playerInventory.size() > 0) { //verifies that the player has items in their inventory
+//
+//                // Determines the total player health restoration points.
+//                // If that value is greater than 0, then increase player health by that amount
+//
+//                int healthRestoration = playerHealthRestore(playerInventory, playerInventory.size() - 1);
+//                if (healthRestoration > 0) {
+//                    player.setHp(getPlayerHp() + healthRestoration);
+//
+//                }
+//            }
             return true;
         }
         return false;
@@ -58,10 +61,15 @@ public class Battle {
      */
     private int playerHealthRestore(LinkedList<Item> inventory, int length) {
         int hp = inventory.get(length).get_healValue();
-        if(length == 0) {
-            return hp;
+        boolean isEquipped = inventory.get(length).getEquipped();
+        String type = inventory.get(length).get_itemType();
+        int restore = 0;
+        for(Item item : inventory) {
+            if(isEquipped && hp > 0 && type.equalsIgnoreCase("weapon")) {
+                restore += hp;
+            }
         }
-        return hp + playerHealthRestore(inventory, length - 1);
+        return restore;
     }
 
 
@@ -72,10 +80,10 @@ public class Battle {
      * @return if a monster is alive
      * @author Brian Smithers and Khamilah Nixon
      */
-    public boolean attackPlayer() {
+    public boolean attackPlayer(boolean selectDodge, boolean selectBlock) {
         if (getMonsterHp() > 0) {
-            if(!playerDodge()){
-                player.setHp(getPlayerHp() - getMonsterAttackPoints() + damageReduction());
+            if(selectDodge && !playerDodge()){
+                player.setHp(getPlayerHp() - getMonsterAttackPoints() + damageReduction(selectBlock));
             }
             return true;
         }
@@ -99,10 +107,12 @@ public class Battle {
      * @return damage reduction
      * @author Khamilah Nixon
      */
-    private int damageReduction() {
-        int randomBlockInt = Math.abs(new Random().nextInt());
-        if (player.getBlockChance() > 0 && randomBlockInt % (1 / player.getBlockChance()) == 0) {
-            return (int) (Math.random() * getMonsterHp() - 1) + 1;
+    private int damageReduction(boolean playerSelectBlock) {
+        if(playerSelectBlock){
+            int randomBlockInt = Math.abs(new Random().nextInt());
+            if (player.getBlockChance() > 0 && randomBlockInt % (1 / player.getBlockChance()) == 0) {
+                return (int) (Math.random() * getMonsterHp() - 1) + 1;
+            }
         }
         return 0;
     }
