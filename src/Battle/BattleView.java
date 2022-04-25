@@ -20,6 +20,9 @@ public class BattleView {
         System.out.println(monster.getName() + "'s Remaining Health: " + monster.getHp());
     }
 
+    /**
+     * Author: Khamilah Nixon
+     */
     public void printMonsterDead(){
         System.out.println("Monster died");
     }

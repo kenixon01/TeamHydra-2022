@@ -40,6 +40,9 @@ public class BattleController {
         }
     }
 
+    /**
+     * Author: Khamilah Nixon
+     */
     public void monsterDead() {
         view.printMonsterDead();
     }

@@ -2,6 +2,9 @@ package Console;
 
 import java.util.Scanner;
 
+/**
+ * Author: Brian Smithers
+ */
 public class Console {
     private String item = "";
     private String input = "";

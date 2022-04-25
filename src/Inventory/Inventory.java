@@ -5,6 +5,9 @@ import Puzzle.Puzzle;
 
 import java.util.LinkedList;
 
+/**
+ * Author: Brian Smithers
+ */
 public class Inventory {
     private final LinkedList<Item> itemInventory = new LinkedList<>();
     private final LinkedList<Puzzle> puzzleInventory = new LinkedList<>();

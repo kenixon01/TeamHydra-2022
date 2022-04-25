@@ -16,7 +16,6 @@ public class Entry {
 
     //Brian Smithers and Khamilah Nixon
     public static void main(String[] args) {
-        // TODO ask Jason how the item's initialize. When should it init?
 
         Console console = new Console();
         ConsoleView consoleView = new ConsoleView();

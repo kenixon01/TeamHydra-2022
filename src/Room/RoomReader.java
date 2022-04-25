@@ -1,24 +1,7 @@
 package Room;
 
-import Item.Item;
-import Room.Room;
-
 import java.io.*;
 import java.util.*;
-
-/**
- * The Room.RoomReader class will build the environment of the game.
- *  Upon building, the various rooms and their respected descriptions
- *  will have been read from the text file.
- *  All rooms with have the following
- *     Room.Room Name
- *     Room.Room Description
- *     Neighboring Rooms or Hallways
- *  @since 1.0
- *  @author David W. Huber
- *  @version 1.1
- */
-
 
 /**
  * Author: Brian Smithers

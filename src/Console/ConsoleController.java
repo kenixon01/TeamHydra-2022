@@ -12,6 +12,9 @@ import Puzzle.*;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Authors: Brian Smithers and Khamilah Nixon
+ */
 public class ConsoleController {
     private BattleController battleController;
     private Battle battle;
@@ -173,7 +176,6 @@ public class ConsoleController {
                     isLocked, roomConnections, new InventoryController(
                             new Inventory(), new InventoryView()));
 
-            // add items to room from hashmap if the item matches the room number
             Room.addRoom(room1);
         }
         // Make model and view for controller
@@ -181,7 +183,6 @@ public class ConsoleController {
         roomView = new RoomView();
         roomController = new RoomController(room, roomView);
 
-        // TODO if/else to verify if a room is locked
         roomController.printRoomDescription();
     }
 
@@ -231,7 +232,6 @@ public class ConsoleController {
                 characterController.move(console.inputValidator());
                 roomController.setModel(Room.getRoom(character.getRoomNumber()));
                 roomController.printRoomDescription();
-                // update the view
             }
             case "attack" -> {
                 if (battleController.getModel().getMonster().getHp() >= 0) {
