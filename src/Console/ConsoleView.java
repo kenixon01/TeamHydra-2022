@@ -61,8 +61,6 @@ public class ConsoleView {
                 """);
     }
 
-    //public void Item
-
     public void saveGame() {
         System.out.println("Saved.");
     }

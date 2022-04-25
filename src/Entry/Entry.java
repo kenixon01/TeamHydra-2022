@@ -10,11 +10,10 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 
 /**
- * Author: Brian Smithers
+ * Author: Brian Smithers and Khamilah Nixon
  */
 public class Entry {
 
-    //Brian Smithers and Khamilah Nixon
     public static void main(String[] args) {
 
         Console console = new Console();

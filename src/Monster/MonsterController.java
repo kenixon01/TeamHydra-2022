@@ -2,6 +2,9 @@ package Monster;
 
 import java.util.HashMap;
 
+/**
+ * @author Khamilah Nixon
+ */
 public class MonsterController {
     private MonsterView view;
     private HashMap<Integer, Monster> model;

@@ -5,6 +5,9 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * Author: Brian Smithers
+ */
 public class ReadRoomDescription {
     private StringBuilder roomDescription;
     private final String roomDescriptionFilePath;
