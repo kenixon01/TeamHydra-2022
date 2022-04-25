@@ -22,16 +22,24 @@ public class BattleController {
      * attack damage information after each attack.
      * @author Brian Smithers and Khamilah Nixon
      */
-    public void printBattleDetails(List<Item> inventory, boolean playerSelectedDodge, boolean playerSelectedBlock) {
+    public void printBattleDetails(List<Item> inventory, boolean playerSelectedDodge,
+                                   boolean playerSelectedBlock) {
+        // Print remaining health for both monster and player
+//        view.remainingHealth(model.getMonster(),model.getPlayer());
+
         // Player attacks monster
-        if (model.attackMonster(inventory)) {
-            view.attackTurnResult(model.getPlayerName(),
-                    model.getPlayerAttackPoints(), model.getMonsterName());
-        }
-        // Monster.Monster attacks player
-        if (model.attackPlayer(playerSelectedDodge, playerSelectedBlock)) {
-            view.attackTurnResult(model.getMonsterName(),
-                    model.getMonsterAttackPoints(), model.getPlayerName());
-        }
+        model.attackMonster();
+        view.attackTurnResult(model.getPlayerName(), model.getPlayerAttackPoints(), model.getMonsterName());
+
+        model.attackPlayer(playerSelectedDodge, playerSelectedBlock);
+        // Monster attacks player
+        view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
+
+        // Print remaining health for both monster and player
+        view.remainingHealth(model.getMonster(),model.getPlayer());
+    }
+
+    public Battle getModel() {
+        return model;
     }
 }

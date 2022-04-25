@@ -69,4 +69,8 @@ public class ConsoleView {
     public String toString() {
         return super.toString();
     }
+
+    public void gameOver() {
+        System.out.println("Game Over");
+    }
 }

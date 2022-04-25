@@ -194,7 +194,7 @@ public class ConsoleController {
             room = Room.getRoom(character.getRoomNumber());
             roomController.setModel(room);
             int roomID = characterController.getModel().getRoomNumber();
-            if(monsterController.getModel().get(roomID) != null) {
+            if (monsterController.getModel().get(roomID).getHp() >= 0) {
                 System.out.println();
                 monsterController.monsterDescription(roomID);
                 battleView = new BattleView();
@@ -202,7 +202,7 @@ public class ConsoleController {
                 battleController = new BattleController(battle,battleView);
             }
             System.out.println();
-            while(!validCommand) {
+            while (!validCommand) {
                 console.enterCommand();
                 validCommand = isValidGameCommand();
             }
@@ -226,13 +226,31 @@ public class ConsoleController {
             case "north", "south", "east", "west" -> {
                 characterController.move(console.inputValidator());
             }
-            case "attack" -> battleController.printBattleDetails(itemController.getModel().get("0"),false, false);
-            case "block" -> battleController.printBattleDetails(itemController.getModel().get("0"),false, true);
+            case "attack" -> {
+                if (battleController.getModel().getMonster().getHp() >= 0) {
+                    battleController.printBattleDetails(characterController.getModel().getPlayerItemInventory(),
+                            false, false);
+                }
+                battleMessages();
+            }
+            case "block" -> {
+                if (battleController.getModel().getMonster().getHp() > 0 ) {
+                    battleController.printBattleDetails(characterController.getModel().getPlayerItemInventory(),
+                            false, true);
+                }
+                battleMessages();
+            }
             case "location" -> characterController.printPlayerLocation();
             case "inventory" -> characterController.printInventory();
             case "save" -> System.out.println("save");
             case "resume" -> System.out.println("resume");
-            case "dodge" -> battleController.printBattleDetails(itemController.getModel().get("0"),true,false);
+            case "dodge" -> {
+                if(battleController.getModel().getMonster().getHp() > 0) {
+                    battleController.printBattleDetails(characterController.getModel().getPlayerItemInventory(),
+                            true,false);
+                }
+                battleMessages();
+            }
             case "hint" -> {
                 int roomID = characterController.getModel().getRoomNumber();
                 List<Puzzle> puzzleList = puzzleController.getPuzzles().get(roomID + "");
@@ -253,5 +271,18 @@ public class ConsoleController {
             }
         }
         return true;
+    }
+
+    /**
+     * Author: Brian and Khamilah
+     */
+    public void battleMessages() {
+        if (battleController.getModel().getPlayer().getHp() <= 0) {
+            consoleView.gameOver();
+            System.exit(0);
+        }
+        if (battleController.getModel().getMonster().getHp() <= 0) {
+            System.out.println("There is no monster in this room.");
+        }
     }
 }

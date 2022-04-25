@@ -49,17 +49,16 @@ public class CharacterReader {
     public void read() {
         readChar();
         readCharDescription();
-        //readCharStarterItem();
+        readCharStarterItem();
         readCharStarterItemDescription();
         createCharacter();
     }
 
     public void createCharacter() {
+        playerItemInventory = new LinkedList<>();
         character = new Character(charId, charName, playerItemInventory, charDescription,
                 hitPoints, dodgeChance, damage);
-        /*
         addStarterItemToPlayerInventory();
-         */
     }
 
     private Item createStarterItem() {
@@ -67,11 +66,15 @@ public class CharacterReader {
                 itemRoomId, itemDamage, itemHealthRestoration, itemType,
                 itemTotalHitPointsModifier, 0.0f);
     }
-    /*
+
     private void addStarterItemToPlayerInventory() {
-        character.getPlayerItemInventory().add(createStarterItem());
+        Item starterItem = createStarterItem();
+        character.getPlayerItemInventory().add(starterItem);
+        character.setMaxHitPoints(
+                character.getMaxHitPoints() + starterItem.get_totalHpModifier());
+        character.setCurrentHitPoints(character.getMaxHitPoints());
+        character.setDamage(starterItem.get_damageValue());
     }
-     */
 
     public Character getCharacter() {
         return character;

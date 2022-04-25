@@ -51,14 +51,14 @@ public class CharacterView {
     }
 
     /**
-     * @param character the player
-     * @author Khamilah Nixon
+     * Author: Khamilah Nixon
      */
     public void printInventory(Character character) {
-        System.out.println(character.getName() + "' Inventory");
-        if(character.getPlayerItemInventory() != null) {
+        System.out.println(character.getName() + "' Inventory:");
+        System.out.println("-*-*-*-*-*-*-*-*-*-*-*-*-");
+        if(character.getPlayerItemInventory() != null || character.getPlayerItemInventory().size() == 0) {
             for(int i = 0; i < character.getPlayerItemInventory().size(); i++) {
-                System.out.println(character.getPlayerItemInventory().get(i));
+                System.out.println(character.getPlayerItemInventory().get(i).get_itemName());
             }
         }
         else {

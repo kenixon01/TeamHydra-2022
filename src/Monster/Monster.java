@@ -42,7 +42,7 @@ public class Monster {
         this.ROOM_ID = ROOM_ID;
         this.ITEM_ID = ITEM_ID;
         this.DAMAGE = DAMAGE;
-        Hp = hp;
+        this.Hp = hp;
         this.NAME = NAME;
         this.DESCRIPTION = DESCRIPTION;
     }
@@ -53,11 +53,11 @@ public class Monster {
             MonsterReader monsterReader = new MonsterReader();
             hashMap.put(i + 1,
                     new Monster(
-                            monsterReader.getHP(),
+                            monsterReader.getID(),
                             monsterReader.getROOM_ID(),
                             monsterReader.getITEM_ID(),
-                            monsterReader.getHP(),
                             monsterReader.getDAMAGE(),
+                            monsterReader.getHP(),
                             monsterReader.getNAME(),
                             monsterReader.getDESCRIPTION()
                     ));
