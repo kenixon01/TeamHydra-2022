@@ -1,5 +1,8 @@
 package Room;
 
+/**
+ * Author: Brian Smithers
+ */
 public class RoomController {
     private Room model;
     private RoomView view;

@@ -14,6 +14,6 @@ public class PuzzleView {
 
     public void puzzleExit(Puzzle puzzle)
     {
-        System.out.println();
+        System.out.println("Exited puzzle");
     }
 }

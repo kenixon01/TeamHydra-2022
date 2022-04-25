@@ -35,13 +35,6 @@ public final class MonsterReader {
     itemHeal,  itemHP, itemCriticalHit;
     private String itemFilePath;
 
-//    static {
-//        try {
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//    }/
-
     /**
      * Assigns monster values based on values written in {@link #idFile}, {@link #idFile},
      *  {@link #roomIDFile}, {@link #itemIDFile}, {@link #hpFile}, {@link #damageFile},
