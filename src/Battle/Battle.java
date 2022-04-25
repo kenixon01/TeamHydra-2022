@@ -111,7 +111,7 @@ public class Battle {
      */
     public boolean attackPlayer(boolean selectDodge, boolean selectBlock) {
         if (getPlayerHp() > 0 && getMonsterHp() > 0) {
-            if(selectDodge && !playerDodge()){
+            if(!selectDodge && !playerDodge()){
                 player.setHp(loseHealth(getPlayerHp(),getMonsterAttackPoints()) + damageReduction(selectBlock));
             }
             return true;
