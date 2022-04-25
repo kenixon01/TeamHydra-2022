@@ -146,6 +146,7 @@ public class ConsoleController {
 
         puzzleView = new PuzzleView();
         puzzleController = new PuzzleController(puzzleView);
+
     }
 
     /**
@@ -179,6 +180,8 @@ public class ConsoleController {
         room = Room.getRoom(1);
         roomView = new RoomView();
         roomController = new RoomController(room, roomView);
+
+        roomController.printRoomDescription();
     }
 
     /**
@@ -188,11 +191,16 @@ public class ConsoleController {
     public void enterCommand() {
         while (!console.getInput().equalsIgnoreCase("exit")) {
             boolean validCommand = false;
-            roomController.printRoomDescription();
+            room = Room.getRoom(character.getRoomNumber());
+            roomController.setModel(room);
             int roomID = characterController.getModel().getRoomNumber();
-//            if(monsterController.getModel().get(roomID) != null) {
-//                System.out.println("monster exists");
-//            }
+            if(monsterController.getModel().get(roomID) != null) {
+                System.out.println();
+                monsterController.monsterDescription(roomID);
+                battleView = new BattleView();
+                battle = new Battle(characterController.getModel(),monsterController.getModel().get(roomID));
+                battleController = new BattleController(battle,battleView);
+            }
             while(!validCommand) {
                 console.enterCommand();
                 validCommand = isValidGameCommand();
@@ -214,7 +222,9 @@ public class ConsoleController {
             }
             case "equip" -> itemController.equipItem(characterController.getModel());
             case "unequip" -> itemController.unequipItem(characterController.getModel());
-            case "north", "south", "east", "west" -> characterController.move(console.inputValidator());
+            case "north", "south", "east", "west" -> {
+                characterController.move(console.inputValidator());
+            }
             case "attack" -> battleController.printBattleDetails(itemController.getModel().get("0"),false, false);
             case "block" -> battleController.printBattleDetails(itemController.getModel().get("0"),false, true);
             case "location" -> characterController.printPlayerLocation();
@@ -241,6 +251,7 @@ public class ConsoleController {
                 return false;
             }
         }
+        System.out.println();
         return true;
     }
 }

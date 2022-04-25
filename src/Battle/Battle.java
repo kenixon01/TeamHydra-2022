@@ -30,21 +30,22 @@ public class Battle {
      */
     public boolean attackMonster(List<Item> inventory) {
         //inventory is "itemController.model.get("0")
-        LinkedList<Item> playerInventory = (LinkedList<Item>) inventory;
+//        LinkedList<Item> playerInventory = (LinkedList<Item>) inventory;
         if (getPlayerHp() > 0) {
             monster.setHp(getMonsterHp() - getPlayerAttackPoints());
 
             //health restoration functionality
-            if(playerInventory.size() > 0) { //verifies that the player has items in their inventory
-
-                // Determines the total player health restoration points.
-                // If that value is greater than 0, then increase player health by that amount
-
-                int healthRestoration = playerHealthRestore(playerInventory, playerInventory.size() - 1);
-                if(healthRestoration > 0) {
-                    player.setHp(getPlayerHp() + healthRestoration);
-                }
-            }
+//            if(playerInventory.size() > 0) { //verifies that the player has items in their inventory
+//
+//                // Determines the total player health restoration points.
+//                // If that value is greater than 0, then increase player health by that amount
+//
+//                int healthRestoration = playerHealthRestore(playerInventory, playerInventory.size() - 1);
+//                if (healthRestoration > 0) {
+//                    player.setHp(getPlayerHp() + healthRestoration);
+//
+//                }
+//            }
             return true;
         }
         return false;

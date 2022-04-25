@@ -8,6 +8,15 @@ public class CharacterView {
     /**
      * Author: Brian Smithers
      */
+    public void failedRoomTraversal(boolean traverse) {
+        if (!traverse) {
+            System.out.println("You can't travel here...");
+        }
+    }
+
+    /**
+     * Author: Brian Smithers
+     */
     public void printHelp(String commandList) {
         System.out.println(commandList);
     }

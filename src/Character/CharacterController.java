@@ -44,8 +44,12 @@ public class CharacterController {
         Character.loadCharacterData(model.scanUserInput());
     }
 
+    /**
+     * author: Brian Smithers
+     * 
+     */
     public void move(String direction) {
-        model.traverseRooms(direction);
+        view.failedRoomTraversal(model.traverseRooms(direction));
     }
 
     /**
