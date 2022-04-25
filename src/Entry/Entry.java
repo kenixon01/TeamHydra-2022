@@ -6,6 +6,7 @@ import Console.ConsoleController;
 import Console.ConsoleView;
 import Room.RoomController;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 
 /**
@@ -15,7 +16,6 @@ public class Entry {
 
     //Brian Smithers and Khamilah Nixon
     public static void main(String[] args) {
-        // TODO ask Jason how the item's initialize. When should it init?
 
         Console console = new Console();
         ConsoleView consoleView = new ConsoleView();
@@ -42,7 +42,7 @@ public class Entry {
             */
             consoleController.enterCommand();
         }
-        catch (InputMismatchException e) {
+        catch (InputMismatchException | IOException e) {
             consoleController.invalidCommand();
         }
     }

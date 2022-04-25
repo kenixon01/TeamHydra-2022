@@ -5,7 +5,6 @@ import Monster.Monster;
 import Character.Character;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -20,6 +19,29 @@ public class Battle {
         this.monster = monster;
     }
 
+    public int loseHealth(int health, int damage) {
+        if(health - damage < 0) {
+            health = 0;
+        }
+        else {
+            health -= damage;
+        }
+        return health;
+    }
+
+    /**
+     * Author: Khamilah Nixon
+     */
+    public int gainHealth(int health, int maxHealth, int val) {
+        if(health + val > maxHealth) {
+            health = maxHealth;
+        }
+        else {
+            health += val;
+        }
+        return health;
+    }
+
     /**
      * Determines if a player can attack the monster.  Sets the monster health points
      * during the player's attack.  If the player equipped an item that can
@@ -28,24 +50,21 @@ public class Battle {
      * @return if the player is alive
      * @author Brian Smithers and Khamilah Nixon
      */
-    public boolean attackMonster(List<Item> inventory) {
-        //inventory is "itemController.model.get("0")
-//        LinkedList<Item> playerInventory = (LinkedList<Item>) inventory;
-        if (getPlayerHp() > 0) {
-            monster.setHp(getMonsterHp() - getPlayerAttackPoints());
+    public boolean attackMonster() {
+//        inventory = itemController.model.get("0");
+        LinkedList<Item> playerInventory = player.getInventoryController().getItemInventory();
+        if (getPlayerHp() > 0 && getMonsterHp() > 0) {
+            monster.setHp(loseHealth(getMonsterHp(),getPlayerAttackPoints()));
 
-            //health restoration functionality
-//            if(playerInventory.size() > 0) { //verifies that the player has items in their inventory
-//
-//                // Determines the total player health restoration points.
-//                // If that value is greater than 0, then increase player health by that amount
-//
-//                int healthRestoration = playerHealthRestore(playerInventory, playerInventory.size() - 1);
-//                if (healthRestoration > 0) {
-//                    player.setHp(getPlayerHp() + healthRestoration);
-//
-//                }
-//            }
+//            health restoration functionality
+            assert playerInventory != null;
+            if(playerInventory.size() > 0) {
+                int healthRestoration = playerHealthRestore(playerInventory, playerInventory.size() - 1);
+                if (healthRestoration > 0) {
+                    player.setHp(gainHealth(getPlayerHp(), getPlayer().getMaxHitPoints(), healthRestoration));
+
+                }
+            }
             return true;
         }
         return false;
@@ -58,18 +77,28 @@ public class Battle {
      * @param length size of inventory
      * @return total health points restored to player
      * @author Khamilah Nixon
-     */
+     */    // This is for the shadow bow
     private int playerHealthRestore(LinkedList<Item> inventory, int length) {
-        int hp = inventory.get(length).get_healValue();
-        boolean isEquipped = inventory.get(length).getEquipped();
-        String type = inventory.get(length).get_itemType();
+        // run through the linkedlist array
+        // look for an item that is of weapon type and has a positive health restoration value
+        // get that item
         int restore = 0;
-        for(Item item : inventory) {
-            if(isEquipped && hp > 0 && type.equalsIgnoreCase("weapon")) {
-                restore += hp;
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.get(i).get_itemType().equalsIgnoreCase("weapon") &&
+            inventory.get(i).get_healValue() > 0 && inventory.get(i).getEquipped()) {
+                // do something
+                restore += inventory.get(i).get_healValue();
             }
         }
         return restore;
+
+//        int hp = inventory.get(length).get_healValue();
+//        boolean isEquipped = inventory.get(length).getEquipped();
+//        String type = inventory.get(length).get_itemType();
+//        for(Item item : inventory) {
+//            if(isEquipped && hp > 0 && type.equalsIgnoreCase("weapon")) {
+//            }
+//        }
     }
 
 
@@ -81,9 +110,9 @@ public class Battle {
      * @author Brian Smithers and Khamilah Nixon
      */
     public boolean attackPlayer(boolean selectDodge, boolean selectBlock) {
-        if (getMonsterHp() > 0) {
-            if(selectDodge && !playerDodge()){
-                player.setHp(getPlayerHp() - getMonsterAttackPoints() + damageReduction(selectBlock));
+        if (getPlayerHp() > 0 && getMonsterHp() > 0) {
+            if(!selectDodge && !playerDodge()){
+                player.setHp(loseHealth(getPlayerHp(),getMonsterAttackPoints()) + damageReduction(selectBlock));
             }
             return true;
         }
@@ -124,7 +153,7 @@ public class Battle {
      * @author Khamilah Nixon
      */
     public int getMonsterAttackPoints() {
-        return monster.getDAMAGE();
+        return monster.getDamage();
     }
 
     // Used in the view
@@ -154,6 +183,14 @@ public class Battle {
 
     // Used in the view
     public String getMonsterName() {
-        return monster.getNAME();
+        return monster.getName();
+    }
+
+    public Character getPlayer() {
+        return player;
+    }
+
+    public Monster getMonster() {
+        return monster;
     }
 }

@@ -69,7 +69,7 @@ public class ItemReader {
                 int hpModifier = reader.nextInt();
                 float critValue = reader.nextFloat(); // not implemented
                 currItem = new Item(itemNum, itemName, itemDesc, itemRoom, damageValue, healthValue, itemType,
-                        hpModifier, critValue);
+                        hpModifier, critValue, false,false);
 
                 //Check if a previous item has been added to a room.
                 if(items.get(currItem.get_itemRoom()) != null) {
@@ -82,7 +82,6 @@ public class ItemReader {
                     roomItems.add(currItem);
                     items.put(currItem.get_itemRoom(), roomItems);
                 }
-
             }
         }
 

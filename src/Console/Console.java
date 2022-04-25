@@ -2,12 +2,19 @@ package Console;
 
 import java.util.Scanner;
 
+/**
+ * Author: Brian Smithers
+ */
 public class Console {
     private String item = "";
     private String input = "";
 
     public String getInput() {
         return input;
+    }
+
+    public String getItem() {
+        return item;
     }
 
     public void enterCommand() {

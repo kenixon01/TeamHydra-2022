@@ -4,15 +4,15 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import Inventory.*;
 import Item.Item;
 import Room.Room;
-import Room.RoomReader;
 
 import java.util.*;
 
 /**
  * Author: Brian Smithers
- * Co Authors: David Khamilah
+ * Co Authors: Khamilah
  */
 
 public class Character {
@@ -20,24 +20,24 @@ public class Character {
 
     private final String id;
     private final String name;
-    private final LinkedList<Item> playerItemInventory;
     private final String description;
     private int maxHitPoints;
     private int currentHitPoints;
     private double dodgeChance;
     private double criticalHitChance;
     private int damage;
+    private Item weapon;
+    private Item wearable;
 
-//    private TreeMap<Integer,Room> rooms = RoomReader.roomReader();
-//    private String location_ = RoomReader.roomReader().firstEntry().getValue().getName();
+    private final InventoryController inventoryController;
 
     private double blockChance;
 
-    public Character(String id, String name, LinkedList<Item> playerItemInventory,
-                     String description, int maxHitPoints, double dodgeChance, int damage) {
+    public Character(String id, String name, InventoryController inventoryController, String description,
+                     int maxHitPoints, double dodgeChance, int damage) {
         this.id = id;
         this.name = name;
-        this.playerItemInventory = playerItemInventory;
+        this.inventoryController = inventoryController;
         this.description = description;
         this.maxHitPoints = maxHitPoints;
         this.currentHitPoints = maxHitPoints;
@@ -108,15 +108,96 @@ public class Character {
         return cr.getCharacter();
     }
 
-//    public String getLocation() {
-//        return location_;
-//    }
+    public String equipItem(String itemName) {
+       itemName = itemName.stripTrailing();
+       if (itemName.equalsIgnoreCase(weapon.get_itemName()) ||
+               itemName.equalsIgnoreCase(wearable.get_itemName())) {
+           return "This item is already equipped.";
+       }
+       else {
+           for (int i = 0; i < inventoryController.getItemInventory().size(); i++) {
+               if (inventoryController.getItemInventory().get(i).get_itemName()
+                       .equalsIgnoreCase(itemName)) {
+                   // Get item
+                   Item item = inventoryController.getItemInventory().get(i);
+                   if (item.get_itemType().equalsIgnoreCase("weapon")) {
+                       // Add weapon to users weapon slot
+                       setWeapon(item);
+                       setMaxHitPoints(getMaxHitPoints() + item.get_totalHpModifier());
+                       setCurrentHitPoints(getMaxHitPoints());
+                       setDamage(item.get_damageValue());
+                       // equip item
+                       item.setEquipped(true);
+                       return "Player equipped " + item.get_itemName() + "\n" +
+                               "Attack points equal: " + damage + "\n";
+                   }
+                   // If the item is a wearable, add stat buffs.
+                   if (item.get_itemType().equalsIgnoreCase("wearable")) {
+                       // Increase max health if the item increases total hp
+                       setMaxHitPoints(getMaxHitPoints() + item.get_totalHpModifier());
+                       // If the item restores health on pick up, restore health.
+                       if (item.isRestoreHealthOnPickUp()) {
+                           item.setRestoreHealthOnPickUp(false); // item can't restore health again
+                           setHp(getMaxHitPoints());
+                       }
+                       // Increase damage
+                       if (item.get_damageValue() > 0) {
+                           setDamage(getDamage() + item.get_damageValue());
+                       }
+                       // equip item
+                       item.setEquipped(true);
+                   }
+                   else {
+                       return "This item is not capable of being equipped.\n";
+                   }
+               }
+           }
+           return "No such item in inventory.\n";
+       }
+    }
+
+    public String unEquipItem(String itemName) {
+        itemName = itemName.stripTrailing();
+        if (weapon.get_itemName().equalsIgnoreCase(itemName) && !weapon.get_itemName()
+                .equalsIgnoreCase("hands")) {
+            // remove attack points
+            setDamage(damage - weapon.get_damageValue());
+            // set unequipped
+            weapon.setEquipped(false);
+            // equip bare hands
+            setWeapon(new Item(0, "Hands", "Your Hands",
+                    "None", 0, 0, "Weapon", 0,
+                    0.0f, false, false));
+            return "Player unequipped " + itemName + "\n" +
+                    "Attack points equal: " + damage + "\n";
+        }
+        else if (wearable.get_itemName().equalsIgnoreCase(itemName)) {
+            // remove health
+            setMaxHitPoints(getMaxHitPoints() - weapon.get_totalHpModifier());
+            if (currentHitPoints > maxHitPoints) {
+                currentHitPoints = maxHitPoints;
+            }
+            // add damage back
+            setDamage(getDamage() + wearable.get_damageValue());
+            // equip item
+            wearable.setEquipped(false);
+        }
+        if (itemName.equalsIgnoreCase("Hands")) {
+            return "You can't remove your hands!\n";
+        }
+        if (!weapon.get_itemName().equalsIgnoreCase(itemName)) {
+            return "This item is not equipped.";
+        }
+        // if this item is not equipped you can't unequip
+        return "No such item in inventory.\n";
+    }
     /**
      * Help method that will display a
      * list of commands the player can use.
      * @author David Huber and Khamilah Nixon
      * @return a list of commands
      */
+    // Author: Khamilah and David
     public String help() {
         StringBuilder commandList = new StringBuilder();
         BufferedReader file = null;
@@ -134,8 +215,8 @@ public class Character {
     /**
      * Author: Brian Smithers
      */
-    public boolean traverseRooms(String direction) {
-        //TODO fix issue with currentRoom
+        public boolean traverseRooms(String direction) {
+        // TODO fix issue with currentRoom
         // Copy room object for the players current room
         Room currentRoom = Objects.requireNonNull(Room.getRoom(getRoomNumber()));
 
@@ -152,6 +233,7 @@ public class Character {
                     if (room[j].equalsIgnoreCase(direction)) {
                         // Get players new room number and assign it to player
                         int newRoomNumber = Integer.parseInt(room[j - 1]);
+
                         setRoomNumber(newRoomNumber);
                         nextPass = true; // Stop iterating
                         return true;
@@ -161,74 +243,6 @@ public class Character {
         }
         return false;
     }
-    /*
-    public void move(String direction, HashMap<String, Room> rooms) {
-        direction = direction.toLowerCase();
-        Room current = rooms.get(location_);
-
-        String[] temp = current.getNeighbors();
-
-        Room next = null;
-
-        if (direction.equals("north")) {
-            if (!temp[0].equals("-")) {//if there is a room in said direction
-                next = rooms.get(temp[0]);
-                if(!next.isLocked()) {
-                    location_ = temp[0];
-                }
-                else
-                {
-                    System.out.println("Room locked");
-                }
-            } else {
-                System.out.println("Sorry, cannot go this way, try again!");
-            }
-        } else if (direction.equals("south")) {
-            if (!temp[1].equals("-")) {//if there is a room in said direction
-                next = rooms.get(temp[1]);
-                if(!next.isLocked()) {
-                    location_ = temp[1];
-                }
-                else
-                {
-                    System.out.println("Room locked");
-                }
-            } else {
-                System.out.println("Sorry, cannot go this way, try again!");
-            }
-        } else if (direction.equals("east")) {
-            if (!temp[2].equals("-")) { //if there is a room in said direction
-                next = rooms.get(temp[2]);
-                if(!next.isLocked()) {
-                    location_ = temp[2];
-                }
-                else
-                {
-                    System.out.println("Room locked");
-                }
-
-            } else {
-                System.out.println("Sorry, cannot go this way, try again!");
-            }
-        } else if (direction.equals("west")) {
-            if (!temp[3].equals("-")) {//if there is a room in said direction
-                next = rooms.get(temp[3]);
-                if(!next.isLocked()) {
-                    location_ = temp[3];
-                }
-                else
-                {
-                    System.out.println("Room locked");
-                }
-            } else {
-                System.out.println("Sorry, cannot go this way, try again!");
-            }
-        } else { //else
-            System.out.println("Sorry, not valid direction, try again!");
-        }
-    }
-
-     */
 
     @Override
     public String toString() {
@@ -240,7 +254,8 @@ public class Character {
                 "critical hit chance: " + criticalHitChance + "\n" +
                 "damage: " + damage + "\n" +
                 "location: " + Room.getRoom(roomNumber).getRoomDescription() + "\n" +
-                "block chance: " + blockChance + "\n";
+                "block chance: " + blockChance + "\n" +
+                "equipped weapon: " + weapon.get_itemName() + "\n";
     }
 
     private Scanner scanner() {
@@ -283,8 +298,18 @@ public class Character {
         return name;
     }
 
-    public LinkedList<Item> getPlayerItemInventory() {
-        return playerItemInventory;
+    public InventoryController getInventoryController() {
+        return inventoryController;
+    }
+
+    public Item getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(Item weapon) {
+        if (weapon.get_itemType().equalsIgnoreCase("weapon")) {
+            this.weapon = weapon;
+        }
     }
 
     public int getDamage() {
@@ -307,10 +332,6 @@ public class Character {
         return currentHitPoints;
     }
 
-//    public String getLocation_() {
-//        return location_;
-//    }
-
     public void setMaxHitPoints(int maxHitPoints) {
         this.maxHitPoints = maxHitPoints;
     }
@@ -327,10 +348,6 @@ public class Character {
         this.criticalHitChance = criticalHitChance;
     }
 
-//    public void setLocation_(String location_) {
-//        this.location_ = location_;
-//    }
-
     public void setBlockChance(double blockChance) {
         this.blockChance = blockChance;
     }
@@ -341,29 +358,5 @@ public class Character {
 
     public void setRoomNumber(int roomNumber) {
         this.roomNumber = roomNumber;
-    }
-}
-
-class CharacterItem {
-    private String itemId;
-    private String itemName;
-    private String itemEffectiveness;
-    private String description;
-    private String location;
-
-    public CharacterItem(String itemId, String itemName, String itemEffectiveness, String description,
-                         String location) {
-        this.itemId = itemId;
-        this.itemName = itemName;
-        this.itemEffectiveness = itemEffectiveness;
-        this.description = description;
-        this.location = location;
-    }
-}
-
-class Tester {
-    public static void main(String[] args) {
-        Character testChar = Character.loadCharacterData(3);
-        System.out.println(testChar);
     }
 }

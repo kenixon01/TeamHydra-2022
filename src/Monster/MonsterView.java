@@ -10,10 +10,10 @@ public final class MonsterView {
     }
 
     public void monsterDescription(Monster monster) {
-        System.out.println(monster.getDESCRIPTION());
+        System.out.println(monster.getDescription());
     }
 
     public void itemDrop(Monster monster) {
-        System.out.println(monster.getNAME() + " dropped an item");
+        System.out.println(monster.getName() + " dropped an item");
     }
 }

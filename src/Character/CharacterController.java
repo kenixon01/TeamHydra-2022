@@ -13,7 +13,6 @@ public class CharacterController {
         this.model = model;
         this.view = view;
     }
-
     /**
      * Author: Brian Smithers
      */
@@ -25,7 +24,7 @@ public class CharacterController {
      * Author: Brian Smithers
      */
     public void printPlayerDetails() {
-        view.printPlayerDetails(model.help());
+        view.printPlayerDetails(model.toString());
     }
 
     /**
@@ -34,16 +33,6 @@ public class CharacterController {
     public void printPlayerLocation() {
         view.printPlayerLocation(
                 Room.listOfRooms.get(model.getRoomNumber()).getRoomDescription());
-    }
-
-    /**
-     * Author: Brian Smithers
-     */
-    public void chooseCharacter() {
-        view.characterSelect();
-        Character.loadCharacterData(model.scanUserInput());
-        //if console input is 1
-        //addToInventory(-1, character);
     }
 
     /**
@@ -59,6 +48,14 @@ public class CharacterController {
      */
     public void printInventory() {
         view.printInventory(model);
+    }
+
+    public void equip(String itemName) {
+        System.out.println(getModel().equipItem(itemName));
+    }
+
+    public void unEquipItem(String itemName) {
+        System.out.println(getModel().unEquipItem(itemName));
     }
 
     public Character getModel() {

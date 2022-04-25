@@ -1,5 +1,6 @@
 package Character;
 
+import Inventory.*;
 import Item.Item;
 
 import java.io.File;
@@ -20,7 +21,6 @@ public class CharacterReader {
 
     private String charId;
     private String charName;
-    private LinkedList<Item> playerItemInventory;
     private String charDescription;
     private int hitPoints;
     private double dodgeChance;
@@ -49,29 +49,35 @@ public class CharacterReader {
     public void read() {
         readChar();
         readCharDescription();
-        //readCharStarterItem();
+        readCharStarterItem();
         readCharStarterItemDescription();
         createCharacter();
     }
 
     public void createCharacter() {
-        character = new Character(charId, charName, playerItemInventory, charDescription,
-                hitPoints, dodgeChance, damage);
-        /*
-        addStarterItemToPlayerInventory();
-         */
+        character = new Character(charId, charName,
+                new InventoryController(new Inventory(), new InventoryView()),
+                charDescription, hitPoints, dodgeChance, damage);
+        addStarterItemToPlayerInventoryAndEquipItem();
     }
 
     private Item createStarterItem() {
         return new Item(itemId, itemName, itemDescription,
                 itemRoomId, itemDamage, itemHealthRestoration, itemType,
-                itemTotalHitPointsModifier, 0.0f);
+                itemTotalHitPointsModifier, 0.0f, false,
+                false);
     }
-    /*
-    private void addStarterItemToPlayerInventory() {
-        character.getPlayerItemInventory().add(createStarterItem());
+
+    private void addStarterItemToPlayerInventoryAndEquipItem() {
+        Item starterItem = createStarterItem();
+        character.getInventoryController().getItemInventory().add(starterItem);
+        character.setMaxHitPoints(
+                character.getMaxHitPoints() + starterItem.get_totalHpModifier());
+        character.setCurrentHitPoints(character.getMaxHitPoints());
+        character.setDamage(starterItem.get_damageValue());
+        character.setWeapon(starterItem);
+        starterItem.setEquipped(true);
     }
-     */
 
     public Character getCharacter() {
         return character;

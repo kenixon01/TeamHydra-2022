@@ -145,9 +145,10 @@ public class ItemController {
             }
         }
     }
-    public void getPlayerStarterItems(Character character){
-        model.get("0").add(character.getPlayerItemInventory().get(0));
-    }
+
+//    public void getPlayerStarterItems(Character character){
+//        model.get("0").add(character.getPlayerItemInventory().get(0));
+//    }
 
     public Map<String, List<Item>> getModel() {
         return model;

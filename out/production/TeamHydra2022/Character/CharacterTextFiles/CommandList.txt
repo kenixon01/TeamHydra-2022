@@ -1,14 +1,15 @@
 List of Commands
-To save the game, enter "Save"
+To save the game, enter "Save" (not implemented)
 To access your inventory, enter "Inventory"
 To move your character, enter "N, S, E, or W"
 To attack a monster during combat, enter "attack"
 To block in combat, enter "block" (this takes up the players turn)
 To dodge in combat, enter "dodge" (this takes up the players turn)
-To equip an item, enter "equip" followed by the name of the item
-To use an item while in combat, enter "Use item" (Um what lets talk about this one)
+To equip an item, enter "equip" followed by the name of the item (partially implemented)
+To use an item while in combat, enter "Use item" (not implemented)
 To unequip an item, enter "unequip"
-To use an item from your inventory, enter "Use" followed by the item's name.
-To pickup an item, enter "yes" when prompted "Do you wish to take it?" or any dialogue that asks if you want an item
-To receive a hint during a puzzle, enter "Puzzle Hint"
-To exit a puzzle, enter "Exit Puzzle"
+To use an item from your inventory, enter "Use" followed by the item's name. (not implemented)
+To pickup an item, enter "yes" when prompted "Do you wish to take it?" (not implemented)
+To receive a hint during a puzzle, enter "Puzzle Hint" (not implemented)
+To exit a puzzle, enter "Exit Puzzle" (not implemented)
+To see a player's stats enter "Stats" (not implemented)

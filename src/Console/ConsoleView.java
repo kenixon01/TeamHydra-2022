@@ -61,6 +61,8 @@ public class ConsoleView {
                 """);
     }
 
+    //public void Item
+
     public void saveGame() {
         System.out.println("Saved.");
     }
@@ -68,5 +70,9 @@ public class ConsoleView {
     @Override
     public String toString() {
         return super.toString();
+    }
+
+    public void gameOver() {
+        System.out.println("Game Over");
     }
 }

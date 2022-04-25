@@ -1,10 +1,5 @@
+
 package Puzzle;
-/**
- * TODO Recode this entirely
- * Issues: puzzle doesn't check to see if solved
- * Puzzle doesn't return item if solved
- * 
- */
 
 /**
  *  Author: Jayson Dasher

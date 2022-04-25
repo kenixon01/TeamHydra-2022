@@ -1,16 +1,14 @@
-Item Number
+Item Id
 12
 Item Name
 Flintlock pistol and a dagger
-Item Room
+Item Type
+Weapon
+Room the Item is located in
 CHAR_01
 Damage Value
 25
-Heal Value
+Health Restoration value
 0
-Item Type
-Weapon
 Total Hp Modifier
 0
-Is Equipped
-true
