@@ -13,6 +13,46 @@
 -USE A BLANK LINE AS A SEPARATOR-
 ---------------------------------------
 
+-12
+Flintlock pistol and a dagger
+Weapon
+Starting item for Leuthere, the Vampire Slayer. A 1482 Slitz & Williamson Flintlock pistol and a silver platted steel dagger given by Leuthere adoptive parents.
+-1
+25
+0
+0
+.15
+
+13
+Shadow Bow
+Weapon
+Given to Artemis as a gift for joining the Order of the Broken Heart, this bow is imbued with dark magic. The shadow arrows shot from it regenerate using the power of the darkness. In exchange for reduced damage, the bow steals the health from enemies.
+-3
+45
+5
+0
+0
+
+15
+Dagger of dragons
+Weapon
+A dagger made from a dragon's tooth.
+-2
+40
+0
+0
+0
+
+16
+Warhammer of the Revenant
+Weapon
+A blessed ornamental warhammer, never to break and gives its user a boost of innate vitality and tenacity. Equally beautiful as it is deadly.
+-4
+40
+0
+0
+0
+
 1
 Amulet
 Wearable
