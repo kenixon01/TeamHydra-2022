@@ -36,4 +36,20 @@ public class CharacterView {
         System.out.println("3.\tArtemis of the Broken Heart");
         System.out.println("4.\tLocke Zsahbdiin");
     }
+
+    /**
+     * @param character the player
+     * @author Khamilah Nixon
+     */
+    public void printInventory(Character character) {
+        System.out.println(character.getName() + "' Inventory");
+        if(character.getPlayerItemInventory() != null) {
+            for(int i = 0; i < character.getPlayerItemInventory().size(); i++) {
+                System.out.println(character.getPlayerItemInventory().get(i));
+            }
+        }
+        else {
+            System.out.println("Nothing in inventory");
+        }
+    }
 }

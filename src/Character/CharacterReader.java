@@ -49,7 +49,7 @@ public class CharacterReader {
     public void read() {
         readChar();
         readCharDescription();
-        readCharStarterItem();
+        //readCharStarterItem();
         readCharStarterItemDescription();
         createCharacter();
     }

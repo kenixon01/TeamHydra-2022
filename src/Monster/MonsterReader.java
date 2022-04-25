@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * The Monster.MonsterReader class defines a monster's attributes and assigns values to those attributes
@@ -32,6 +33,8 @@ public final class MonsterReader {
     private final int ID, ROOM_ID, ITEM_ID, HP, DAMAGE;
 
     private final String NAME, DESCRIPTION;
+
+    private HashMap<Integer,Monster> monsterHashMap = createMonster();
 
     static {
         try {
@@ -62,6 +65,10 @@ public final class MonsterReader {
         DESCRIPTION = readAttribute(descriptionFile);
     }
 
+    public HashMap<Integer, Monster> getMonsterHashMap() {
+        return monsterHashMap;
+    }
+
     public int getID() {
         return ID;
     }
@@ -84,6 +91,22 @@ public final class MonsterReader {
 
     public String getNAME() {
         return NAME;
+    }
+
+    private HashMap<Integer,Monster> createMonster() {
+        HashMap<Integer,Monster> monsters = new HashMap<>();
+        for(int i = 0; i < 7; i++) {
+            MonsterReader monsterReader = new MonsterReader();
+            int id = Integer.parseInt(monsterReader.readAttribute(idFile));
+            int roomID = Integer.parseInt(monsterReader.readAttribute(roomIDFile));
+            int itemID = Integer.parseInt(monsterReader.readAttribute(itemIDFile));
+            int damage = Integer.parseInt(monsterReader.readAttribute(damageFile));
+            int hp = Integer.parseInt(monsterReader.readAttribute(hpFile));
+            String name = monsterReader.readAttribute(nameFile);
+            String description = monsterReader.readAttribute(descriptionFile);
+            monsters.put(roomID,new Monster(id,roomID,itemID,damage,hp,name,description));
+        }
+        return monsters;
     }
 
     public String getDESCRIPTION() {

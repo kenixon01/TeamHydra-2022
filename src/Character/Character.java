@@ -8,9 +8,7 @@ import Item.Item;
 import Room.Room;
 import Room.RoomReader;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Author: Brian Smithers
@@ -18,6 +16,8 @@ import java.util.Scanner;
  */
 
 public class Character {
+    private int roomNumber;
+
     private final String id;
     private final String name;
     private final LinkedList<Item> playerItemInventory;
@@ -27,7 +27,9 @@ public class Character {
     private double dodgeChance;
     private double criticalHitChance;
     private int damage;
-    private String location_ = RoomReader.roomReader().firstEntry().getValue().getName();
+
+//    private TreeMap<Integer,Room> rooms = RoomReader.roomReader();
+//    private String location_ = RoomReader.roomReader().firstEntry().getValue().getName();
 
     private double blockChance;
 
@@ -106,22 +108,20 @@ public class Character {
         return cr.getCharacter();
     }
 
-    public String getLocation()
-    {
-        return location_;
-    }
+//    public String getLocation() {
+//        return location_;
+//    }
     /**
      * Help method that will display a
      * list of commands the player can use.
      * @author David Huber and Khamilah Nixon
      * @return a list of commands
      */
-    public String help()
-    {
+    public String help() {
         StringBuilder commandList = new StringBuilder();
         BufferedReader file = null;
         try {
-            file = new BufferedReader(new FileReader("list_of_commands.txt"));
+            file = new BufferedReader(new FileReader("src/Character/CharacterTextFiles/CommandList.txt"));
             while(file.ready()) {
                 commandList.append(file.readLine()).append("\n");
             }
@@ -130,11 +130,37 @@ public class Character {
         }
         return commandList.toString();
     }
+
     /**
-     * The move method will take the user's input
-     * and allow them to move accordingly
-     * @author David Huber
+     * Author: Brian Smithers
      */
+    public boolean traverseRooms(String direction) {
+        // Copy room object for the players current room
+        Room currentRoom = Objects.requireNonNull(Room.getRoom(getRoomNumber()));
+
+        // Get connections from copied room object
+        String[][] roomConnections = currentRoom.getRoomConnections();
+
+        // Do not iterate if direction is "-1"
+        boolean nextPass = direction.equalsIgnoreCase("-1");
+
+        for (String[] room : roomConnections) {
+            if (!nextPass) {
+                for (int j = 0; j < room.length; j++) {
+                    // Look for direction (N, S, E, W)
+                    if (room[j].equalsIgnoreCase(direction)) {
+                        // Get players new room number and assign it to player
+                        int newRoomNumber = Integer.parseInt(room[j - 1]);
+                        setRoomNumber(newRoomNumber);
+                        nextPass = true; // Stop iterating
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    /*
     public void move(String direction, HashMap<String, Room> rooms) {
         direction = direction.toLowerCase();
         Room current = rooms.get(location_);
@@ -199,8 +225,9 @@ public class Character {
         } else { //else
             System.out.println("Sorry, not valid direction, try again!");
         }
-
     }
+
+     */
 
     @Override
     public String toString() {
@@ -211,7 +238,7 @@ public class Character {
                 "dodge chance: " + dodgeChance + "\n" +
                 "critical hit chance: " + criticalHitChance + "\n" +
                 "damage: " + damage + "\n" +
-                "location: " + location_ + "\n" +
+                "location: " + Room.getRoom(roomNumber).getRoomDescription() + "\n" +
                 "block chance: " + blockChance + "\n";
     }
 
@@ -279,9 +306,9 @@ public class Character {
         return currentHitPoints;
     }
 
-    public String getLocation_() {
-        return location_;
-    }
+//    public String getLocation_() {
+//        return location_;
+//    }
 
     public void setMaxHitPoints(int maxHitPoints) {
         this.maxHitPoints = maxHitPoints;
@@ -299,12 +326,20 @@ public class Character {
         this.criticalHitChance = criticalHitChance;
     }
 
-    public void setLocation_(String location_) {
-        this.location_ = location_;
-    }
+//    public void setLocation_(String location_) {
+//        this.location_ = location_;
+//    }
 
     public void setBlockChance(double blockChance) {
         this.blockChance = blockChance;
+    }
+
+    public int getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber;
     }
 }
 

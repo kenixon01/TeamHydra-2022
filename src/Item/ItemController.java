@@ -18,7 +18,7 @@ public class ItemController {
         this.view = view;
     }
 
-    //TODO: EQUIP ITEM
+    // EQUIP ITEM
     public void equipItem(Character character){
         //print inventory
         view.printinventory(model.get("0"));
@@ -48,8 +48,10 @@ public class ItemController {
         else if(currentItem.get_itemType().equalsIgnoreCase("wearable")){
             //set equipped to true
             currentItem.setEquipped(true);
-            //TODO: set player max health value to current value plus modifier
-            //TODO: set player health to current health plus modifier
+            // set player max health value to current value plus modifier
+            character.setMaxHitPoints(character.getMaxHitPoints() + currentItem.get_totalHpModifier());
+            // set player health to current health plus modifier
+            character.setCurrentHitPoints(character.getCurrentHitPoints() + currentItem.get_healValue());
         }
         //input is an item that is not equippable
         else {
@@ -87,7 +89,7 @@ public class ItemController {
 
     }
 
-    public void useItem(Character character){
+    public void useItem(Character character) {
         view.printinventory(model.get("0"));
         Scanner reader = new Scanner(System.in);
         String input = reader.nextLine();
@@ -101,7 +103,7 @@ public class ItemController {
             character.setDamage(character.getDamage() + currentItem.get_damageValue());
             // delete item from local inventory and character inventory
             model.get("0").remove(Integer.parseInt(input)-1);
-            character.getPlayerItemInventory().remove(Integer.parseInt(input)-1);
+            //character.getPlayerItemInventory().remove(Integer.parseInt(input)-1);
         }
         else {
              view.notEquipable(currentItem);
@@ -117,11 +119,11 @@ public class ItemController {
         String input = reader.nextLine();
         if (input.equalsIgnoreCase("yes")){
             view.printItemDescription(currentItem);
-            currentItem = model.remove(roomNum).get(0);
             List<Item> playerInventory = model.get("0");
+            currentItem = model.remove(roomNum).get(0);
             playerInventory.add(currentItem);
             model.put("0", playerInventory);
-            character.getPlayerItemInventory().add(currentItem);
+            //character.getPlayerItemInventory().add(currentItem);
         }
         else {
             view.itemIgnored(currentItem);
@@ -129,8 +131,25 @@ public class ItemController {
     }
 
     public void addToInventory(String roomNum, Character character){
-        //TODO: method to add items to inventory
+        List<Item> playerInventory = model.get("0");
+        Item currentItem = model.remove(roomNum).get(0);
+        playerInventory.add(currentItem);
+        model.put("0", playerInventory);
+        //character.getPlayerItemInventory().add(currentItem);
+    }
+    //main controller calls upon this to check for any items in the room
+    public void checkRoomItem(String roomNum, Character character){
+        if (model.get(roomNum).size() > 0) {
+            for (int i = 0; i < model.get(roomNum).size(); i++) {
+                pickupItem(roomNum, character);
+            }
+        }
+    }
+    public void getPlayerStarterItems(Character character){
+        model.get("0").add(character.getPlayerItemInventory().get(0));
     }
 
-
+    public Map<String, List<Item>> getModel() {
+        return model;
+    }
 }

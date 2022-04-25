@@ -1,8 +1,0 @@
-Character ID
-CHAR_01
-Name
-Leuthere, the Vampire Slayer
-HP
-100
-Dodge Chance
-0.25

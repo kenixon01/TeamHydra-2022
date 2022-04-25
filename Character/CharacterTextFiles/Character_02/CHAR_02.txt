@@ -1,8 +1,0 @@
-Character ID
-CHAR_02
-Name
-Aldred Kiyotosuna
-HP
-150
-Dodge Chance
-0.0

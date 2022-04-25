@@ -40,4 +40,22 @@ public class CharacterController {
         view.characterSelect();
         Character.loadCharacterData(model.scanUserInput());
     }
+
+    public void move(String direction, Character character) {
+    }
+
+    /**
+     * @author Khamilah Nixon
+     */
+    public void printInventory() {
+        view.printInventory(model);
+    }
+
+    public Character getModel() {
+        return model;
+    }
+
+    public CharacterView getView() {
+        return view;
+    }
 }
