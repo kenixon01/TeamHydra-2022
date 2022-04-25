@@ -4,9 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import Inventory.*;
 import Item.Item;
 import Room.Room;
-import Room.RoomReader;
 
 import java.util.*;
 
@@ -20,24 +20,26 @@ public class Character {
 
     private final String id;
     private final String name;
-    private final LinkedList<Item> playerItemInventory;
     private final String description;
     private int maxHitPoints;
     private int currentHitPoints;
     private double dodgeChance;
     private double criticalHitChance;
     private int damage;
+    private Item weapon;
+
+    private final InventoryController inventoryController;
 
 //    private TreeMap<Integer,Room> rooms = RoomReader.roomReader();
 //    private String location_ = RoomReader.roomReader().firstEntry().getValue().getName();
 
     private double blockChance;
 
-    public Character(String id, String name, LinkedList<Item> playerItemInventory,
-                     String description, int maxHitPoints, double dodgeChance, int damage) {
+    public Character(String id, String name, InventoryController inventoryController, String description,
+                     int maxHitPoints, double dodgeChance, int damage) {
         this.id = id;
         this.name = name;
-        this.playerItemInventory = playerItemInventory;
+        this.inventoryController = inventoryController;
         this.description = description;
         this.maxHitPoints = maxHitPoints;
         this.currentHitPoints = maxHitPoints;
@@ -111,6 +113,58 @@ public class Character {
 //    public String getLocation() {
 //        return location_;
 //    }
+
+    public String equipItem(String itemName) {
+       itemName = itemName.stripTrailing();
+       if (itemName.equalsIgnoreCase(weapon.get_itemName())) {
+           return "This item is already equipped.";
+       }
+       else {
+           for (int i = 0; i < inventoryController.getItemInventory().size(); i++) {
+               if (inventoryController.getItemInventory().get(i).get_itemName()
+                       .equalsIgnoreCase(itemName)) {
+                   // Get item
+                   Item item = inventoryController.getItemInventory().get(i);
+                   if (item.get_itemType().equalsIgnoreCase("weapon")) {
+                       // Add weapon to users weapon slot
+                       setWeapon(item);
+                       setMaxHitPoints(getMaxHitPoints() + item.get_totalHpModifier());
+                       setCurrentHitPoints(getMaxHitPoints());
+                       setDamage(item.get_damageValue());
+                       return "Player equipped " + item.get_itemName() + "\n" +
+                               "Attack points equal: " + damage + "\n";
+                   }
+                   else {
+                       return "This item is not capable of being equipped.\n";
+                   }
+               }
+           }
+           return "No such item in inventory.\n";
+       }
+    }
+
+    public String unEquipItem(String itemName) {
+        itemName = itemName.stripTrailing();
+        if (weapon.get_itemName().equalsIgnoreCase(itemName) && !weapon.get_itemName()
+                .equalsIgnoreCase("hands")) {
+            // remove attack points
+            setDamage(damage - weapon.get_damageValue());
+            // equip bare hands
+            setWeapon(new Item(0, "Hands", "Your Hands",
+                    "None", 0, 0, "Weapon", 0,
+                    0.0f));
+            return "Player unequipped " + itemName + "\n" +
+                    "Attack points equal: " + damage + "\n";
+        }
+        if (itemName.equalsIgnoreCase("Hands")) {
+            return "You can't remove your hands!\n";
+        }
+        if (!weapon.get_itemName().equalsIgnoreCase(itemName)) {
+            return "This item is not equipped.";
+        }
+        // if this item is not equipped you can't unequip
+        return "No such item in inventory.\n";
+    }
     /**
      * Help method that will display a
      * list of commands the player can use.
@@ -152,7 +206,14 @@ public class Character {
                     if (room[j].equalsIgnoreCase(direction)) {
                         // Get players new room number and assign it to player
                         int newRoomNumber = Integer.parseInt(room[j - 1]);
-                        setRoomNumber(newRoomNumber);
+
+                        //check if a room is locked
+                        if(Room.listOfRooms.get(newRoomNumber).isLocked()) {
+                            System.out.println("room locked"); // <= TESTER PRINT STATEMENT
+                        }
+                        else{
+                            setRoomNumber(newRoomNumber);
+                        }
                         nextPass = true; // Stop iterating
                         return true;
                     }
@@ -283,8 +344,18 @@ public class Character {
         return name;
     }
 
-    public LinkedList<Item> getPlayerItemInventory() {
-        return playerItemInventory;
+    public InventoryController getInventoryController() {
+        return inventoryController;
+    }
+
+    public Item getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(Item weapon) {
+        if (weapon.get_itemType().equalsIgnoreCase("weapon")) {
+            this.weapon = weapon;
+        }
     }
 
     public int getDamage() {
@@ -341,29 +412,5 @@ public class Character {
 
     public void setRoomNumber(int roomNumber) {
         this.roomNumber = roomNumber;
-    }
-}
-
-class CharacterItem {
-    private String itemId;
-    private String itemName;
-    private String itemEffectiveness;
-    private String description;
-    private String location;
-
-    public CharacterItem(String itemId, String itemName, String itemEffectiveness, String description,
-                         String location) {
-        this.itemId = itemId;
-        this.itemName = itemName;
-        this.itemEffectiveness = itemEffectiveness;
-        this.description = description;
-        this.location = location;
-    }
-}
-
-class Tester {
-    public static void main(String[] args) {
-        Character testChar = Character.loadCharacterData(3);
-        System.out.println(testChar);
     }
 }

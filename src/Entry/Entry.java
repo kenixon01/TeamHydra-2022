@@ -6,6 +6,7 @@ import Console.ConsoleController;
 import Console.ConsoleView;
 import Room.RoomController;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 
 /**
@@ -42,7 +43,7 @@ public class Entry {
             */
             consoleController.enterCommand();
         }
-        catch (InputMismatchException e) {
+        catch (InputMismatchException | IOException e) {
             consoleController.invalidCommand();
         }
     }

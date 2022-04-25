@@ -82,7 +82,6 @@ public class ItemReader {
                     roomItems.add(currItem);
                     items.put(currItem.get_itemRoom(), roomItems);
                 }
-
             }
         }
 

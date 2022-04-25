@@ -2,6 +2,8 @@ package Room;
 //import java.util.HashMap;
 //import java.util.Map;
 
+import Inventory.*;
+
 import java.util.HashMap;
 
 /**
@@ -16,33 +18,16 @@ public class Room {
 
     private boolean isLocked;
     private final String[][] roomConnections;
-    //private final Inventory roomInventory;
+    private final InventoryController inventoryController;
     //private final LinkedList<Monster> monstersInRooms;
     private boolean visited;
 
-    // This variable should become its own class and call it the ListOfRooms.
     // The idea is that it is a static database that houses all the rooms.
     public static final HashMap<Integer, Room> listOfRooms = new HashMap<>();
 
-    // All variables
-//    public Room(int roomNumber, String roomName, String roomDescription,
-//                String[][] roomConnections, Inventory roomInventory,
-//                boolean visited) {
-//        if (roomNumber > 0) {
-//            this.roomNumber = roomNumber;
-//        }
-//        this.roomName = roomName;
-//        this.roomDescription = roomDescription;
-//        this.roomConnections = roomConnections;
-//        this.roomInventory = roomInventory;
-//        this.visited = visited;
-//        this.monstersInRooms = new LinkedList<>();
-//    }
 
-    // All variables
     public Room(int roomNumber, String roomName, String roomDescription, boolean isLocked,
-                String[][] roomConnections
-                /*boolean visited*/) {
+                String[][] roomConnections, InventoryController inventoryController) {
         if (roomNumber > 0) {
             this.roomNumber = roomNumber;
         }
@@ -50,7 +35,7 @@ public class Room {
         this.roomDescription = roomDescription;
         this.isLocked = isLocked;
         this.roomConnections = roomConnections;
-        //this.visited = visited;
+        this.inventoryController = inventoryController;
     }
 
     public int getRoomNumber() {
@@ -89,12 +74,8 @@ public class Room {
 //        return roomInventory;
 //    }
 
-    public boolean isVisited() {
-        return visited;
-    }
-
-    public void setVisited(boolean visited) {
-        this.visited = visited;
+    public InventoryController getInventoryController() {
+        return inventoryController;
     }
 
 //    public void addMonster(Monster monster) {

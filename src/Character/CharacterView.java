@@ -50,15 +50,14 @@ public class CharacterView {
         System.out.println("Would you like to continue as " + character.getName() + "? Yes or No");
     }
 
-    /**
-     * Author: Khamilah Nixon
-     */
     public void printInventory(Character character) {
         System.out.println(character.getName() + "' Inventory:");
         System.out.println("-*-*-*-*-*-*-*-*-*-*-*-*-");
-        if(character.getPlayerItemInventory() != null || character.getPlayerItemInventory().size() == 0) {
-            for(int i = 0; i < character.getPlayerItemInventory().size(); i++) {
-                System.out.println(character.getPlayerItemInventory().get(i).get_itemName());
+        if(character.getInventoryController().getItemInventory() != null ||
+                character.getInventoryController().getItemInventory().size() == 0) {
+            for(int i = 0; i < character.getInventoryController().getItemInventory().size(); i++) {
+                System.out.println(character.getInventoryController().getItemInventory().get(i)
+                        .get_itemName());
             }
         }
         else {

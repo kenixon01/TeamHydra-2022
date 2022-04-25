@@ -27,7 +27,7 @@ import java.io.BufferedReader;
  */
 public final class MonsterReader {
 
-    private static BufferedReader idFile, roomIDFile, itemIDFile, hpFile, damageFile, nameFile, descriptionFile;
+    public static BufferedReader idFile, roomIDFile, itemIDFile, hpFile, damageFile, nameFile, descriptionFile;
 
     private final int ID, ROOM_ID, ITEM_ID, HP, DAMAGE;
 
@@ -60,6 +60,34 @@ public final class MonsterReader {
         DAMAGE = Integer.parseInt(readAttribute(damageFile));
         NAME = readAttribute(nameFile);
         DESCRIPTION = readAttribute(descriptionFile);
+    }
+
+    public static BufferedReader getIdFile() {
+        return idFile;
+    }
+
+    public static BufferedReader getRoomIDFile() {
+        return roomIDFile;
+    }
+
+    public static BufferedReader getItemIDFile() {
+        return itemIDFile;
+    }
+
+    public static BufferedReader getHpFile() {
+        return hpFile;
+    }
+
+    public static BufferedReader getDamageFile() {
+        return damageFile;
+    }
+
+    public static BufferedReader getNameFile() {
+        return nameFile;
+    }
+
+    public static BufferedReader getDescriptionFile() {
+        return descriptionFile;
     }
 
     public int getID() {

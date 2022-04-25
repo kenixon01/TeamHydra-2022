@@ -1,5 +1,6 @@
 package Character;
 
+import Inventory.*;
 import Item.Item;
 
 import java.io.File;
@@ -55,10 +56,10 @@ public class CharacterReader {
     }
 
     public void createCharacter() {
-        playerItemInventory = new LinkedList<>();
-        character = new Character(charId, charName, playerItemInventory, charDescription,
-                hitPoints, dodgeChance, damage);
-        addStarterItemToPlayerInventory();
+        character = new Character(charId, charName,
+                new InventoryController(new Inventory(), new InventoryView()),
+                charDescription, hitPoints, dodgeChance, damage);
+        addStarterItemToPlayerInventoryAndEquipItem();
     }
 
     private Item createStarterItem() {
@@ -67,13 +68,14 @@ public class CharacterReader {
                 itemTotalHitPointsModifier, 0.0f);
     }
 
-    private void addStarterItemToPlayerInventory() {
+    private void addStarterItemToPlayerInventoryAndEquipItem() {
         Item starterItem = createStarterItem();
-        character.getPlayerItemInventory().add(starterItem);
+        character.getInventoryController().getItemInventory().add(starterItem);
         character.setMaxHitPoints(
                 character.getMaxHitPoints() + starterItem.get_totalHpModifier());
         character.setCurrentHitPoints(character.getMaxHitPoints());
         character.setDamage(starterItem.get_damageValue());
+        character.setWeapon(starterItem);
     }
 
     public Character getCharacter() {

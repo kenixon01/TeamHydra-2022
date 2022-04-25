@@ -26,17 +26,18 @@ public class BattleController {
                                    boolean playerSelectedBlock) {
         // Print remaining health for both monster and player
 //        view.remainingHealth(model.getMonster(),model.getPlayer());
+        if(model.getMonster().getHp() > 0 && model.getPlayer().getHp() > 0) {
+            // Player attacks monster
+            model.attackMonster();
+            view.attackTurnResult(model.getPlayerName(), model.getPlayerAttackPoints(), model.getMonsterName());
 
-        // Player attacks monster
-        model.attackMonster();
-        view.attackTurnResult(model.getPlayerName(), model.getPlayerAttackPoints(), model.getMonsterName());
+            model.attackPlayer(playerSelectedDodge, playerSelectedBlock);
+            // Monster attacks player
+            view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
 
-        model.attackPlayer(playerSelectedDodge, playerSelectedBlock);
-        // Monster attacks player
-        view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
-
-        // Print remaining health for both monster and player
-        view.remainingHealth(model.getMonster(),model.getPlayer());
+            // Print remaining health for both monster and player
+            view.remainingHealth(model.getMonster(), model.getPlayer());
+        }
     }
 
     /**

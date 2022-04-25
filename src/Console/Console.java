@@ -10,6 +10,10 @@ public class Console {
         return input;
     }
 
+    public String getItem() {
+        return item;
+    }
+
     public void enterCommand() {
         input = "";
         Scanner scanner = new Scanner(System.in);

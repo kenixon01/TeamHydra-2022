@@ -17,6 +17,6 @@ public class BattleView {
      */
     public void remainingHealth(Monster monster, Character character) {
         System.out.println(character.getName() + "'s Remaining Health: " + character.getHp());
-        System.out.println(monster.getNAME() + "'s Remaining Health: " + monster.getHp());
+        System.out.println(monster.getName() + "'s Remaining Health: " + monster.getHp());
     }
 }

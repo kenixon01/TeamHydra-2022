@@ -5,7 +5,6 @@ import Monster.Monster;
 import Character.Character;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -20,6 +19,29 @@ public class Battle {
         this.monster = monster;
     }
 
+    public int loseHealth(int health, int damage) {
+        if(health - damage < 0) {
+            health = 0;
+        }
+        else {
+            health -= damage;
+        }
+        return health;
+    }
+
+    /**
+     * Author: Khamilah Nixon
+     */
+    public int gainHealth(int health, int maxHealth, int val) {
+        if(health + val > maxHealth) {
+            health = maxHealth;
+        }
+        else {
+            health += val;
+        }
+        return health;
+    }
+
     /**
      * Determines if a player can attack the monster.  Sets the monster health points
      * during the player's attack.  If the player equipped an item that can
@@ -30,9 +52,9 @@ public class Battle {
      */
     public boolean attackMonster() {
 //        inventory = itemController.model.get("0");
-        LinkedList<Item> playerInventory = player.getPlayerItemInventory();
+        LinkedList<Item> playerInventory = player.getInventoryController().getItemInventory();
         if (getPlayerHp() > 0 && getMonsterHp() > 0) {
-            monster.setHp(getMonsterHp() - getPlayerAttackPoints());
+            monster.setHp(loseHealth(getMonsterHp(),getPlayerAttackPoints()));
 
 //            health restoration functionality
             assert playerInventory != null;
@@ -43,7 +65,7 @@ public class Battle {
 
                 int healthRestoration = playerHealthRestore(playerInventory, playerInventory.size() - 1);
                 if (healthRestoration > 0) {
-                    player.setHp(getPlayerHp() + healthRestoration);
+                    player.setHp(gainHealth(getPlayerHp(), getPlayer().getMaxHitPoints(), healthRestoration));
 
                 }
             }
@@ -84,7 +106,7 @@ public class Battle {
     public boolean attackPlayer(boolean selectDodge, boolean selectBlock) {
         if (getPlayerHp() > 0 && getMonsterHp() > 0) {
             if(selectDodge && !playerDodge()){
-                player.setHp(getPlayerHp() - getMonsterAttackPoints() + damageReduction(selectBlock));
+                player.setHp(loseHealth(getPlayerHp(),getMonsterAttackPoints()) + damageReduction(selectBlock));
             }
             return true;
         }
@@ -125,7 +147,7 @@ public class Battle {
      * @author Khamilah Nixon
      */
     public int getMonsterAttackPoints() {
-        return monster.getDAMAGE();
+        return monster.getDamage();
     }
 
     // Used in the view
@@ -155,7 +177,7 @@ public class Battle {
 
     // Used in the view
     public String getMonsterName() {
-        return monster.getNAME();
+        return monster.getName();
     }
 
     public Character getPlayer() {

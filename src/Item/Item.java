@@ -1,5 +1,7 @@
 package Item;
 
+import java.util.LinkedList;
+
 /**
  *  Author: Jayson Dasher
  */
@@ -17,6 +19,8 @@ public class Item {
     private float _criticalHitChance;
     private Boolean isEquipped;
 
+    private static LinkedList<Item> itemList = new LinkedList<>();
+
     public Item(int itemNum, String itemName, String itemDesc, String itemRoom, int damageValue, int healValue, String itemType, int totalHpModifier, float criticalHitChance) {
         this._itemNumber = itemNum;
         this._itemName = itemName;
@@ -32,6 +36,10 @@ public class Item {
 
     public int get_itemNumber() {
         return _itemNumber;
+    }
+
+    public static LinkedList<Item> getItemList() {
+        return itemList;
     }
 
     public void set_itemNumber(int _itemNumber) {
