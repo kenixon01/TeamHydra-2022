@@ -42,6 +42,8 @@ public class CharacterController {
     public void chooseCharacter() {
         view.characterSelect();
         Character.loadCharacterData(model.scanUserInput());
+        //if console input is 1
+        //addToInventory(-1, character);
     }
 
     /**

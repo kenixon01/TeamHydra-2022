@@ -7,7 +7,8 @@ import java.util.List;
  */
 public class ItemView {
 
-   public ItemView(){}
+    public ItemView() { }
+
     public void printItemName(Item item){
         System.out.println(item.get_itemName());
     }
