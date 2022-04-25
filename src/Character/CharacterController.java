@@ -1,5 +1,7 @@
 package Character;
 
+import Room.Room;
+
 /**
  * Author: Brian Smithers
  */
@@ -30,7 +32,8 @@ public class CharacterController {
      * Author: Brian Smithers
      */
     public void printPlayerLocation() {
-        view.printPlayerLocation(model.getLocation());
+        view.printPlayerLocation(
+                Room.listOfRooms.get(model.getRoomNumber()).getRoomDescription());
     }
 
     /**
@@ -41,7 +44,8 @@ public class CharacterController {
         Character.loadCharacterData(model.scanUserInput());
     }
 
-    public void move(String direction, Character character) {
+    public void move(String direction) {
+        model.traverseRooms(direction);
     }
 
     /**

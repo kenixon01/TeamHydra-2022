@@ -8,6 +8,8 @@ import Character.*;
 import Monster.*;
 import Puzzle.*;
 
+import java.util.List;
+
 public class ConsoleController {
     private BattleController battleController;
     private Battle battle;
@@ -135,31 +137,47 @@ public class ConsoleController {
         );
         // Create new character object
         character = Character.loadCharacterData(Integer.parseInt(userOption));
-        itemController.addToInventory("-" + userOption, character);
+//        itemController.addToInventory("-" + userOption, character);
         characterController = new CharacterController(character, characterView);
 
         monsterView = new MonsterView();
-        monsterController = new MonsterController(new MonsterReader().getMonsterHashMap(), monsterView);
+        monsterController = new MonsterController(MonsterReader.monsterHashMap,monsterView);
 
         puzzleView = new PuzzleView();
         puzzleController = new PuzzleController(puzzleView);
-
-        // TODO make a method for this called "createRooms"
-       createRooms();
-
     }
 
+    /**
+     * Author: Brian Smithers
+     */
     public void createRooms() {
         ReadRoomConnections readRoomConnections =
                 new ReadRoomConnections("src/Room/RoomTextFile/RoomConnections.txt");
         readRoomConnections.read();
+
         ReadRoomDescription readRoomDescription =
                 new ReadRoomDescription("src/Room/RoomTextFile/RoomDescriptions.txt");
         readRoomDescription.read();
+
         RoomReader roomReader = new RoomReader("src/Room/RoomTextFile/Rooms_1.txt");
         roomReader.read();
 
         int numberOfRooms = readRoomDescription.getRoomNumber();
+        for (int i = 1; i < numberOfRooms + 1; i++) {
+            String[][] roomConnections = readRoomConnections.getHashMap().get(i);
+            String roomDescriptions = readRoomDescription.getRoomDescriptionHashMap().get(i);
+            String[] roomDetails = roomReader.getHashMap().get(i);
+
+            String roomName = roomDetails[1];
+            boolean isLocked = Boolean.parseBoolean(roomDetails[2]);
+            Room room1 = new Room(i, roomName, roomDescriptions,
+                    isLocked, roomConnections);
+            Room.addRoom(room1);
+        }
+        // Make model and view for controller
+        room = Room.getRoom(1);
+        roomView = new RoomView();
+        roomController = new RoomController(room, roomView);
     }
 
     /**
@@ -171,9 +189,9 @@ public class ConsoleController {
             boolean validCommand = false;
             roomController.printRoomDescription();
             int roomID = characterController.getModel().getRoomNumber();
-            if(monsterController.getModel().get(roomID) != null) {
-                System.out.println("monster exists");
-            }
+//            if(monsterController.getModel().get(roomID) != null) {
+//                System.out.println("monster exists");
+//            }
             while(!validCommand) {
                 console.enterCommand();
                 validCommand = isValidGameCommand();
@@ -193,17 +211,9 @@ public class ConsoleController {
                 System.out.println("use");
                 itemController.useItem(characterController.getModel());
             }
-            case "equip" -> {
-                System.out.println("equip");
-                itemController.equipItem(characterController.getModel());
-            }
-            case "unequip" -> {
-                System.out.println("unequip");
-                itemController.equipItem(characterController.getModel());
-            }
-            case "north", "south", "east", "west" -> {
-                characterController.move(console.inputValidator(), characterController.getModel());
-            }
+            case "equip" -> itemController.equipItem(characterController.getModel());
+            case "unequip" -> itemController.unequipItem(characterController.getModel());
+            case "north", "south", "east", "west" -> characterController.move(console.inputValidator());
             case "attack" -> battleController.printBattleDetails(itemController.getModel().get("0"),false, false);
             case "block" -> battleController.printBattleDetails(itemController.getModel().get("0"),false, true);
             case "location" -> characterController.printPlayerLocation();
@@ -211,9 +221,20 @@ public class ConsoleController {
             case "save" -> System.out.println("save");
             case "resume" -> System.out.println("resume");
             case "dodge" -> battleController.printBattleDetails(itemController.getModel().get("0"),true,false);
-            case "hint" -> System.out.println("puzzle hint");
+            case "hint" -> {
+                int roomID = characterController.getModel().getRoomNumber();
+                List<Puzzle> puzzleList = puzzleController.getPuzzles().get(roomID + "");
+                int chRoomID = characterController.getModel().getRoomNumber();
+                for(Puzzle pz : puzzleList) {
+                    if(pz.getRoom().equalsIgnoreCase(chRoomID + "")) {
+                        puzzleController.puzzleHint(characterController.getModel().getRoomNumber(), pz.getId());
+                    }
+                }
+            }
             case "help" -> characterController.printHelp();
-            case "solve" -> System.out.println("solve");
+            case "solve" -> {
+                System.out.println("solve");
+            }
             default -> {
                 invalidCommand();
                 return false;

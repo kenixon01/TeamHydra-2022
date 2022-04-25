@@ -22,7 +22,7 @@ public class Room {
 
     // This variable should become its own class and call it the ListOfRooms.
     // The idea is that it is a static database that houses all the rooms.
-    protected static final HashMap<Integer, Room> listOfRooms = new HashMap<>();
+    public static final HashMap<Integer, Room> listOfRooms = new HashMap<>();
 
     // All variables
 //    public Room(int roomNumber, String roomName, String roomDescription,
@@ -69,7 +69,7 @@ public class Room {
         return roomConnections;
     }
 
-    public void addRoom(Room room) {
+    public static void addRoom(Room room) {
         listOfRooms.put(room.getRoomNumber(), room);
     }
 

@@ -28,13 +28,13 @@ import java.util.HashMap;
  */
 public final class MonsterReader {
 
-    private static BufferedReader idFile, roomIDFile, itemIDFile, hpFile, damageFile, nameFile, descriptionFile;
-
     private final int ID, ROOM_ID, ITEM_ID, HP, DAMAGE;
 
     private final String NAME, DESCRIPTION;
 
-    private HashMap<Integer,Monster> monsterHashMap = createMonster();
+    public static HashMap<Integer,Monster> monsterHashMap = createMonster();
+
+    private static BufferedReader idFile, roomIDFile, itemIDFile, hpFile, damageFile, nameFile, descriptionFile;
 
     static {
         try {
@@ -93,7 +93,7 @@ public final class MonsterReader {
         return NAME;
     }
 
-    private HashMap<Integer,Monster> createMonster() {
+    private static HashMap<Integer,Monster> createMonster() {
         HashMap<Integer,Monster> monsters = new HashMap<>();
         for(int i = 0; i < 7; i++) {
             MonsterReader monsterReader = new MonsterReader();

@@ -22,8 +22,18 @@ public class PuzzleController {
     DESC: The player must be able to enter the correct puzzle answer into the console to solve the puzzle
     RAT: This allow the player to solve a puzzle to be able to unlock and retrieve an item if the puzzle is solved.
      */
-    pub
 
+    /**
+     * @param input player's answer
+     * @param roomID player's current location
+     * @param puzzleID puzzle id
+     * @author Khamilah Nixon
+     */
+    public void solvePuzzle(String input, int roomID, int puzzleID) {
+        if(input.equalsIgnoreCase(puzzles.get(roomID + "").get(puzzleID).getSolution())) {
+            view.puzzleSuccess(puzzles.get(roomID + "").get(puzzleID));
+        }
+    }
 
     //TODO: Puzzle.Puzzle Hint
     /*
@@ -32,20 +42,34 @@ public class PuzzleController {
      */
 
     /**
-     *
-     * @param roomNum player's current location
-     * @param puzzleNum
-     * @author Khamilah Nixon
+     * @param roomID player's current location
+     * @param puzzleID puzzle id
+     * @author Jayson Dasher and Khamilah Nixon
      */
-    public void puzzleHint(String roomNum, int puzzleNum){
-        view.puzzleHint(puzzles.get(roomNum).get(puzzleNum));
+    public void puzzleHint(int roomID, int puzzleID){
+        view.puzzleHint(puzzles.get(roomID + "").get(puzzleID));
     }
 
-    //TODO: Exit Puzzle.Puzzle
+    /**
+     * @return puzzles
+     * @author Khamilah Nixon
+     */
+    public Map<String, List<Puzzle>> getPuzzles() {
+        return puzzles;
+    }
+//TODO: Exit Puzzle.Puzzle
     /*
     DESC: The player must be able to type “Exit Puzzle.Puzzle” in the console while in a puzzle to exit the puzzle.
     RAT: This allows the player to exit the puzzle and walk around the room or other rooms to find possible clues.
      */
+    public void exitPuzzle(String input)
+    {
+        if(input.equalsIgnoreCase("Exit Puzzle"))
+        {
+            System.out.println("You have left the puzzle");
+        }
+
+    }
     //TODO: Check for Puzzle
 
 }

@@ -32,7 +32,7 @@ public class Entry {
             consoleController.characterSelect();
 
             //load rooms
-
+            consoleController.createRooms();
 
 
             /*

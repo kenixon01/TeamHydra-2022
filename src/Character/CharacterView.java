@@ -37,6 +37,10 @@ public class CharacterView {
         System.out.println("4.\tLocke Zsahbdiin");
     }
 
+    public void characterConfirm(Character character) {
+        System.out.println("Would you like to continue as " + character.getName() + "? Yes or No");
+    }
+
     /**
      * @param character the player
      * @author Khamilah Nixon

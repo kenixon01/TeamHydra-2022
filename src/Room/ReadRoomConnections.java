@@ -13,7 +13,7 @@ import java.util.Scanner;
  * Author: Brian Smithers
  */
 public class ReadRoomConnections {
-
+    private int currentRoom;
     private final String filePath;
     private final HashMap<Integer, String[][]> hashMap = new HashMap<>();
 
@@ -35,7 +35,7 @@ public class ReadRoomConnections {
 
             Scanner scanner = new Scanner(file);
 
-            int currentRoom = 0;
+            currentRoom = 0;
             while (scanner.hasNext()) {
                 currentRoom++; // init to 1 for hashmap
 
@@ -64,5 +64,9 @@ public class ReadRoomConnections {
         catch (FileNotFoundException e) {
             System.out.printf("The %s file was not found.%n", getFilePath());
         }
+    }
+
+    public int getCurrentRoom() {
+        return currentRoom;
     }
 }
