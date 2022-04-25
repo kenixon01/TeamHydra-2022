@@ -201,6 +201,7 @@ public class ConsoleController {
                 battle = new Battle(characterController.getModel(),monsterController.getModel().get(roomID));
                 battleController = new BattleController(battle,battleView);
             }
+            System.out.println();
             while(!validCommand) {
                 console.enterCommand();
                 validCommand = isValidGameCommand();
@@ -251,7 +252,6 @@ public class ConsoleController {
                 return false;
             }
         }
-        System.out.println();
         return true;
     }
 }
