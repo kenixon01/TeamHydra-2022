@@ -27,32 +27,37 @@ import java.io.BufferedReader;
  */
 public final class MonsterReader {
 
-    public static BufferedReader idFile, roomIDFile, itemIDFile, hpFile, damageFile, nameFile, descriptionFile;
+    private String HAS_ITEM;
+    public BufferedReader idFile, roomIDFile, itemIDFile, hpFile, damageFile, nameFile, descriptionFile, itemFile;
 
-    private final int ID, ROOM_ID, ITEM_ID, HP, DAMAGE;
+    private  String NAME, DESCRIPTION, itemName, itemDescription,itemType;
+    private int ID, ROOM_ID, ITEM_ID, HP, DAMAGE, itemID, itemRoomID, itemDamage,
+    itemHeal,  itemHP, itemCriticalHit;
+    private String itemFilePath;
 
-    private final String NAME, DESCRIPTION;
-
-    static {
-        try {
-            idFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/ID.txt"));
-            roomIDFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/RoomID.txt"));
-            itemIDFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/ItemID.txt"));
-            hpFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/HP.txt"));
-            damageFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/Damage.txt"));
-            nameFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/Name.txt"));
-            descriptionFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/Description.txt"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+//    static {
+//        try {
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }/
 
     /**
      * Assigns monster values based on values written in {@link #idFile}, {@link #idFile},
      *  {@link #roomIDFile}, {@link #itemIDFile}, {@link #hpFile}, {@link #damageFile},
      *  {@link #nameFile}, and {@link #descriptionFile}
      */
-    public MonsterReader() {
+    public MonsterReader(String itemFilePath) throws FileNotFoundException {
+        this.itemFilePath = itemFilePath;
+        idFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/ID.txt"));
+        roomIDFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/RoomID.txt"));
+        itemIDFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/ItemID.txt"));
+        hpFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/HP.txt"));
+        damageFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/Damage.txt"));
+        nameFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/Name.txt"));
+        descriptionFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/Description.txt"));
+        itemFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/Item.txt"));
+
         ID = Integer.parseInt(readAttribute(idFile));
         ROOM_ID = Integer.parseInt(readAttribute(roomIDFile));
         ITEM_ID = Integer.parseInt(readAttribute(itemIDFile));
@@ -60,34 +65,58 @@ public final class MonsterReader {
         DAMAGE = Integer.parseInt(readAttribute(damageFile));
         NAME = readAttribute(nameFile);
         DESCRIPTION = readAttribute(descriptionFile);
+        HAS_ITEM = readAttribute(itemFile);
+        if(Boolean.parseBoolean(HAS_ITEM)) {
+            itemID = Integer.parseInt(readAttribute(itemFile));
+            itemName = readAttribute(itemFile);;
+            itemDescription = readAttribute(itemFile);;
+            itemRoomID = Integer.parseInt(readAttribute(itemFile));
+            itemDamage = Integer.parseInt(readAttribute(itemFile));
+            itemHeal = Integer.parseInt(readAttribute(itemFile));
+            itemType = readAttribute(itemFile);;
+            itemHP = Integer.parseInt(readAttribute(itemFile));
+            itemCriticalHit = Integer.parseInt(readAttribute(itemFile));
+        }
     }
 
-    public static BufferedReader getIdFile() {
-        return idFile;
+    public String getHasItem() {
+        return HAS_ITEM;
     }
 
-    public static BufferedReader getRoomIDFile() {
-        return roomIDFile;
+    public String getItemName() {
+        return itemName;
     }
 
-    public static BufferedReader getItemIDFile() {
-        return itemIDFile;
+    public String getItemDescription() {
+        return itemDescription;
     }
 
-    public static BufferedReader getHpFile() {
-        return hpFile;
+    public String getItemType() {
+        return itemType;
     }
 
-    public static BufferedReader getDamageFile() {
-        return damageFile;
+    public int getItemID() {
+        return itemID;
     }
 
-    public static BufferedReader getNameFile() {
-        return nameFile;
+    public int getItemRoomID() {
+        return itemRoomID;
     }
 
-    public static BufferedReader getDescriptionFile() {
-        return descriptionFile;
+    public int getItemDamage() {
+        return itemDamage;
+    }
+
+    public int getItemHeal() {
+        return itemHeal;
+    }
+
+    public int getItemHP() {
+        return itemHP;
+    }
+
+    public int getItemCriticalHit() {
+        return itemCriticalHit;
     }
 
     public int getID() {

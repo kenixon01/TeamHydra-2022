@@ -197,21 +197,15 @@ public class ConsoleController {
             room = Room.getRoom(character.getRoomNumber());
             roomController.setModel(room);
             int roomID = characterController.getModel().getRoomNumber();
-            if (monsterController.getModel().get(roomID) != null && monsterController.getModel().get(roomID).getHp() > 0) {
-                System.out.println();
-                monsterController.monsterDescription(roomID);
-                battleView = new BattleView();
-                battle = new Battle(characterController.getModel(),monsterController.getModel().get(roomID));
-                battleController = new BattleController(battle,battleView);
-            }
-
-            //load puzzles
-            /*
-            if(puzzleController.getModel() != null){
-
-            }
-
-             */
+//            if (monsterController.getModel() != null) {
+//                if (monsterController.getModel().get(roomID).getHp() > 0) {
+//                    System.out.println();
+//                    monsterController.monsterDescription(roomID);
+//                    battleView = new BattleView();
+//                    battle = new Battle(characterController.getModel(),monsterController.getModel().get(roomID));
+//                    battleController = new BattleController(battle, battleView);
+//                }
+//            }
             System.out.println();
             while (!validCommand) {
                 console.enterCommand();
@@ -236,6 +230,9 @@ public class ConsoleController {
             case "unequip" -> characterController.unEquipItem(console.getItem());
             case "north", "south", "east", "west" -> {
                 characterController.move(console.inputValidator());
+                roomController.setModel(Room.getRoom(character.getRoomNumber()));
+                roomController.printRoomDescription();
+                // update the view
             }
             case "attack" -> {
                 if (battleController.getModel().getMonster().getHp() >= 0) {

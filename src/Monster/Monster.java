@@ -2,6 +2,7 @@ package Monster;
 
 import Item.Item;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -25,6 +26,7 @@ import java.util.HashMap;
  * @version 1.1
  */
 public class Monster {
+    private static final String ITEM_FILE_PATH = "src/Monster/MonsterTextFiles/Item.txt";
     private int id, roomId, itemId, damage, hp;
 
     private String name, description;
@@ -37,7 +39,7 @@ public class Monster {
      * Creates a monster object and assigns values to fields using
      * a {@link MonsterReader} reference
      */
-    public Monster(int ID, int ROOM_ID, int ITEM_ID, int DAMAGE, int hp, String NAME, String DESCRIPTION,Item item) {
+    public Monster(int ID, int ROOM_ID, int ITEM_ID, int DAMAGE, int hp, String NAME, String DESCRIPTION, Item item) {
         this.id = ID;
         this.roomId = ROOM_ID;
         this.itemId = ITEM_ID;
@@ -48,18 +50,11 @@ public class Monster {
         this.item = item;
     }
 
-    private static Item createItem(int id) {
-        for(Item item : Item.getItemList()) {
-            if(item.get_itemNumber() == id) {
-                return item;
-            }
-        }
-        return null;
-    }
 
-    public static HashMap<Integer,Monster>createMonsters() {
+
+    public static HashMap<Integer,Monster>createMonsters() throws FileNotFoundException {
         HashMap<Integer,Monster> hashMap = new HashMap<>();
-        MonsterReader monsterReader = new MonsterReader();
+        MonsterReader monsterReader = new MonsterReader(ITEM_FILE_PATH);
         int roomNum = 1;
         for(int i = 0; i < 7; i++) {
             int id = monsterReader.getID();
@@ -69,10 +64,37 @@ public class Monster {
             int hp = monsterReader.getHP();
             String name = monsterReader.getNAME();
             String description = monsterReader.getDESCRIPTION();
-            hashMap.put(roomNum, new Monster( id,roomid,itemid,damage,hp,name,description,createItem(id)));
+            boolean hasItem = Boolean.parseBoolean(monsterReader.getHasItem());
+
+            int itemID = monsterReader.getItemID();
+            String itemName = monsterReader.getItemName();
+            String itemDescription = monsterReader.getItemDescription();
+            int itemRoomID = monsterReader.getItemRoomID();
+            int itemDamage = monsterReader.getItemDamage();
+            int itemHeal = monsterReader.getItemHeal();
+            String itemType = monsterReader.getItemType();
+            int itemHP = monsterReader.getItemHP();
+            int itemCriticalHit = monsterReader.getItemCriticalHit();
+
+            if(hasItem) {
+                hashMap.put(roomNum, new Monster(id,roomid,itemid,damage,hp,name,description,
+                        createItem(itemid, itemName, itemDescription, itemRoomID, itemDamage, itemHeal,
+                        itemType, itemHP, itemCriticalHit))
+                );
+            }
+            else {
+                hashMap.put(roomNum, new Monster(id,roomid,itemid,damage,hp,name,description,null)
+                );
+            }
             roomNum++;
         }
         return hashMap;
+    }
+
+    private static Item createItem(int itemid, String itemName, String itemDescription, int itemRoomID, int itemDamage, int itemHeal, String itemType, int itemHP, int itemCriticalHit) {
+        return new Item(
+                itemid,itemName,itemDescription,itemRoomID+"",itemDamage,itemHeal,itemType,
+                itemHP,itemCriticalHit,false,false);
     }
 
     public int getId() {

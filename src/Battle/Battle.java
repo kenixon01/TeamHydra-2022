@@ -58,11 +58,7 @@ public class Battle {
 
 //            health restoration functionality
             assert playerInventory != null;
-            if(playerInventory.size() > 0) { //verifies that the player has items in their inventory
-
-                // Determines the total player health restoration points.
-                // If that value is greater than 0, then increase player health by that amount
-
+            if(playerInventory.size() > 0) {
                 int healthRestoration = playerHealthRestore(playerInventory, playerInventory.size() - 1);
                 if (healthRestoration > 0) {
                     player.setHp(gainHealth(getPlayerHp(), getPlayer().getMaxHitPoints(), healthRestoration));
@@ -81,18 +77,28 @@ public class Battle {
      * @param length size of inventory
      * @return total health points restored to player
      * @author Khamilah Nixon
-     */
+     */    // This is for the shadow bow
     private int playerHealthRestore(LinkedList<Item> inventory, int length) {
-        int hp = inventory.get(length).get_healValue();
-        boolean isEquipped = inventory.get(length).getEquipped();
-        String type = inventory.get(length).get_itemType();
+        // run through the linkedlist array
+        // look for an item that is of weapon type and has a positive health restoration value
+        // get that item
         int restore = 0;
-        for(Item item : inventory) {
-            if(isEquipped && hp > 0 && type.equalsIgnoreCase("weapon")) {
-                restore += hp;
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.get(i).get_itemType().equalsIgnoreCase("weapon") &&
+            inventory.get(i).get_healValue() > 0 && inventory.get(i).getEquipped()) {
+                // do something
+                restore += inventory.get(i).get_healValue();
             }
         }
         return restore;
+
+//        int hp = inventory.get(length).get_healValue();
+//        boolean isEquipped = inventory.get(length).getEquipped();
+//        String type = inventory.get(length).get_itemType();
+//        for(Item item : inventory) {
+//            if(isEquipped && hp > 0 && type.equalsIgnoreCase("weapon")) {
+//            }
+//        }
     }
 
 

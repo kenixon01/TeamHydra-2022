@@ -65,7 +65,8 @@ public class CharacterReader {
     private Item createStarterItem() {
         return new Item(itemId, itemName, itemDescription,
                 itemRoomId, itemDamage, itemHealthRestoration, itemType,
-                itemTotalHitPointsModifier, 0.0f);
+                itemTotalHitPointsModifier, 0.0f, false,
+                false);
     }
 
     private void addStarterItemToPlayerInventoryAndEquipItem() {
@@ -76,6 +77,7 @@ public class CharacterReader {
         character.setCurrentHitPoints(character.getMaxHitPoints());
         character.setDamage(starterItem.get_damageValue());
         character.setWeapon(starterItem);
+        starterItem.setEquipped(true);
     }
 
     public Character getCharacter() {

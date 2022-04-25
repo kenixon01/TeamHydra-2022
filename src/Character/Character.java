@@ -12,7 +12,7 @@ import java.util.*;
 
 /**
  * Author: Brian Smithers
- * Co Authors: David Khamilah
+ * Co Authors: David, Khamilah
  */
 
 public class Character {
@@ -27,6 +27,7 @@ public class Character {
     private double criticalHitChance;
     private int damage;
     private Item weapon;
+    private Item wearable;
 
     private final InventoryController inventoryController;
 
@@ -110,13 +111,10 @@ public class Character {
         return cr.getCharacter();
     }
 
-//    public String getLocation() {
-//        return location_;
-//    }
-
     public String equipItem(String itemName) {
        itemName = itemName.stripTrailing();
-       if (itemName.equalsIgnoreCase(weapon.get_itemName())) {
+       if (itemName.equalsIgnoreCase(weapon.get_itemName()) ||
+               itemName.equalsIgnoreCase(wearable.get_itemName())) {
            return "This item is already equipped.";
        }
        else {
@@ -131,8 +129,26 @@ public class Character {
                        setMaxHitPoints(getMaxHitPoints() + item.get_totalHpModifier());
                        setCurrentHitPoints(getMaxHitPoints());
                        setDamage(item.get_damageValue());
+                       // equip item
+                       item.setEquipped(true);
                        return "Player equipped " + item.get_itemName() + "\n" +
                                "Attack points equal: " + damage + "\n";
+                   }
+                   // If the item is a wearable, add stat buffs.
+                   if (item.get_itemType().equalsIgnoreCase("wearable")) {
+                       // Increase max health if the item increases total hp
+                       setMaxHitPoints(getMaxHitPoints() + item.get_totalHpModifier());
+                       // If the item restores health on pick up, restore health.
+                       if (item.isRestoreHealthOnPickUp()) {
+                           item.setRestoreHealthOnPickUp(false); // item can't restore health again
+                           setHp(getMaxHitPoints());
+                       }
+                       // Increase damage
+                       if (item.get_damageValue() > 0) {
+                           setDamage(getDamage() + item.get_damageValue());
+                       }
+                       // equip item
+                       item.setEquipped(true);
                    }
                    else {
                        return "This item is not capable of being equipped.\n";
@@ -149,12 +165,25 @@ public class Character {
                 .equalsIgnoreCase("hands")) {
             // remove attack points
             setDamage(damage - weapon.get_damageValue());
+            // set unequipped
+            weapon.setEquipped(false);
             // equip bare hands
             setWeapon(new Item(0, "Hands", "Your Hands",
                     "None", 0, 0, "Weapon", 0,
-                    0.0f));
+                    0.0f, false, false));
             return "Player unequipped " + itemName + "\n" +
                     "Attack points equal: " + damage + "\n";
+        }
+        else if (wearable.get_itemName().equalsIgnoreCase(itemName)) {
+            // remove health
+            setMaxHitPoints(getMaxHitPoints() - weapon.get_totalHpModifier());
+            if (currentHitPoints > maxHitPoints) {
+                currentHitPoints = maxHitPoints;
+            }
+            // add damage back
+            setDamage(getDamage() + wearable.get_damageValue());
+            // equip item
+            wearable.setEquipped(false);
         }
         if (itemName.equalsIgnoreCase("Hands")) {
             return "You can't remove your hands!\n";
@@ -171,6 +200,7 @@ public class Character {
      * @author David Huber and Khamilah Nixon
      * @return a list of commands
      */
+    // Author: Khamilah and David
     public String help() {
         StringBuilder commandList = new StringBuilder();
         BufferedReader file = null;
@@ -189,7 +219,7 @@ public class Character {
      * Author: Brian Smithers
      */
     public boolean traverseRooms(String direction) {
-        //TODO fix issue with currentRoom
+        // TODO fix issue with currentRoom
         // Copy room object for the players current room
         Room currentRoom = Objects.requireNonNull(Room.getRoom(getRoomNumber()));
 
@@ -207,13 +237,13 @@ public class Character {
                         // Get players new room number and assign it to player
                         int newRoomNumber = Integer.parseInt(room[j - 1]);
 
+                        setRoomNumber(newRoomNumber);
                         //check if a room is locked
-                        if(Room.listOfRooms.get(newRoomNumber).isLocked()) {
-                            System.out.println("room locked"); // <= TESTER PRINT STATEMENT
-                        }
-                        else{
-                            setRoomNumber(newRoomNumber);
-                        }
+//                        if(Room.listOfRooms.get(newRoomNumber).isLocked()) {
+//                            System.out.println("room locked"); // <= TESTER PRINT STATEMENT
+//                        }
+//                        else{
+//                        }
                         nextPass = true; // Stop iterating
                         return true;
                     }
@@ -222,75 +252,37 @@ public class Character {
         }
         return false;
     }
+
     /*
-    public void move(String direction, HashMap<String, Room> rooms) {
-        direction = direction.toLowerCase();
-        Room current = rooms.get(location_);
 
-        String[] temp = current.getNeighbors();
+    public boolean traverseRooms(String direction) {
+        //TODO fix issue with currentRoom
+        // Copy room object for the players current room
+        Room currentRoom = Objects.requireNonNull(Room.getRoom(getRoomNumber()));
 
-        Room next = null;
+        // Get connections from copied room object
+        String[][] roomConnections = currentRoom.getRoomConnections();
 
-        if (direction.equals("north")) {
-            if (!temp[0].equals("-")) {//if there is a room in said direction
-                next = rooms.get(temp[0]);
-                if(!next.isLocked()) {
-                    location_ = temp[0];
-                }
-                else
-                {
-                    System.out.println("Room locked");
-                }
-            } else {
-                System.out.println("Sorry, cannot go this way, try again!");
-            }
-        } else if (direction.equals("south")) {
-            if (!temp[1].equals("-")) {//if there is a room in said direction
-                next = rooms.get(temp[1]);
-                if(!next.isLocked()) {
-                    location_ = temp[1];
-                }
-                else
-                {
-                    System.out.println("Room locked");
-                }
-            } else {
-                System.out.println("Sorry, cannot go this way, try again!");
-            }
-        } else if (direction.equals("east")) {
-            if (!temp[2].equals("-")) { //if there is a room in said direction
-                next = rooms.get(temp[2]);
-                if(!next.isLocked()) {
-                    location_ = temp[2];
-                }
-                else
-                {
-                    System.out.println("Room locked");
-                }
+        // Do not iterate if direction is "-1"
+        boolean nextPass = direction.equalsIgnoreCase("-1");
 
-            } else {
-                System.out.println("Sorry, cannot go this way, try again!");
-            }
-        } else if (direction.equals("west")) {
-            if (!temp[3].equals("-")) {//if there is a room in said direction
-                next = rooms.get(temp[3]);
-                if(!next.isLocked()) {
-                    location_ = temp[3];
+        for (String[] room : roomConnections) {
+            if (!nextPass) {
+                for (int j = 0; j < room.length; j++) {
+                    // Look for direction (N, S, E, W)
+                    if (room[j].equalsIgnoreCase(direction)) {
+                        // Get players new room number and assign it to player
+                        int newRoomNumber = Integer.parseInt(room[j - 1]);
+                        setRoomNumber(newRoomNumber);
+                        nextPass = true; // Stop iterating
+                        return true;
+                    }
                 }
-                else
-                {
-                    System.out.println("Room locked");
-                }
-            } else {
-                System.out.println("Sorry, cannot go this way, try again!");
             }
-        } else { //else
-            System.out.println("Sorry, not valid direction, try again!");
         }
+        return false;
     }
-
      */
-
     @Override
     public String toString() {
         return "id: " + id + "\n" + "name: " + name + "\n" +
