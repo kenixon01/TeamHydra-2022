@@ -31,6 +31,8 @@ public class Monster {
 
     private HashMap<Integer, Item> inventory = new HashMap<>();
 
+    public static HashMap<Integer, Monster> monsterHashMap = new HashMap<>();
+
     /**
      * Creates a monster object and assigns values to fields using
      * a {@link MonsterReader} reference
@@ -45,6 +47,23 @@ public class Monster {
         this.DESCRIPTION = DESCRIPTION;
     }
 
+    public static HashMap<Integer,Monster>createMonsters() {
+        HashMap<Integer,Monster> hashMap = new HashMap<>();
+        for(int i = 0; i < 7; i++) {
+            MonsterReader monsterReader = new MonsterReader();
+            hashMap.put(i + 1,
+                    new Monster(
+                            monsterReader.getHP(),
+                            monsterReader.getROOM_ID(),
+                            monsterReader.getITEM_ID(),
+                            monsterReader.getHP(),
+                            monsterReader.getDAMAGE(),
+                            monsterReader.getNAME(),
+                            monsterReader.getDESCRIPTION()
+                    ));
+        }
+        return hashMap;
+    }
 
     public int getID() {
         return ID;

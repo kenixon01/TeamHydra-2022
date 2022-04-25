@@ -137,11 +137,12 @@ public class ConsoleController {
         );
         // Create new character object
         character = Character.loadCharacterData(Integer.parseInt(userOption));
+        character.setRoomNumber(1);
 //        itemController.addToInventory("-" + userOption, character);
         characterController = new CharacterController(character, characterView);
 
         monsterView = new MonsterView();
-        monsterController = new MonsterController(MonsterReader.monsterHashMap,monsterView);
+        monsterController = new MonsterController(Monster.createMonsters(),monsterView);
 
         puzzleView = new PuzzleView();
         puzzleController = new PuzzleController(puzzleView);

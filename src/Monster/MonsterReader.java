@@ -1,23 +1,22 @@
 package Monster;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
+        import java.io.FileNotFoundException;
+        import java.io.FileReader;
+        import java.io.IOException;
 
 /**
- * The Monster.MonsterReader class defines a monster's attributes and assigns values to those attributes
+ * The MonsterReader class defines a monster's attributes and assigns values to those attributes
  * by reading multiple text files. All monsters are constants, and instances of this class
  * cannot alter their initial states.  All monsters have the following attributes:
  * <blockquote>
  *     <ul>
- *         <li>ID - Monster.Monster's unique identifier</li>
+ *         <li>ID - Monster's unique identifier</li>
  *         <li>ROOM ID - Unique identification of the room where the monster lies</li>
  *         <li>ITEM ID - Unique identification of the item that the monster drops upon death</li>
- *         <li>HP - Monster.Monster's initial health point</li>
- *         <li>DAMAGE - Monster.Monster's attack damage</li>
- *         <li>NAME - Monster.Monster's name</li>
+ *         <li>HP - Monster's initial health point</li>
+ *         <li>DAMAGE - Monster's attack damage</li>
+ *         <li>NAME - Monster's name</li>
  *         <li>DESCRIPTION - Information about the monster</li>
  *     </ul>
  * </blockquote>
@@ -28,13 +27,11 @@ import java.util.HashMap;
  */
 public final class MonsterReader {
 
+    private static BufferedReader idFile, roomIDFile, itemIDFile, hpFile, damageFile, nameFile, descriptionFile;
+
     private final int ID, ROOM_ID, ITEM_ID, HP, DAMAGE;
 
     private final String NAME, DESCRIPTION;
-
-    public static HashMap<Integer,Monster> monsterHashMap = createMonster();
-
-    private static BufferedReader idFile, roomIDFile, itemIDFile, hpFile, damageFile, nameFile, descriptionFile;
 
     static {
         try {
@@ -65,10 +62,6 @@ public final class MonsterReader {
         DESCRIPTION = readAttribute(descriptionFile);
     }
 
-    public HashMap<Integer, Monster> getMonsterHashMap() {
-        return monsterHashMap;
-    }
-
     public int getID() {
         return ID;
     }
@@ -81,7 +74,7 @@ public final class MonsterReader {
         return ITEM_ID;
     }
 
-    public int getHp() {
+    public int getHP() {
         return HP;
     }
 
@@ -91,22 +84,6 @@ public final class MonsterReader {
 
     public String getNAME() {
         return NAME;
-    }
-
-    private static HashMap<Integer,Monster> createMonster() {
-        HashMap<Integer,Monster> monsters = new HashMap<>();
-        for(int i = 0; i < 7; i++) {
-            MonsterReader monsterReader = new MonsterReader();
-            int id = Integer.parseInt(monsterReader.readAttribute(idFile));
-            int roomID = Integer.parseInt(monsterReader.readAttribute(roomIDFile));
-            int itemID = Integer.parseInt(monsterReader.readAttribute(itemIDFile));
-            int damage = Integer.parseInt(monsterReader.readAttribute(damageFile));
-            int hp = Integer.parseInt(monsterReader.readAttribute(hpFile));
-            String name = monsterReader.readAttribute(nameFile);
-            String description = monsterReader.readAttribute(descriptionFile);
-            monsters.put(roomID,new Monster(id,roomID,itemID,damage,hp,name,description));
-        }
-        return monsters;
     }
 
     public String getDESCRIPTION() {

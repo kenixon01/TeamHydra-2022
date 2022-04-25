@@ -66,7 +66,7 @@ public class PuzzleController {
     {
         if(input.equalsIgnoreCase("Exit Puzzle"))
         {
-            System.out.println("You have left the puzzle");
+
         }
 
     }

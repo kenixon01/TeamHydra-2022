@@ -135,6 +135,7 @@ public class Character {
      * Author: Brian Smithers
      */
     public boolean traverseRooms(String direction) {
+        //TODO fix issue with currentRoom
         // Copy room object for the players current room
         Room currentRoom = Objects.requireNonNull(Room.getRoom(getRoomNumber()));
 
@@ -228,7 +229,7 @@ public class Character {
     }
 
      */
-    
+
     @Override
     public String toString() {
         return "id: " + id + "\n" + "name: " + name + "\n" +
