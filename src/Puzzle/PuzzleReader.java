@@ -57,6 +57,7 @@ public class PuzzleReader {
                 String puzzleRoom = reader.nextLine();
                 String puzzleHint = reader.nextLine();
                 String puzzleSolution = reader.nextLine();
+                //new string input
                 currPuzzle = new Puzzle(puzzleNum, puzzleName, puzzleDesc, puzzleRoom, puzzleHint, puzzleSolution);
 
                 //Check if a previous item has been added to a room.

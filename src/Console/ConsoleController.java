@@ -133,7 +133,7 @@ public class ConsoleController {
         itemController = new ItemController(new ItemReader().CreateItems(),itemView);
 
         characterView = new CharacterView();
-        characterView.characterSelect();
+        characterView.characterSelect(); // TODO call by character controller
         String userOption = console.menuInputValidator(
                 new String[]{"1","2","3","4"}
         );
@@ -232,6 +232,7 @@ public class ConsoleController {
                 characterController.move(console.inputValidator());
                 roomController.setModel(Room.getRoom(character.getRoomNumber()));
                 roomController.printRoomDescription();
+                // puzzleController.checkIfPuzzleExists(character.getCurrentRoom)
             }
             case "attack" -> {
                 if (battleController.getModel().getMonster().getHp() >= 0) {

@@ -4,7 +4,6 @@ package Entry;
 import Console.Console;
 import Console.ConsoleController;
 import Console.ConsoleView;
-import Room.RoomController;
 
 import java.io.IOException;
 import java.util.InputMismatchException;
