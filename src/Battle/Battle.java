@@ -109,14 +109,38 @@ public class Battle {
      * @return if a monster is alive
      * @author Brian Smithers and Khamilah Nixon
      */
-    public boolean attackPlayer(boolean selectDodge, boolean selectBlock) {
+    public boolean attackPlayer() {
         if (getPlayerHp() > 0 && getMonsterHp() > 0) {
-            if(!selectDodge && !playerDodge()){
-                player.setHp(loseHealth(getPlayerHp(),getMonsterAttackPoints()) + damageReduction(selectBlock));
-            }
+            player.setHp(loseHealth(getPlayerHp(),getMonsterAttackPoints()));
             return true;
         }
         return false;
+    }
+
+    /**
+     * @author Khamilah Nixon
+     */
+    public boolean dodgePlayer() {
+        boolean hasDodged = false;
+        if (getPlayerHp() > 0 && getMonsterHp() > 0) {
+            hasDodged = playerDodge();
+            if(!hasDodged) {
+                player.setHp(loseHealth(getPlayerHp(),getMonsterAttackPoints()));
+            }
+        }
+        return hasDodged;
+    }
+
+    /**
+     * @author Khamilah Nixon
+     */
+    public int blockPlayer() {
+        int dmgReduction = 0;
+        if (getPlayerHp() > 0 && getMonsterHp() > 0) {
+            dmgReduction = damageReduction();
+            player.setHp(loseHealth(getPlayerHp(),getMonsterAttackPoints()) + dmgReduction);
+        }
+        return dmgReduction;
     }
 
     /**
@@ -136,13 +160,11 @@ public class Battle {
      * @return damage reduction
      * @author Khamilah Nixon
      */
-    private int damageReduction(boolean playerSelectBlock) {
-        if(playerSelectBlock){
+    private int damageReduction() {
             int randomBlockInt = Math.abs(new Random().nextInt());
             if (player.getBlockChance() > 0 && randomBlockInt % (1 / player.getBlockChance()) == 0) {
                 return (int) (Math.random() * getMonsterHp() - 1) + 1;
             }
-        }
         return 0;
     }
 

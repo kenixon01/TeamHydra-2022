@@ -7,6 +7,7 @@
 -Room the Puzzle.Puzzle is located in-
 -Puzzle.Puzzle Hint-
 -Puzzle.Puzzle Solution-
+--//ADD\\Correct Solution Printout--
 -USE A BLANK LINE AS A SEPARATOR-
 ---------------------------------------
 

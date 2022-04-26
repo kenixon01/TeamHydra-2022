@@ -24,16 +24,39 @@ public class BattleController {
      */
     public void printBattleDetails(List<Item> inventory, boolean playerSelectedDodge,
                                    boolean playerSelectedBlock) {
-        // Print remaining health for both monster and player
-//        view.remainingHealth(model.getMonster(),model.getPlayer());
         if(model.getMonster().getHp() > 0 && model.getPlayer().getHp() > 0) {
             // Player attacks monster
-            model.attackMonster();
-            view.attackTurnResult(model.getPlayerName(), model.getPlayerAttackPoints(), model.getMonsterName());
-
-            model.attackPlayer(playerSelectedDodge, playerSelectedBlock);
+            if(playerSelectedBlock) {
+                int damageReduction = model.blockPlayer();
+                if(damageReduction > 0){
+                    view.blockSuccessful(model.getPlayerName(), model.getMonsterName());
+                    int totalMonsterDamage = model.getMonsterAttackPoints() - damageReduction;
+                    view.attackTurnResult(model.getMonsterName(),
+                            Math.max(totalMonsterDamage, 0), model.getPlayerName());
+                }
+                else {
+                    view.blockUnsuccessful(model.getPlayerName(), model.getMonsterName());
+                }
+            }
+            else if(playerSelectedDodge) {
+                if (model.dodgePlayer()) {
+                    view.dodgeSuccessful(model.getPlayerName(), model.getMonsterName());
+                    view.attackTurnResult(model.getMonsterName(), 0, model.getPlayerName());
+                }
+                else {
+                    view.dodgeUnuccessful(model.getPlayerName(), model.getMonsterName());
+                }
+//                else {
+//
+//                }
+            }
+            else {
+                model.attackMonster();
+                view.attackTurnResult(model.getPlayerName(), model.getPlayerAttackPoints(), model.getMonsterName());
+                model.attackPlayer();
+                view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
+            }
             // Monster attacks player
-            view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
 
             // Print remaining health for both monster and player
             view.remainingHealth(model.getMonster(), model.getPlayer());
