@@ -1,9 +1,8 @@
 package Monster;
 
-import java.io.BufferedReader;
-        import java.io.FileNotFoundException;
-        import java.io.FileReader;
-        import java.io.IOException;
+import Item.Item;
+
+import java.io.*;
 
 /**
  * The MonsterReader class defines a monster's attributes and assigns values to those attributes
@@ -27,30 +26,35 @@ import java.io.BufferedReader;
  */
 public final class MonsterReader {
 
-    private String HAS_ITEM;
-    public BufferedReader idFile, roomIDFile, itemIDFile, hpFile, damageFile, nameFile, descriptionFile, itemFile;
-
+    private boolean HAS_ITEM;
+    public static BufferedReader bonkreigItem, garoldItem, highItem, robertItem, idFile, roomIDFile, itemIDFile, hpFile, damageFile, nameFile, descriptionFile, itemFile;
+    static {
+        try {
+            bonkreigItem = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/BonkreigItem"));
+            garoldItem = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/GaroldItem"));
+            highItem = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/HighItem"));
+            robertItem = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/RobertItem"));
+            idFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/ID.txt"));
+            roomIDFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/RoomID.txt"));
+            itemIDFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/ItemID.txt"));
+            hpFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/HP.txt"));
+            damageFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/Damage.txt"));
+            nameFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/Name.txt"));
+            descriptionFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/Description.txt"));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
     private  String NAME, DESCRIPTION, itemName, itemDescription,itemType;
     private int ID, ROOM_ID, ITEM_ID, HP, DAMAGE, itemID, itemRoomID, itemDamage,
     itemHeal,  itemHP, itemCriticalHit;
-    private String itemFilePath;
 
     /**
      * Assigns monster values based on values written in {@link #idFile}, {@link #idFile},
      *  {@link #roomIDFile}, {@link #itemIDFile}, {@link #hpFile}, {@link #damageFile},
      *  {@link #nameFile}, and {@link #descriptionFile}
      */
-    public MonsterReader(String itemFilePath) throws FileNotFoundException {
-        this.itemFilePath = itemFilePath;
-        idFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/ID.txt"));
-        roomIDFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/RoomID.txt"));
-        itemIDFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/ItemID.txt"));
-        hpFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/HP.txt"));
-        damageFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/Damage.txt"));
-        nameFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/Name.txt"));
-        descriptionFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/Description.txt"));
-        itemFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/Item.txt"));
-
+    public MonsterReader() {
         ID = Integer.parseInt(readAttribute(idFile));
         ROOM_ID = Integer.parseInt(readAttribute(roomIDFile));
         ITEM_ID = Integer.parseInt(readAttribute(itemIDFile));
@@ -58,21 +62,31 @@ public final class MonsterReader {
         DAMAGE = Integer.parseInt(readAttribute(damageFile));
         NAME = readAttribute(nameFile);
         DESCRIPTION = readAttribute(descriptionFile);
-        HAS_ITEM = readAttribute(itemFile);
-        if(Boolean.parseBoolean(HAS_ITEM)) {
-            itemID = Integer.parseInt(readAttribute(itemFile));
-            itemName = readAttribute(itemFile);;
-            itemDescription = readAttribute(itemFile);;
-            itemRoomID = Integer.parseInt(readAttribute(itemFile));
-            itemDamage = Integer.parseInt(readAttribute(itemFile));
-            itemHeal = Integer.parseInt(readAttribute(itemFile));
-            itemType = readAttribute(itemFile);;
-            itemHP = Integer.parseInt(readAttribute(itemFile));
-            itemCriticalHit = Integer.parseInt(readAttribute(itemFile));
+        BufferedReader file = null;
+        if(NAME.toLowerCase().contains("bonkrieg")) {
+            file = bonkreigItem;
+        }else if(NAME.toLowerCase().contains("high")){
+            file = highItem;
+        }else if(NAME.toLowerCase().contains("garold")){
+            file = garoldItem;
+        }else if(NAME.toLowerCase().contains("robert")){
+            file = robertItem;
+        }
+        if(ITEM_ID > 0) {
+            assert file != null;
+            itemID = Integer.parseInt(readAttribute(file));
+            itemName = readAttribute(file);
+            itemDescription = readAttribute(file);
+            itemRoomID = Integer.parseInt(readAttribute(file));
+            itemDamage = Integer.parseInt(readAttribute(file));
+            itemHeal = Integer.parseInt(readAttribute(file));
+            itemType = readAttribute(file);
+            itemHP = Integer.parseInt(readAttribute(file));
+            itemCriticalHit = Integer.parseInt(readAttribute(file));
         }
     }
 
-    public String getHasItem() {
+    public boolean getHasItem() {
         return HAS_ITEM;
     }
 
@@ -167,5 +181,23 @@ public final class MonsterReader {
             e.printStackTrace();
         }
         return attribute.toString();
+    }
+}
+class Tester {
+    public static void main(String[] args) {
+        for(int i = 0; i < 7; i++) {
+            MonsterReader monsterReader = new MonsterReader();
+            System.out.println(new Monster(
+                    monsterReader.getID(), monsterReader.getROOM_ID(),
+                    monsterReader.getITEM_ID(), monsterReader.getDAMAGE(),
+                    monsterReader.getHP(), monsterReader.getNAME(),
+                    monsterReader.getDESCRIPTION(), new Item(
+                    monsterReader.getItemID(), monsterReader.getItemName(),
+                    monsterReader.getItemDescription(), monsterReader.getItemRoomID() + "",
+                    monsterReader.getItemDamage(), monsterReader.getItemHeal(),
+                    monsterReader.getItemType(), monsterReader.getItemHP(),
+                    monsterReader.getItemCriticalHit(), false, false)
+            ));
+        }
     }
 }

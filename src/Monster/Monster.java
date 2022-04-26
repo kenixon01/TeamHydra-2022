@@ -54,8 +54,8 @@ public class Monster {
 
     public static HashMap<Integer,Monster>createMonsters() throws FileNotFoundException {
         HashMap<Integer,Monster> hashMap = new HashMap<>();
-        MonsterReader monsterReader = new MonsterReader(ITEM_FILE_PATH);
-        for(int i = 0; i < 7; i++) {
+        for(int i = 0; i < 7; i++) {;
+            MonsterReader monsterReader = new MonsterReader();
             int id = monsterReader.getID();
             int roomid = monsterReader.getROOM_ID();
             int itemid = monsterReader.getITEM_ID();
@@ -63,35 +63,30 @@ public class Monster {
             int hp = monsterReader.getHP();
             String name = monsterReader.getNAME();
             String description = monsterReader.getDESCRIPTION();
-            boolean hasItem = Boolean.parseBoolean(monsterReader.getHasItem());
 
-            int itemID = monsterReader.getItemID();
-            String itemName = monsterReader.getItemName();
-            String itemDescription = monsterReader.getItemDescription();
-            int itemRoomID = monsterReader.getItemRoomID();
-            int itemDamage = monsterReader.getItemDamage();
-            int itemHeal = monsterReader.getItemHeal();
-            String itemType = monsterReader.getItemType();
-            int itemHP = monsterReader.getItemHP();
-            int itemCriticalHit = monsterReader.getItemCriticalHit();
-
-            if(hasItem) {
-                hashMap.put(roomid, new Monster(id,roomid,itemid,damage,hp,name,description,
-                        createItem(itemID, itemName, itemDescription, itemRoomID, itemDamage, itemHeal,
-                        itemType, itemHP, itemCriticalHit))
+            if(itemid > 0) {
+                hashMap.put(roomid, new Monster(
+                        monsterReader.getID(), monsterReader.getROOM_ID(),
+                        monsterReader.getITEM_ID(), monsterReader.getDAMAGE(),
+                        monsterReader.getHP(), monsterReader.getNAME(),
+                        monsterReader.getDESCRIPTION(), new Item(
+                        monsterReader.getItemID(), monsterReader.getItemName(),
+                        monsterReader.getItemDescription(), monsterReader.getItemRoomID() + "",
+                        monsterReader.getItemDamage(), monsterReader.getItemHeal(),
+                        monsterReader.getItemType(), monsterReader.getItemHP(),
+                        monsterReader.getItemCriticalHit(), false, false))
                 );
             }
             else {
-                hashMap.put(roomid, new Monster(id,roomid,itemid,damage,hp,name,description,null));
+                hashMap.put(roomid, new Monster(
+                        monsterReader.getID(), monsterReader.getROOM_ID(),
+                        monsterReader.getITEM_ID(), monsterReader.getDAMAGE(),
+                        monsterReader.getHP(), monsterReader.getNAME(),
+                        monsterReader.getDESCRIPTION(), null)
+                );
             }
         }
         return hashMap;
-    }
-
-    private static Item createItem(int itemid, String itemName, String itemDescription, int itemRoomID, int itemDamage, int itemHeal, String itemType, int itemHP, int itemCriticalHit) {
-        return new Item(
-                itemid,itemName,itemDescription,itemRoomID+"",itemDamage,itemHeal,itemType,
-                itemHP,itemCriticalHit,false,false);
     }
 
     public int getId() {
@@ -133,6 +128,15 @@ public class Monster {
 
     @Override
     public String toString() {
-        return super.toString();
+        return "Monster{" +
+                "id=" + id +
+                ", roomId=" + roomId +
+                ", itemId=" + itemId +
+                ", damage=" + damage +
+                ", hp=" + hp +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", item=" + item +
+                '}';
     }
 }

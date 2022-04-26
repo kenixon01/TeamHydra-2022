@@ -12,6 +12,22 @@ public class BattleView {
                 defender);
     }
 
+    public void blockSuccessful(String attacker, String defender) {
+        System.out.println(attacker + " successfully blocked " + defender + "'s attack");
+    }
+
+    public void blockUnsuccessful(String attacker, String defender) {
+        System.out.println(attacker + " did not block " + defender + "'s attack");
+    }
+
+    public void dodgeSuccessful(String attacker, String defender) {
+        System.out.println(attacker + " successfully dodged " + defender + "'s attack");
+    }
+
+    public void dodgeUnuccessful(String attacker, String defender) {
+        System.out.println(attacker + " did not dodge " + defender + "'s attack");
+    }
+
     /**
      * Author: Khamilah Nixon
      */
@@ -24,6 +40,6 @@ public class BattleView {
      * Author: Khamilah Nixon
      */
     public void printMonsterDead(){
-        System.out.println("Monster died");
+        System.out.println("There is no monster here");
     }
 }
