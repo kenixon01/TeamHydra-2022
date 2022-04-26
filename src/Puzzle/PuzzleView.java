@@ -2,6 +2,8 @@ package Puzzle;
 
 /**
  * @author Khamilah Nixon
+ *//**
+ *  Author: Jayson Dasher David Huber
  */
 public class PuzzleView {
     public void puzzleHint(Puzzle puzzle) {

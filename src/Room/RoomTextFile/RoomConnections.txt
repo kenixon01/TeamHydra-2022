@@ -19,7 +19,7 @@
 27 East
 24 South
 2 South 4 North 22 East
-21 West 3 South 5 North 6 East
+1 West 3 South 5 North 6 East
 1 South 24 North 9 West 7 East
 1 South 9 West 7 East 24 North
 1 West 2 South 4 North 22 East

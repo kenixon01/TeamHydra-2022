@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *  Author: Jayson Dasher
+ *  Author: Jayson Dasher and David Huber
  */
 public class PuzzleController {
-    private Map<String, List<Puzzle>> puzzles;
+    private Map<String, List<Puzzle>> puzzles; //Named puzzles but is the model
     private PuzzleView view;
 
     public PuzzleController(PuzzleView view){

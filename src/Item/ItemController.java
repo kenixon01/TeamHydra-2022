@@ -10,6 +10,7 @@ import java.util.Scanner;
  *  Author: Jayson Dasher
  */
 public class ItemController {
+    // Room Number, Item for the Map
     private Map<String, List<Item>> model;
     private ItemView view;
 
@@ -90,6 +91,7 @@ public class ItemController {
     }
 
     public void useItem(Character character) {
+        //print inventory
         view.printinventory(model.get("0"));
         Scanner reader = new Scanner(System.in);
         String input = reader.nextLine();
