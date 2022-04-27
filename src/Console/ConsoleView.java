@@ -1,10 +1,17 @@
 package Console;
 
+import Utilities.ConsoleColors;
+
 /**
  * This class will print any general game messages and information
  * @author Khamilah Nixon
  */
 public class ConsoleView {
+    private ConsoleColors colors = new ConsoleColors();
+
+    public ConsoleView () {
+        colors.setTextColor("bblue");
+    }
     public void print(String message) {
         System.out.println(message);
     }
@@ -14,7 +21,9 @@ public class ConsoleView {
     }
 
     public void startGame() {
-        System.out.println("Do you want to start the game? [y] or [n]");
+        System.out.println("Do you want to start the game? [" +
+                colors.textColor("y") + "] or [" +
+                colors.textColor("n") + "]");
     }
 
     public void exitGame() {
@@ -26,7 +35,7 @@ public class ConsoleView {
     }
 
     public void invalidCommand() {
-        System.out.println("Invalid command");
+        System.out.println("Invalid command.");
     }
 
     public void mainMenu() {
@@ -68,9 +77,5 @@ public class ConsoleView {
     @Override
     public String toString() {
         return super.toString();
-    }
-
-    public void gameOver() {
-        System.out.println("Game Over");
     }
 }

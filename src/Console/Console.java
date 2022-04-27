@@ -61,6 +61,8 @@ public class Console {
                 || inputValidator[0].equalsIgnoreCase("block")
                 || inputValidator[0].equalsIgnoreCase("dodge")
                 || inputValidator[0].equalsIgnoreCase("hint")
+                || inputValidator[0].equalsIgnoreCase("examine")
+                || inputValidator[0].equalsIgnoreCase("explore")
         ) {
             input = inputValidator[0];
             // recombine string to pass for method

@@ -86,8 +86,8 @@ public final class MonsterReader {
         }
     }
 
-    public boolean getHasItem() {
-        return HAS_ITEM;
+    public static BufferedReader getNameFile() {
+        return nameFile;
     }
 
     public String getItemName() {

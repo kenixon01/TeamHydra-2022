@@ -107,18 +107,25 @@ public class ConsoleController {
     public void mainMenu() {
         //displays main menu in console
         consoleView.mainMenu();
-        String userOption = console.menuInputValidator(
-                new String[]{"start","continue","exit"}
-        ).toLowerCase();
-        switch (userOption) {
-            case "start" -> {
-                startGame();
-            }
-            case "continue" -> {
-                continueGame();
-            }
-            case "exit" -> {
-                exitGame();
+        boolean validMenuOption = false;
+        while(!validMenuOption) {
+            String userOption = console.menuInputValidator(
+                    new String[]{"start","continue","exit","help"}
+            ).toLowerCase();
+            switch (userOption) {
+                case "start" -> {
+                    startGame();
+                    validMenuOption = true;
+                }
+                case "continue" -> {
+                    continueGame();
+                    validMenuOption = true;
+                }
+                case "exit" -> {
+                    exitGame();
+                    validMenuOption = true;
+                }
+                default -> invalidCommand();
             }
         }
     }
@@ -134,9 +141,15 @@ public class ConsoleController {
 
         characterView = new CharacterView();
         characterView.characterSelect(); // TODO call by character controller
-        String userOption = console.menuInputValidator(
-                new String[]{"1","2","3","4"}
-        );
+        boolean validMenuOption = false;
+        String userOption = "";
+        while(!validMenuOption) {
+             userOption = console.menuInputValidator(new String[]{"1","2","3","4"});
+            switch (userOption) {
+                case "1", "4", "2", "3" -> validMenuOption = true;
+                default -> invalidCommand();
+            }
+        }
         character = Character.loadCharacterData(Integer.parseInt(userOption));
         character.setRoomNumber(1);
         characterController = new CharacterController(character, characterView);
@@ -174,7 +187,7 @@ public class ConsoleController {
             boolean isLocked = Boolean.parseBoolean(roomDetails[2]);
             Room room1 = new Room(i, roomName, roomDescriptions,
                     isLocked, roomConnections, new InventoryController(
-                            new Inventory(), new InventoryView()));
+                    new Inventory(), new InventoryView()));
 
             Room.addRoom(room1);
         }
@@ -196,16 +209,14 @@ public class ConsoleController {
             room = Room.getRoom(character.getRoomNumber());
             roomController.setModel(room);
             int roomID = characterController.getModel().getRoomNumber();
-                if (monsterController.getModel().get(roomID) != null &&
-                monsterController.getModel().get(roomID).getHp() > 0) {
-                    System.out.println();
-                    monsterController.monsterDescription(roomID);
-                    battleView = new BattleView();
-                    battle = new Battle(characterController.getModel(),monsterController.getModel().get(roomID));
-                    battleController = new BattleController(battle, battleView);
-
+            if (monsterController.getModel().get(roomID) != null &&
+                    monsterController.getModel().get(roomID).getHp() > 0) {
+                battleView = new BattleView();
+                battle = new Battle(characterController.getModel(),monsterController.getModel().get(roomID));
+                battleController = new BattleController(battle, battleView);
             }
-            System.out.println();
+            // else if puzzleController model exists in room
+            // else if item exists in room
             while (!validCommand) {
                 console.enterCommand();
                 validCommand = isValidGameCommand();
@@ -222,9 +233,10 @@ public class ConsoleController {
     public boolean isValidGameCommand() {
         switch (console.inputValidator()) {
             case "stats" -> characterController.printPlayerDetails();
-            case "use" -> {
-                System.out.println("use");
-                itemController.useItem(characterController.getModel());
+            case "use" -> itemController.useItem(characterController.getModel());
+            case "examine" -> {
+                isPlayerAlive();
+                monsterController.examine(character.getRoomNumber());
             }
             case "equip" -> characterController.equip(console.getItem());
             case "unequip" -> characterController.unEquipItem(console.getItem());
@@ -235,30 +247,27 @@ public class ConsoleController {
                 // puzzleController.checkIfPuzzleExists(character.getCurrentRoom)
             }
             case "attack" -> {
-                if (battleController.getModel().getMonster().getHp() >= 0) {
+                isPlayerAlive();
                     battleController.printBattleDetails(
                             characterController.getModel().getInventoryController().
                                     getItemInventory(), false, false);
-                }
-                battleMessages();
+
             }
             case "block" -> {
-                if (battleController.getModel().getMonster().getHp() > 0 ) {
+                isPlayerAlive();
                     battleController.printBattleDetails(characterController.getModel().getInventoryController().
-                                    getItemInventory(), false, true);
-                }
-                battleMessages();
+                            getItemInventory(), false, true);
+
             }
             case "location" -> characterController.printPlayerLocation();
             case "inventory" -> characterController.printInventory();
-            case "save" -> System.out.println("save");
-            case "resume" -> System.out.println("resume");
+            case "save" -> saveGame();
+            case "resume" -> continueGame();
             case "dodge" -> {
-                if(battleController.getModel().getMonster().getHp() > 0) {
-                    battleController.printBattleDetails(characterController.getModel().getInventoryController().
+                isPlayerAlive();
+                battleController.printBattleDetails(characterController.getModel().getInventoryController().
                             getItemInventory(), true, false);
-                }
-                battleMessages();
+
             }
             case "hint" -> {
                 int roomID = characterController.getModel().getRoomNumber();
@@ -285,13 +294,10 @@ public class ConsoleController {
     /**
      * Author: Brian and Khamilah
      */
-    public void battleMessages() {
+    public void isPlayerAlive() {
         if (battleController.getModel().getPlayer().getHp() <= 0) {
-            consoleView.gameOver();
             exitGame();
         }
-        if(battleController.getModel().getMonster().getHp() <= 0) {
-            battleController.monsterDead();
-        }
+
     }
 }

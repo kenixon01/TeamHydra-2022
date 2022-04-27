@@ -14,8 +14,13 @@ public class MonsterController {
         this.model = model;
     }
 
-    public void monsterDescription(int key) {
-        view.monsterDescription(model.get(key));
+    public void examine(int key) {
+        if(model.get(key) != null) {
+            view.examine(model.get(key));
+        }
+        else {
+            view.monsterUnavailable();
+        }
     }
 
     public MonsterView getView() {
@@ -27,6 +32,7 @@ public class MonsterController {
     }
 
     public void die(int key) {
+        view.died(model.get(key));
         view.itemDrop(model.get(key));
         model = null;
     }

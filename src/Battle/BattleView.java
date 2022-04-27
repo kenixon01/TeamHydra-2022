@@ -24,10 +24,16 @@ public class BattleView {
         System.out.println(attacker + " successfully dodged " + defender + "'s attack");
     }
 
-    public void dodgeUnuccessful(String attacker, String defender) {
+    public void dodgeUnsuccessful(String attacker, String defender) {
         System.out.println(attacker + " did not dodge " + defender + "'s attack");
     }
 
+    public void monsterSlayed(Monster monster) {
+        System.out.println(monster.getName() + " was slayed");
+    }
+    public void cannotStartBattle() {
+        System.out.println("There is no monster to fight.");
+    }
     /**
      * Author: Khamilah Nixon
      */
@@ -36,10 +42,7 @@ public class BattleView {
         System.out.println(monster.getName() + "'s Remaining Health: " + monster.getHp());
     }
 
-    /**
-     * Author: Khamilah Nixon
-     */
-    public void printMonsterDead(){
-        System.out.println("There is no monster here");
+    public void gameOver() {
+        System.out.println("Game Over");
     }
 }

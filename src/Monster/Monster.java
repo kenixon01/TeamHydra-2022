@@ -23,7 +23,7 @@ import java.util.HashMap;
  *
  * @since 1.0
  * @author Khamilah E. Nixon
- * @version 1.1
+ * @version 1.5
  */
 public class Monster {
     private static final String ITEM_FILE_PATH = "src/Monster/MonsterTextFiles/Item.txt";
@@ -50,22 +50,23 @@ public class Monster {
         this.item = item;
     }
 
-
-
-    public static HashMap<Integer,Monster>createMonsters() throws FileNotFoundException {
+    /**
+     * Creates a {@code HashMap<Integer,Monster>} to store all {@code Monster}
+     * objects for use
+     * @return list of Monsters
+     * @throws IOException if line is read as incorrect type
+     */
+    public static HashMap<Integer,Monster>createMonsters() throws IOException {
         HashMap<Integer,Monster> hashMap = new HashMap<>();
-        for(int i = 0; i < 7; i++) {;
-            MonsterReader monsterReader = new MonsterReader();
-            int id = monsterReader.getID();
-            int roomid = monsterReader.getROOM_ID();
-            int itemid = monsterReader.getITEM_ID();
-            int damage = monsterReader.getDAMAGE();
-            int hp = monsterReader.getHP();
-            String name = monsterReader.getNAME();
-            String description = monsterReader.getDESCRIPTION();
 
-            if(itemid > 0) {
-                hashMap.put(roomid, new Monster(
+        //loops over one of the monster files (all files have the same number of entries)
+        while (MonsterReader.getNameFile().ready()){;
+            MonsterReader monsterReader = new MonsterReader();
+
+            //if a monster stores an item, add a monster with an item to the HashMap
+            //otherwise, set the monster item to null
+            if(monsterReader.getITEM_ID() > 0) {
+                hashMap.put(monsterReader.getROOM_ID(), new Monster(
                         monsterReader.getID(), monsterReader.getROOM_ID(),
                         monsterReader.getITEM_ID(), monsterReader.getDAMAGE(),
                         monsterReader.getHP(), monsterReader.getNAME(),
@@ -78,7 +79,7 @@ public class Monster {
                 );
             }
             else {
-                hashMap.put(roomid, new Monster(
+                hashMap.put(monsterReader.getROOM_ID(), new Monster(
                         monsterReader.getID(), monsterReader.getROOM_ID(),
                         monsterReader.getITEM_ID(), monsterReader.getDAMAGE(),
                         monsterReader.getHP(), monsterReader.getNAME(),
