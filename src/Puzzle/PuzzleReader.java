@@ -4,18 +4,20 @@ import java.io.File;
 import java.util.*;
 
 /**
- *  Author: Jayson Dasher
+ * Author: Jayson Dasher
  */
 public class PuzzleReader {
     private String _puzzlesFilePath;
 
-    public PuzzleReader() { this._puzzlesFilePath = (System.getProperty("user.dir") + "\\src\\Puzzle\\"); }
+    public PuzzleReader() {
+        this._puzzlesFilePath = (System.getProperty("user.dir") + "\\src\\Puzzle\\");
+    }
 
     private Scanner GetFileInputString() {
         Scanner reader;
         File newFile = new File(_puzzlesFilePath + "puzzles.txt");
 
-        while(true) {
+        while (true) {
             try {
                 reader = new Scanner(newFile);
                 break;
@@ -39,34 +41,29 @@ public class PuzzleReader {
                 continue;
             }
 
-            /*
-            -Puzzle.Puzzle Number-
-            -Puzzle.Puzzle Name-
-            -Puzzle.Puzzle Description-
-            -Room the Puzzle.Puzzle is located in-
-            -Puzzle.Puzzle Hint-
-            -Puzzle.Puzzle Solution-
-            -USE A BLANK LINE AS A SEPARATOR-
-             */
-
             if (currLine.equals("")) { // New Puzzle.Puzzle
                 int puzzleNum = reader.nextInt();
                 reader.nextLine();
                 String puzzleName = reader.nextLine();
-                String puzzleDesc = reader.nextLine();
                 String puzzleRoom = reader.nextLine();
+                String puzzleDesc = reader.nextLine();
                 String puzzleHint = reader.nextLine();
                 String puzzleSolution = reader.nextLine();
-                //new string input
-                currPuzzle = new Puzzle(puzzleNum, puzzleName, puzzleDesc, puzzleRoom, puzzleHint, puzzleSolution);
+                String solvedMessage = reader.nextLine();
+                String type = reader.nextLine();
+                int puzzleDamage = reader.nextInt();
+                int puzzleHpModifier = reader.nextInt();
+                reader.nextLine();
+                String puzzleItem = reader.nextLine();
 
-                //Check if a previous item has been added to a room.
-                if(puzzles.get(currPuzzle.getRoom()) != null) {
-                    //Room exists in items
+                currPuzzle = new Puzzle(puzzleNum, puzzleName, puzzleDesc, puzzleRoom, puzzleHint, puzzleSolution, solvedMessage, type, puzzleDamage, puzzleHpModifier, puzzleItem);
+
+                //Check if a previous puzzle has been added to a room.
+                if (puzzles.get(currPuzzle.getRoom()) != null) {
+                    //Room exists in puzzles
                     puzzles.get(currPuzzle.getRoom()).add(currPuzzle);
-                }
-                else {
-                    // New list of items being added to the Map<>() so we need to initialize the value for the Map entry
+                } else {
+                    // New list of puzzles being added to the Map<>() so we need to initialize the value for the Map entry
                     List roomPuzzles = new ArrayList<Puzzle>();
                     roomPuzzles.add(currPuzzle);
                     puzzles.put(currPuzzle.getRoom(), roomPuzzles);
@@ -78,6 +75,7 @@ public class PuzzleReader {
         return puzzles;
     }
 }
+
 class PuzzleReaderTester {
     public static void main(String[] args) {
         PuzzleReader puzzleReader = new PuzzleReader();

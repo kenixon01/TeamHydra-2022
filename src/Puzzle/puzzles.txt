@@ -1,61 +1,100 @@
 ---------------------------------------
 ----Structure this file as followed----
 ---------------------------------------
--Puzzle.Puzzle Number-
--Puzzle.Puzzle Name-
--Puzzle.Puzzle Description-
--Room the Puzzle.Puzzle is located in-
--Puzzle.Puzzle Hint-
--Puzzle.Puzzle Solution-
---//ADD\\Correct Solution Printout--
+-Puzzle Number-
+-Puzzle Name-
+-Room the Puzzle is located in-
+-Puzzle Description-
+-Puzzle Hint-
+-Puzzle Solution-
+-Correct Solution Printout-
+-Puzzle Type-
+-Puzzle Damage Done (Stat Modifier)-
+-Puzzle HP Modifier (Stat Modifier)-
+-Puzzle Item(#) Dropped (Item Dropper)-
 -USE A BLANK LINE AS A SEPARATOR-
 ---------------------------------------
 
 1
 Sacred Verse of the Two Gods
 15
-The player must be able to rehearse a sacred verse from the Bible of the Two Gods that can be found in RMN_05 to open a bronze safe containing an item in RMN_15.
+Please rehearse a sacred verse from the Bible of the Two Gods that can be found in the Room of Antiquities.
 Hint: Sacred scrolls, texts and religious books can be found in the East wing/hallway 2 of the estate.
 All hail the mighty Fathers Anemis and Aaldir. Give us light and give us dark! Luce et Tenebris!
+Congratulations! You have completed the puzzle and a bronze safe has opened revealing a sacred item!
+Item Giver
+0
+0
+14
 
 2
 Mantra
 6
-The player must search for the mantra to unlock room 6 to encounter High Priest Elwyn.
+Recite the mantra.
 Hint: visit the art gallery.
 Luce et Tenebris
+Congratulations! You have completed the puzzle and have gained access to High Priest Elwyn.
+Monster Unlocker
+0
+0
+0
 
 3
 Random Number of life
 8
-The player enters the room and unfortunately, they get locked in as soon as the door closes behind them. In order to leave the player needs to finish a puzzle. This puzzle will ask the  player to guess a number between 0 and 20. They will be told if the number is too high or too low. If they get it right they will be free. Note: player cannot exit room unless the puzzle is solved
+Upon entering the room, you have been locked in as soon as the door closed behind you. In order to leave, you must guess a number between 0 and 20.
 Hint: one and two do not equal three but it equals...
 12
+Congratulations! You have completed the puzzle and now can move about freely once more.
+Room Locker
+0
+0
+0
 
 4
 Word Padlock
 14
-The player finds a safe after exploring. For the player to solve the puzzle, they must use the description of the room to help them. They must then proceed to enter 3 letters into the padlock.Upon solving, they open the safe to reveal Key Piece 3.
+Use clues around you to come up with the correct 3 letter word to solve this puzzle.
 Hint: Maybe the paper you read earlier and the numbers on the wall have something in common?
 DIE
+Congratulations! You have completed the puzzle and the safe has opened revealing Key Piece 3.
+Item Giver
+0
+0
+9
 
 5
 Game Trivia
 16
-You find yourself sitting on the floor against the wall. The effects of the wine are strong, you start hallucinating... The bottles start sprouting eyes,mouths,legs, and arms. A big bottle approaches you and speaks in a deep voice. “You’ve drank the blood of my brethren, you must answer my riddle or die! What is the title of Phenrik who guards ROOM 1? Your choices are 1. The Bellhop , 2. The Butler , 3. The Doorman” .
+You find yourself sitting on the floor against the wall. The effects of the wine are strong, you start hallucinating... The bottles start sprouting eyes,mouths,legs, and arms. A big bottle approaches you and speaks in a deep voice. “You’ve drank the blood of my brethren, you must answer my riddle or die! What is the title of Phenrik who guards the Foyer? Your choices are (1) The Bellhop , (2) The Butler , (3) The Doorman” .
 Hint: You think his name might have had something to do with doors?
 3
+“Correct! But you will die anyway!”. You grab the big bottle before it attacks you and chuck it at the wall, shattering into a million pieces. You close your eyes… You open your eyes and realize you’ve been sleeping for a while. You’re holding a bottle in your hand, it reads “Wine Potion!” The nutrition label says it’ll give you 30 health if you drink it. You get back on your feet.
+Double Threat
+20
+0
+17
 
 6
 Room Number Book Pull
 17
-You get a strange feeling from a group of numbered books from 0-9, they are seemingly prompting you to pick them up and read them. You resist and take a step back to think. Surely there’s a rhyme or reason for the choice.
+You get a strange feeling from a group of numbered books from 0-9, they are seemingly prompting you to pick them up and read them. You resist and take a step back to think. Surely there’s a rhyme or reason for the choice. Pick the correct 3 books to solve this puzzle.
 Hint: Check the map’s room number
 9 5 3
+Congratulations! You have completed the puzzle and have been granted an increase in 15 total HP.
+Stat Modifier
+0
+15
+0
 
 7
 Matching Book Pull
 17
-You happen upon 10 books of varying colors arranged in a row, With a box made out of wood with gold linings and inscriptions under them. Out of curiosity, you reach out to pull the box free. In your attempt, you are blasted with a mysterious vision of a world full of red. The sky, the trees, the grass all a deep red. The vision flashes white and you’re back in the library, with an impression that you’re supposed to pull certain books in the row to open the box
+You happen upon 10 books of varying colors arranged in a row, With a box made out of wood with gold linings and inscriptions under them. Out of curiosity, you reach out to pull the box free. In your attempt, you are blasted with a mysterious vision of a world full of red. The sky, the trees, the grass all a deep red. The vision flashes white and you’re back in the library, with an impression that you’re supposed to pull certain books in the row to open the box. Pull the correct color books to solve this puzzle.
 Hint: What colors were seen in the vision?
 red white
+Congratulations! You have completed the puzzle and have been rewarded with a MedKit.
+Item Giver
+0
+0
+5

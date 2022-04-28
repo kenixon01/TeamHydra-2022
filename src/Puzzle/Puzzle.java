@@ -2,7 +2,7 @@
 package Puzzle;
 
 /**
- *  Author: Jayson Dasher
+ * Author: Jayson Dasher
  */
 public class Puzzle {
 
@@ -12,15 +12,25 @@ public class Puzzle {
     private String description;
     private String hint;
     private String solution;
+    private String solvedMessage;
+    private String type;
     private Boolean isSolved;
+    private int damage;
+    private int hpModifier;
+    private String itemDropped;
 
-    public Puzzle(int id, String name, String room, String description, String hint, String solution) {
+    public Puzzle(int id, String name, String description, String room, String hint, String solution, String solvedMessage, String type, int damage, int hpModifier, String itemDropped) {
         this.id = id;
         this.name = name;
         this.room = room;
         this.description = description;
         this.hint = hint;
         this.solution = solution;
+        this.solvedMessage = solvedMessage;
+        this.type = type;
+        this.damage = damage;
+        this.hpModifier = hpModifier;
+        this.itemDropped = itemDropped;
         this.isSolved = false;
     }
 
@@ -72,4 +82,51 @@ public class Puzzle {
         this.solution = solution;
     }
 
+    public String getSolvedMessage() {
+        return solvedMessage;
+    }
+
+    public void setSolvedMessage(String solvedMessage) {
+        this.solvedMessage = solvedMessage;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Boolean getSolved() {
+        return isSolved;
+    }
+
+    public void setSolved(Boolean solved) {
+        isSolved = solved;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public int getHpModifier() {
+        return hpModifier;
+    }
+
+    public void setHpModifier(int hpModifier) {
+        this.hpModifier = hpModifier;
+    }
+
+    public String getItemDropped() {
+        return itemDropped;
+    }
+
+    public void setItemDropped(String itemDropped) {
+        this.itemDropped = itemDropped;
+    }
 }

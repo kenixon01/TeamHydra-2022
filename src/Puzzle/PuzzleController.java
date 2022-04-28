@@ -2,47 +2,41 @@ package Puzzle;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
- *  Author: Jayson Dasher and David Huber
+ * Author: Jayson Dasher and David Huber
  */
 public class PuzzleController {
     private Map<String, List<Puzzle>> puzzles; //Named puzzles but is the model
     private PuzzleView view;
 
-    public PuzzleController(PuzzleView view){
+    //    public PuzzleController(PuzzleView view) {
+    public PuzzleController(PuzzleView view) {
         this.view = view;
         this.puzzles = new PuzzleReader().CreatePuzzles();
     }
 
-    /*
-    DESC: The player must be able to enter the correct puzzle answer into the console to solve the puzzle
-    RAT: This allow the player to solve a puzzle to be able to unlock and retrieve an item if the puzzle is solved.
-     */
 
     /**
-     * @param input player's answer
-     * @param roomID player's current location
+     * @param input    player's answer
+     * @param roomID   player's current location
      * @param puzzleID puzzle id
      * @author Khamilah Nixon
      */
     public void solvePuzzle(String input, int roomID, int puzzleID) {
-        if(input.equalsIgnoreCase(puzzles.get(roomID + "").get(puzzleID).getSolution())) {
+        if (input.equalsIgnoreCase(puzzles.get(roomID + "").get(puzzleID).getSolution())) {
             view.puzzleSuccess(puzzles.get(roomID + "").get(puzzleID));
         }
     }
 
-    /*
-    DESC: The player must be able to type “Puzzle.Puzzle Hint” in the console while in a puzzle to display the hint for the puzzle in the console
-    RAT: This allow the player to get a hint to solve the puzzle to help  the player who stuck on solving the puzzle
-     */
 
     /**
-     * @param roomID player's current location
+     * @param roomID   player's current location
      * @param puzzleID puzzle id
      * @author Jayson Dasher and Khamilah Nixon
      */
-    public void puzzleHint(int roomID, int puzzleID){
+    public void puzzleHint(int roomID, int puzzleID) {
         view.puzzleHint(puzzles.get(roomID + "").get(puzzleID));
     }
 
@@ -53,17 +47,119 @@ public class PuzzleController {
     public Map<String, List<Puzzle>> getPuzzles() {
         return puzzles;
     }
-    /*
-    DESC: The player must be able to type “Exit Puzzle.Puzzle” in the console while in a puzzle to exit the puzzle.
-    RAT: This allows the player to exit the puzzle and walk around the room or other rooms to find possible clues.
+
+    public void puzzleSolved(Puzzle puzzle) {
+        //print puzzlesolved message
+        view.puzzleSuccess(puzzle);
+        //set puzzle to solved
+        puzzle.setSolved(true);
+    }
+
+    /**
+     * Author: Jayson
      */
-    public void exitPuzzle(String input)
-    {
-        if(input.equalsIgnoreCase("Exit Puzzle"))
-        {
-
+    //method referenced from main controller (rest of the puzzle interaction is self contained)
+    public void checkForPuzzle(int roomID) {
+        //if there is a puzzle in room, start puzzle interaction, else continue
+        if (puzzles.containsKey(Integer.toString(roomID))) {
+            //if puzzle in first key index is not solved yet, start puzzle
+            if (puzzles.get(Integer.toString(roomID)).get(0).getSolved() == false) {
+                //passes the puzzle for the room to the startPuzzle method.
+                startPuzzle(puzzles.get(Integer.toString(roomID)).get(0));
+            }
+            //if keysize is 2 (holding two puzzles) run second puzzle interaction
+            if (puzzles.get(Integer.toString(roomID)).size() == 2) {
+                if (puzzles.get(Integer.toString(roomID)).get(1).getSolved() == false) {
+                    //passes the puzzle for the room to the startPuzzle method.
+                    startPuzzle(puzzles.get(Integer.toString(roomID)).get(1));
+                }
+            }
         }
+    }
 
+    /**
+     * Author: Jayson
+     */
+    public void startPuzzle(Puzzle puzzle) {
+        //print puzzle description
+        view.puzzleDescription(puzzle);
+        //print command options
+        view.puzzleCommands();
+
+        while (true) {
+            //scan for user input
+            Scanner reader = new Scanner(System.in);
+            String userInput = reader.nextLine();
+            if (userInput.equalsIgnoreCase("hint")) {
+                view.puzzleHint(puzzle);
+                continue;
+            }
+            if (userInput.equalsIgnoreCase("exit")) {
+                //TODO: maybe change requirement to lock player in puzzle instead of the room for puzzle #3?
+                break;
+            }
+
+            //if the puzzle in this room is an Item Giver type
+            if (puzzle.getType().equalsIgnoreCase("Item Giver")) {
+                //if correct solution is inputted
+                if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
+                    puzzleSolved(puzzle); //print message and set puzzle to solved
+                    //TODO: address how we are going to handle the item associated. Drop in room? Add to inventory? (puzzle #1,#4,#7)
+
+                    break; //break from puzzle interaction loop
+                }
+            }
+            //if the puzzle in this room is a stat modifier
+            if (puzzle.getType().equalsIgnoreCase("Stat Modifier")) {
+                //if correct solution is inputted
+                if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
+                    puzzleSolved(puzzle); //print message and set puzzle to solved
+                    //TODO: handle stat modifier type (puzzle #6) (adds 15 hp to players total healthpool)
+
+                    break; //break from puzzle interaction loop
+                }
+            }
+            //if the puzzle in this room is a Monster Unlocker
+            if (puzzle.getType().equalsIgnoreCase("Monster Unlocker")) {
+                if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
+                    puzzleSolved(puzzle); //print message and set puzzle to solved
+                    //TODO: handle Monster Unlocker type (puzzle #2) (must complete puzzle first before encountering monster in this room(room6))
+
+                    break; //break from puzzle interaction loop
+                }
+            }
+            //if the puzzle in this room is a room locker
+            if (puzzle.getType().equalsIgnoreCase("Room Locker")) {
+                //if correct solution is inputted
+                if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
+                    puzzleSolved(puzzle); //print message and set puzzle to solved
+                    //TODO: handle Room Locker type (puzzle #3) (once started, player can exit puzzle, but not room until the puzzle is solved)
+
+                    break; //break from puzzle interaction loop
+                }
+                //TODO: if answer is wrong, player will be told if the number is too high or too low and keep guessing until they are correct.
+            }
+            //if the puzzle in this room is a room locker
+            if (puzzle.getType().equalsIgnoreCase("Double Threat")) {
+                if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
+                    puzzleSolved(puzzle); //print message and set puzzle to solved
+                    //TODO: handle Double Threat type (puzzle #5) (drops item when solved, if incorrect, does damage to player)
+
+                    break; //break from puzzle interaction loop
+                }
+            } else { //input doesn't match an available command or puzzle solution
+                //TODO: if puzzle type is double threat, deal damage to player
+                view.puzzleIncorrect();
+            }
+        }
+    }
+}
+
+class PuzzleControllerTester {
+    public static void main(String[] args) {
+        PuzzleView view = new PuzzleView();
+        PuzzleController puzzleController = new PuzzleController(view);
+        puzzleController.checkForPuzzle(1);
     }
 
 }
