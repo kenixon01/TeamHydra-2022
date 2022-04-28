@@ -41,7 +41,7 @@ public class Entry {
             consoleController.enterCommand();
         }
         catch (InputMismatchException | IOException e) {
-            consoleController.invalidCommand();
+            consoleController.invalidCommand("");
         }
     }
 }

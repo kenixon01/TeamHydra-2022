@@ -39,13 +39,56 @@ public class Console {
         return input;
     }
 
+    public String battleInputValidator() {
+        String[] inputValidator = input.split("\\s+");
+        item = "";
+        if (inputValidator[0].equalsIgnoreCase("use")
+                || inputValidator[0].equalsIgnoreCase("equip")
+                || inputValidator[0].equalsIgnoreCase("unequip")
+                || inputValidator[0].equalsIgnoreCase("help")
+                || inputValidator[0].equalsIgnoreCase("attack")
+                || inputValidator[0].equalsIgnoreCase("inventory")
+                || inputValidator[0].equalsIgnoreCase("block")
+                || inputValidator[0].equalsIgnoreCase("dodge")
+                || inputValidator[0].equalsIgnoreCase("exit")
+        ) {
+            input = inputValidator[0];
+            // recombine string to pass for method
+            for (int i = 1; i < inputValidator.length; i++) {
+                item += inputValidator[i] + " ";
+            }
+            return input;
+        }
+        return input;
+    }
+
+    public String puzzleInputValidator() {
+        String[] inputValidator = input.split("\\s+");
+        item = "";
+        if (inputValidator[0].equalsIgnoreCase("pickup")
+                || inputValidator[0].equalsIgnoreCase("use")
+                || inputValidator[0].equalsIgnoreCase("equip")
+                || inputValidator[0].equalsIgnoreCase("unequip")
+                || inputValidator[0].equalsIgnoreCase("help")
+                || inputValidator[0].equalsIgnoreCase("inventory")
+                || inputValidator[0].equalsIgnoreCase("hint")
+                || inputValidator[0].equalsIgnoreCase("exit")
+        ) {
+            input = inputValidator[0];
+            // recombine string to pass for method
+            for (int i = 1; i < inputValidator.length; i++) {
+                item += inputValidator[i] + " ";
+            }
+            return input;
+        }
+        return input;
+    }
+
     // This is used to validate input that is done to an object
     public String inputValidator() {
         String[] inputValidator = input.split("\\s+");
         item = "";
         if (inputValidator[0].equalsIgnoreCase("pickup")
-                || inputValidator[0].equalsIgnoreCase("inspect")
-                || inputValidator[0].equalsIgnoreCase("drop")
                 || inputValidator[0].equalsIgnoreCase("use")
                 || inputValidator[0].equalsIgnoreCase("equip")
                 || inputValidator[0].equalsIgnoreCase("unequip")
@@ -60,9 +103,7 @@ public class Console {
                 || inputValidator[0].equalsIgnoreCase("resume")
                 || inputValidator[0].equalsIgnoreCase("block")
                 || inputValidator[0].equalsIgnoreCase("dodge")
-                || inputValidator[0].equalsIgnoreCase("hint")
-                || inputValidator[0].equalsIgnoreCase("examine")
-                || inputValidator[0].equalsIgnoreCase("explore")
+                || inputValidator[0].equalsIgnoreCase("exit")
         ) {
             input = inputValidator[0];
             // recombine string to pass for method

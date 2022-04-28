@@ -18,6 +18,58 @@ public class BattleController {
     }
 
     /**
+     * Determines the amount of damage reduction
+     * If a player successfully blocks an attack, then the incoming
+     * damage will be reduced
+     * @author Brian Smithers and Khamilah Nixon
+     */
+    private void playerBlock() {
+        int damageReduction = model.blockPlayer();
+        if (damageReduction > 0) {
+            view.blockSuccessful(model.getPlayerName(), model.getMonsterName());
+            int totalMonsterDamage = model.getMonsterAttackPoints() - damageReduction;
+            model.attackMonster();
+            view.attackTurnResult(model.getPlayerName(), model.getPlayerAttackPoints(), model.getMonsterName());
+            view.attackTurnResult(model.getMonsterName(),
+                    Math.max(totalMonsterDamage, 0), model.getPlayerName());
+        } else {
+            view.blockUnsuccessful(model.getPlayerName(), model.getMonsterName());
+        }
+    }
+
+    /**
+     * Determines if a player successfully dodged an attack
+     * If a player successfully dodges an attack, then a monster
+     * will not attack the player
+     * @author Brian Smithers and Khamilah Nixon
+     */
+    private void playerDodge() {
+        if (model.dodgePlayer()) {
+        view.dodgeSuccessful(model.getPlayerName(), model.getMonsterName());
+        model.attackMonster();
+        view.attackTurnResult(model.getPlayerName(), model.getPlayerAttackPoints(), model.getMonsterName());
+        view.attackTurnResult(model.getMonsterName(), 0, model.getPlayerName());
+    } else {
+        view.dodgeUnsuccessful(model.getPlayerName(), model.getMonsterName());
+    }
+    }
+
+    /**
+     * Allows player to use attack command
+     * @author Brian Smithers and Khamilah Nixon
+     */
+    private void playerAttack() {
+        model.attackMonster();
+        view.attackTurnResult(model.getPlayerName(), model.getPlayerAttackPoints(), model.getMonsterName());
+        if(model.getMonster().getHp() <= 0) {
+            view.monsterSlayed(model.getMonster());
+            return;
+        }
+        model.attackPlayer();
+        view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
+    }
+
+    /**
      * Allows player and monster to engage in battle.  Displays
      * attack damage information after each attack.
      * @author Brian Smithers and Khamilah Nixon
@@ -26,44 +78,12 @@ public class BattleController {
                                    boolean playerSelectedBlock) {
         if(model.getMonster() != null) {
             if (model.getMonster().getHp() > 0 && model.getPlayer().getHp() > 0) {
-                // Player attacks monster
                 if (playerSelectedBlock) {
-                    //Determines the amount of damage reduction
-                    //If a player successfully blocks an attack, then the incoming
-                    //damage will be reduced
-                    int damageReduction = model.blockPlayer();
-                    if (damageReduction > 0) {
-                        view.blockSuccessful(model.getPlayerName(), model.getMonsterName());
-                        int totalMonsterDamage = model.getMonsterAttackPoints() - damageReduction;
-                        model.attackMonster();
-                        view.attackTurnResult(model.getPlayerName(), model.getPlayerAttackPoints(), model.getMonsterName());
-                        view.attackTurnResult(model.getMonsterName(),
-                                Math.max(totalMonsterDamage, 0), model.getPlayerName());
-                    } else {
-                        view.blockUnsuccessful(model.getPlayerName(), model.getMonsterName());
-                    }
+                    playerBlock();
                 } else if (playerSelectedDodge) {
-                    //Determines if a player successfully dodged an attack
-                    //If a player successfully dodges an attack, then a monster
-                    //will not attack the player
-                    if (model.dodgePlayer()) {
-                        view.dodgeSuccessful(model.getPlayerName(), model.getMonsterName());
-                        model.attackMonster();
-                        view.attackTurnResult(model.getPlayerName(), model.getPlayerAttackPoints(), model.getMonsterName());
-                        view.attackTurnResult(model.getMonsterName(), 0, model.getPlayerName());
-                    } else {
-                        view.dodgeUnsuccessful(model.getPlayerName(), model.getMonsterName());
-                    }
-                } else { //if a player uses attack command
-                    model.attackMonster();
-                    view.attackTurnResult(model.getPlayerName(), model.getPlayerAttackPoints(), model.getMonsterName());
-                    if(model.getMonster().getHp() <= 0) {
-                        view.monsterSlayed(model.getMonster());
-                        return;
-                    }
-                    model.attackPlayer();
-                    view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
-
+                    playerDodge();
+                } else {
+                    playerAttack();
                 }
                 // Print remaining health for both monster and player
                 view.remainingHealth(model.getMonster(), model.getPlayer());
@@ -74,9 +94,13 @@ public class BattleController {
 
     }
 
-    /**
-     * @author Khamilah Nixon
-     */
+    public void exhaustTurn() {
+        view.exhaustTurn(model.getPlayerName());
+        model.attackPlayer();
+        view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
+
+    }
+
     public Battle getModel() {
         return model;
     }

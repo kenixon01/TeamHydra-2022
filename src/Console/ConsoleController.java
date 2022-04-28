@@ -66,8 +66,8 @@ public class ConsoleController {
      * Displays an invalid command message in the console
      * @author Khamilah Nixon
      */
-    public void invalidCommand() {
-        consoleView.invalidCommand();
+    public void invalidCommand(String commandCategory) {
+        consoleView.invalidCommand(commandCategory);
     }
 
     /**
@@ -97,6 +97,7 @@ public class ConsoleController {
     public void continueGame() {
         //placeholder comment for load game functionality
         consoleView.continueGame();
+        consoleView.print("");
     }
 
     /**
@@ -125,7 +126,7 @@ public class ConsoleController {
                     exitGame();
                     validMenuOption = true;
                 }
-                default -> invalidCommand();
+                default -> invalidCommand("menu");
             }
         }
     }
@@ -144,12 +145,13 @@ public class ConsoleController {
         boolean validMenuOption = false;
         String userOption = "";
         while(!validMenuOption) {
-             userOption = console.menuInputValidator(new String[]{"1","2","3","4"});
+            userOption = console.menuInputValidator(new String[]{"1","2","3","4"});
             switch (userOption) {
                 case "1", "4", "2", "3" -> validMenuOption = true;
-                default -> invalidCommand();
+                default -> invalidCommand("character menu");
             }
         }
+        consoleView.print("");
         character = Character.loadCharacterData(Integer.parseInt(userOption));
         character.setRoomNumber(1);
         characterController = new CharacterController(character, characterView);
@@ -197,6 +199,7 @@ public class ConsoleController {
         roomController = new RoomController(room, roomView);
 
         roomController.printRoomDescription();
+        consoleView.print("");
     }
 
     /**
@@ -211,6 +214,8 @@ public class ConsoleController {
             int roomID = characterController.getModel().getRoomNumber();
             if (monsterController.getModel().get(roomID) != null &&
                     monsterController.getModel().get(roomID).getHp() > 0) {
+                monsterController.monsterInfo(character.getRoomNumber());
+                consoleView.print("");
                 battleView = new BattleView();
                 battle = new Battle(characterController.getModel(),monsterController.getModel().get(roomID));
                 battleController = new BattleController(battle, battleView);
@@ -234,70 +239,123 @@ public class ConsoleController {
         switch (console.inputValidator()) {
             case "stats" -> characterController.printPlayerDetails();
             case "use" -> itemController.useItem(characterController.getModel());
-            case "examine" -> {
-                isPlayerAlive();
-                monsterController.examine(character.getRoomNumber());
-            }
             case "equip" -> characterController.equip(console.getItem());
             case "unequip" -> characterController.unEquipItem(console.getItem());
-            case "north", "south", "east", "west" -> {
+            case "north", "south", "east", "west" -> { // TODO change north, south, east, and west to n, s, e, w
                 characterController.move(console.inputValidator());
                 roomController.setModel(Room.getRoom(character.getRoomNumber()));
                 roomController.printRoomDescription();
-                // puzzleController.checkIfPuzzleExists(character.getCurrentRoom)
             }
-            case "attack" -> {
-                isPlayerAlive();
-                    battleController.printBattleDetails(
-                            characterController.getModel().getInventoryController().
-                                    getItemInventory(), false, false);
-
-            }
-            case "block" -> {
-                isPlayerAlive();
-                    battleController.printBattleDetails(characterController.getModel().getInventoryController().
-                            getItemInventory(), false, true);
-
-            }
+            case "attack" -> beginBattle(false, false);
+            case "block" -> beginBattle(false, true);
             case "location" -> characterController.printPlayerLocation();
             case "inventory" -> characterController.printInventory();
             case "save" -> saveGame();
             case "resume" -> continueGame();
-            case "dodge" -> {
-                isPlayerAlive();
-                battleController.printBattleDetails(characterController.getModel().getInventoryController().
-                            getItemInventory(), true, false);
-
+            case "dodge" -> beginBattle(true,false);
+            case "help" -> characterController.printHelp();
+            default -> {
+                invalidCommand("");
+                return false;
             }
-            case "hint" -> {
-                int roomID = characterController.getModel().getRoomNumber();
-                List<Puzzle> puzzleList = puzzleController.getPuzzles().get(roomID + "");
-                int chRoomID = characterController.getModel().getRoomNumber();
-                for(Puzzle pz : puzzleList) {
-                    if(pz.getRoom().equalsIgnoreCase(chRoomID + "")) {
-                        puzzleController.puzzleHint(characterController.getModel().getRoomNumber(), pz.getId());
-                    }
-                }
+        }
+        consoleView.print("");
+        return true;
+    }
+
+    /**
+     * @author Khamilah Nixon and Brian Smithers
+     * @return if a command is a valid battle command
+     */
+    private boolean isBattleCommand() {
+        switch (console.battleInputValidator()){
+            case "exit" -> exitGame();
+            case "use" -> {
+                // TODO add use item command
+                battleController.exhaustTurn();
+            }
+            case "equip" -> {
+                characterController.equip(console.getItem());
+                battleController.exhaustTurn();
+            }
+            case "unequip" -> {
+                characterController.unEquipItem(console.getItem());
+                battleController.exhaustTurn();
             }
             case "help" -> characterController.printHelp();
-            case "solve" -> {
-                System.out.println("solve");
+            case "inventory" -> {
+                characterController.printInventory();
+                battleController.exhaustTurn();
+            }
+            case "attack" ->
+                    battleController.printBattleDetails(characterController.getModel().getInventoryController().
+                            getItemInventory(), false, false);
+
+            case "block" ->
+                    battleController.printBattleDetails(characterController.getModel().getInventoryController().
+                            getItemInventory(), false, true);
+            case "dodge" ->
+                    battleController.printBattleDetails(characterController.getModel().getInventoryController().
+                            getItemInventory(), true, false);
+            default -> {
+                invalidCommand("battle");
+                return false;
+            }
+        }
+        consoleView.print("");
+        return true;
+    }
+
+    /**
+     * @author Khamilah Nixon and Brian Smithers
+     * @return if a command is a valid puzzle command
+     */
+    private boolean isPuzzleCommand() {
+        switch (console.puzzleInputValidator()) {
+            case "pickup" -> {} // TODO add pickup item from room functionality
+            case "use" -> {} // TODO add use item functionality
+            case "equip" -> characterController.equip(console.getItem());
+            case "unequip" -> characterController.unEquipItem(console.getItem());
+            case "help" -> characterController.printHelp();
+            case "inventory" -> characterController.printInventory();
+            case "hint" -> {} // TODO add puzzle hint functionality
+            case "exit" -> {
+                if(console.getItem().equalsIgnoreCase(" puzzle")) {
+                    // TODO exit puzzle functionality
+                }
+                else {
+                    exitGame();
+                }
             }
             default -> {
-                invalidCommand();
+                invalidCommand("puzzle");
                 return false;
             }
         }
         return true;
     }
 
+    /*private void beginPuzzle() {
+        while(!console.getInput().equalsIgnoreCase(""))
+    }*/
+
     /**
      * Author: Brian and Khamilah
      */
-    public void isPlayerAlive() {
+    private void beginBattle(boolean dodge, boolean block) {
+        battleController.printBattleDetails(characterController.getModel().getInventoryController().
+                getItemInventory(), dodge, block);
+        while(battleController.getModel().getMonster().getHp() > 0 &&
+                battleController.getModel().getPlayer().getHp() > 0){
+
+            boolean validCommand = false;
+            while (!validCommand) {
+                console.enterCommand();
+                validCommand = isBattleCommand();
+            }
+        }
         if (battleController.getModel().getPlayer().getHp() <= 0) {
             exitGame();
         }
-
     }
 }

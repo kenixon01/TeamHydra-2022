@@ -32,8 +32,13 @@ public class BattleView {
         System.out.println(monster.getName() + " was slayed");
     }
     public void cannotStartBattle() {
-        System.out.println("There is no monster to fight.");
+        System.out.println("There is no monster to fight");
     }
+
+    public void exhaustTurn(String attacker) {
+        System.out.println(attacker + " exhausted their turn");
+    }
+
     /**
      * Author: Khamilah Nixon
      */
