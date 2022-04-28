@@ -8,10 +8,10 @@ import java.util.Scanner;
  * Author: Jayson Dasher and David Huber
  */
 public class PuzzleController {
-    private Map<String, List<Puzzle>> puzzles; //Named puzzles but is the model
+    public Map<String, List<Puzzle>> puzzles; //Named puzzles but is the model
     private PuzzleView view;
 
-    //    public PuzzleController(PuzzleView view) {
+
     public PuzzleController(PuzzleView view) {
         this.view = view;
         this.puzzles = new PuzzleReader().CreatePuzzles();
@@ -29,7 +29,6 @@ public class PuzzleController {
             view.puzzleSuccess(puzzles.get(roomID + "").get(puzzleID));
         }
     }
-
 
     /**
      * @param roomID   player's current location
@@ -121,6 +120,7 @@ public class PuzzleController {
             }
             //if the puzzle in this room is a Monster Unlocker
             if (puzzle.getType().equalsIgnoreCase("Monster Unlocker")) {
+                //if correct solution is inputted
                 if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
                     puzzleSolved(puzzle); //print message and set puzzle to solved
                     //TODO: handle Monster Unlocker type (puzzle #2) (must complete puzzle first before encountering monster in this room(room6))
@@ -141,6 +141,7 @@ public class PuzzleController {
             }
             //if the puzzle in this room is a room locker
             if (puzzle.getType().equalsIgnoreCase("Double Threat")) {
+                //if correct solution is inputted
                 if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
                     puzzleSolved(puzzle); //print message and set puzzle to solved
                     //TODO: handle Double Threat type (puzzle #5) (drops item when solved, if incorrect, does damage to player)
@@ -159,7 +160,8 @@ class PuzzleControllerTester {
     public static void main(String[] args) {
         PuzzleView view = new PuzzleView();
         PuzzleController puzzleController = new PuzzleController(view);
-        puzzleController.checkForPuzzle(1);
+        //command to call method from main controller (int roomID as the argument being passed)
+        puzzleController.checkForPuzzle(6);
+//        puzzleController.puzzles.get(Integer.toString(6)).get(0).getSolved();
     }
-
 }

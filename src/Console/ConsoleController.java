@@ -51,12 +51,13 @@ public class ConsoleController {
      * Then, it will verify if the player enters "y" or "n"
      * If the player enters "y," then the main menu will appear on the
      * console.  Otherwise, the game will end.
+     *
      * @author Khamilah Nixon
      */
     public void startGame() {
         consoleView.startGame();
-        String userOption = console.menuInputValidator(new String[]{"y","n"});
-        if(!userOption.equalsIgnoreCase("y")) {
+        String userOption = console.menuInputValidator(new String[]{"y", "n"});
+        if (!userOption.equalsIgnoreCase("y")) {
             exitGame();
         }
         consoleView.gameDescription();
@@ -64,6 +65,7 @@ public class ConsoleController {
 
     /**
      * Displays an invalid command message in the console
+     *
      * @author Khamilah Nixon
      */
     public void invalidCommand(String commandCategory) {
@@ -72,6 +74,7 @@ public class ConsoleController {
 
     /**
      * Displays an exit game message and terminates the program
+     *
      * @author Khamilah Nixon
      */
     public void exitGame() {
@@ -82,6 +85,7 @@ public class ConsoleController {
     /**
      * Saves player's current progress and prints a
      * confirmation message in the console
+     *
      * @author Khamilah Nixon
      */
     public void saveGame() {
@@ -92,6 +96,7 @@ public class ConsoleController {
     /**
      * Loads player's last save game and prints a
      * confirmation message in the console
+     *
      * @author Khamilah Nixon
      */
     public void continueGame() {
@@ -103,15 +108,16 @@ public class ConsoleController {
     /**
      * Displays the main menu in the console and allows the
      * user to select their menu choice
+     *
      * @author Khamilah Nixon
      */
     public void mainMenu() {
         //displays main menu in console
         consoleView.mainMenu();
         boolean validMenuOption = false;
-        while(!validMenuOption) {
+        while (!validMenuOption) {
             String userOption = console.menuInputValidator(
-                    new String[]{"start","continue","exit","help"}
+                    new String[]{"start", "continue", "exit", "help"}
             ).toLowerCase();
             switch (userOption) {
                 case "start" -> {
@@ -134,18 +140,19 @@ public class ConsoleController {
     /**
      * Displays the character selection in the console
      * and allows the user to select their character choice
+     *
      * @author Khamilah Nixon, Brian Smithers, Jayson Dasher
      */
     public void characterSelect() throws IOException {
         itemView = new ItemView();
-        itemController = new ItemController(new ItemReader().CreateItems(),itemView);
+        itemController = new ItemController(new ItemReader().CreateItems(), itemView);
 
         characterView = new CharacterView();
         characterView.characterSelect(); // TODO call by character controller
         boolean validMenuOption = false;
         String userOption = "";
-        while(!validMenuOption) {
-            userOption = console.menuInputValidator(new String[]{"1","2","3","4"});
+        while (!validMenuOption) {
+            userOption = console.menuInputValidator(new String[]{"1", "2", "3", "4"});
             switch (userOption) {
                 case "1", "4", "2", "3" -> validMenuOption = true;
                 default -> invalidCommand("character menu");
@@ -157,10 +164,13 @@ public class ConsoleController {
         characterController = new CharacterController(character, characterView);
 
         monsterView = new MonsterView();
-        monsterController = new MonsterController(Monster.createMonsters(),monsterView);
+        monsterController = new MonsterController(Monster.createMonsters(), monsterView);
 
-        puzzleView = new PuzzleView();
-        puzzleController = new PuzzleController(puzzleView);
+//        puzzleView = new PuzzleView();
+//        puzzleController = new PuzzleController(puzzleView);
+
+        PuzzleView view = new PuzzleView();
+        PuzzleController puzzleController = new PuzzleController(view);
 
     }
 
@@ -204,6 +214,7 @@ public class ConsoleController {
 
     /**
      * Allows player to enter commands during gameplay
+     *
      * @author Brian Smithers and Khamilah Nixon
      */
     public void enterCommand() {
@@ -217,7 +228,7 @@ public class ConsoleController {
                 monsterController.monsterInfo(character.getRoomNumber());
                 consoleView.print("");
                 battleView = new BattleView();
-                battle = new Battle(characterController.getModel(),monsterController.getModel().get(roomID));
+                battle = new Battle(characterController.getModel(), monsterController.getModel().get(roomID));
                 battleController = new BattleController(battle, battleView);
             }
             // else if puzzleController model exists in room
@@ -231,7 +242,6 @@ public class ConsoleController {
     }
 
     /**
-     *
      * @return if player entered a valid command
      * @author Khamilah Nixon, Brian Smithers, Jayson Dasher
      */
@@ -252,7 +262,7 @@ public class ConsoleController {
             case "inventory" -> characterController.printInventory();
             case "save" -> saveGame();
             case "resume" -> continueGame();
-            case "dodge" -> beginBattle(true,false);
+            case "dodge" -> beginBattle(true, false);
             case "help" -> characterController.printHelp();
             default -> {
                 invalidCommand("");
@@ -264,11 +274,11 @@ public class ConsoleController {
     }
 
     /**
-     * @author Khamilah Nixon and Brian Smithers
      * @return if a command is a valid battle command
+     * @author Khamilah Nixon and Brian Smithers
      */
     private boolean isBattleCommand() {
-        switch (console.battleInputValidator()){
+        switch (console.battleInputValidator()) {
             case "exit" -> exitGame();
             case "use" -> {
                 // TODO add use item command
@@ -287,16 +297,13 @@ public class ConsoleController {
                 characterController.printInventory();
                 battleController.exhaustTurn();
             }
-            case "attack" ->
-                    battleController.printBattleDetails(characterController.getModel().getInventoryController().
-                            getItemInventory(), false, false);
+            case "attack" -> battleController.printBattleDetails(characterController.getModel().getInventoryController().
+                    getItemInventory(), false, false);
 
-            case "block" ->
-                    battleController.printBattleDetails(characterController.getModel().getInventoryController().
-                            getItemInventory(), false, true);
-            case "dodge" ->
-                    battleController.printBattleDetails(characterController.getModel().getInventoryController().
-                            getItemInventory(), true, false);
+            case "block" -> battleController.printBattleDetails(characterController.getModel().getInventoryController().
+                    getItemInventory(), false, true);
+            case "dodge" -> battleController.printBattleDetails(characterController.getModel().getInventoryController().
+                    getItemInventory(), true, false);
             default -> {
                 invalidCommand("battle");
                 return false;
@@ -307,23 +314,25 @@ public class ConsoleController {
     }
 
     /**
-     * @author Khamilah Nixon and Brian Smithers
      * @return if a command is a valid puzzle command
+     * @author Khamilah Nixon and Brian Smithers
      */
     private boolean isPuzzleCommand() {
         switch (console.puzzleInputValidator()) {
-            case "pickup" -> {} // TODO add pickup item from room functionality
-            case "use" -> {} // TODO add use item functionality
+            case "pickup" -> {
+            } // TODO add pickup item from room functionality
+            case "use" -> {
+            } // TODO add use item functionality
             case "equip" -> characterController.equip(console.getItem());
             case "unequip" -> characterController.unEquipItem(console.getItem());
             case "help" -> characterController.printHelp();
             case "inventory" -> characterController.printInventory();
-            case "hint" -> {} // TODO add puzzle hint functionality
+            case "hint" -> {
+            } // TODO add puzzle hint functionality
             case "exit" -> {
-                if(console.getItem().equalsIgnoreCase(" puzzle")) {
+                if (console.getItem().equalsIgnoreCase(" puzzle")) {
                     // TODO exit puzzle functionality
-                }
-                else {
+                } else {
                     exitGame();
                 }
             }
@@ -345,8 +354,8 @@ public class ConsoleController {
     private void beginBattle(boolean dodge, boolean block) {
         battleController.printBattleDetails(characterController.getModel().getInventoryController().
                 getItemInventory(), dodge, block);
-        while(battleController.getModel().getMonster().getHp() > 0 &&
-                battleController.getModel().getPlayer().getHp() > 0){
+        while (battleController.getModel().getMonster().getHp() > 0 &&
+                battleController.getModel().getPlayer().getHp() > 0) {
 
             boolean validCommand = false;
             while (!validCommand) {
