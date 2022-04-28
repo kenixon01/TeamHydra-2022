@@ -15,6 +15,7 @@ public class PuzzleView {
 
     public void puzzleSuccess(Puzzle puzzle) {
         System.out.println(puzzle.getSolvedMessage());
+        System.out.println("");
     }
 
     public void puzzleExit(Puzzle puzzle) {
@@ -35,5 +36,9 @@ public class PuzzleView {
 
     public void puzzleSolved(Puzzle puzzle) {
         System.out.println();
+    }
+
+    public void puzzleExit() {
+        System.out.println("You have exited the puzzle and are free to explore again.");
     }
 }

@@ -94,7 +94,9 @@ public class PuzzleController {
                 continue;
             }
             if (userInput.equalsIgnoreCase("exit")) {
+                view.puzzleExit();
                 //TODO: maybe change requirement to lock player in puzzle instead of the room for puzzle #3?
+                
                 break;
             }
 
