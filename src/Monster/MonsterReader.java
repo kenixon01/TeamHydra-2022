@@ -183,21 +183,3 @@ public final class MonsterReader {
         return attribute.toString();
     }
 }
-class Tester {
-    public static void main(String[] args) {
-        for(int i = 0; i < 7; i++) {
-            MonsterReader monsterReader = new MonsterReader();
-            System.out.println(new Monster(
-                    monsterReader.getID(), monsterReader.getROOM_ID(),
-                    monsterReader.getITEM_ID(), monsterReader.getDAMAGE(),
-                    monsterReader.getHP(), monsterReader.getNAME(),
-                    monsterReader.getDESCRIPTION(), new Item(
-                    monsterReader.getItemID(), monsterReader.getItemName(),
-                    monsterReader.getItemDescription(), monsterReader.getItemRoomID() + "",
-                    monsterReader.getItemDamage(), monsterReader.getItemHeal(),
-                    monsterReader.getItemType(), monsterReader.getItemHP(),
-                    monsterReader.getItemCriticalHit(), false, false)
-            ));
-        }
-    }
-}

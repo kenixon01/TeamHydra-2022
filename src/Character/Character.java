@@ -204,12 +204,13 @@ public class Character {
         try {
             file = new BufferedReader(new FileReader("src/Character/CharacterTextFiles/CommandList.txt"));
             while(file.ready()) {
-                commandList.append(file.readLine()).append("\n");
+                String next = file.readLine();
+                commandList.append(next).append("\n");
             }
         } catch (IOException io) {
             io.printStackTrace();
         }
-        return commandList.toString();
+        return commandList.toString().stripTrailing();
     }
 
     /**

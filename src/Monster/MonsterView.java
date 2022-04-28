@@ -10,7 +10,7 @@ public final class MonsterView {
     }
 
 
-    public void examine(Monster monster) {
+    public void monsterInfo(Monster monster) {
         System.out.println(monster.getName() + ":");
         System.out.println("Health: " + monster.getHp() + " HP");
         System.out.println("Damage: " + monster.getDamage() + " DMG");

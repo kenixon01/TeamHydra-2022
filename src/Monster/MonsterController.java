@@ -14,13 +14,8 @@ public class MonsterController {
         this.model = model;
     }
 
-    public void examine(int key) {
-        if(model.get(key) != null) {
-            view.examine(model.get(key));
-        }
-        else {
-            view.monsterUnavailable();
-        }
+    public void monsterInfo(int key) {
+        view.monsterInfo(model.get(key));
     }
 
     public MonsterView getView() {

@@ -7,11 +7,6 @@ import Utilities.ConsoleColors;
  * @author Khamilah Nixon
  */
 public class ConsoleView {
-    private ConsoleColors colors = new ConsoleColors();
-
-    public ConsoleView () {
-        colors.setTextColor("bblue");
-    }
     public void print(String message) {
         System.out.println(message);
     }
@@ -21,9 +16,7 @@ public class ConsoleView {
     }
 
     public void startGame() {
-        System.out.println("Do you want to start the game? [" +
-                colors.textColor("y") + "] or [" +
-                colors.textColor("n") + "]");
+        System.out.println("Do you want to start the game? [y] or [n]");
     }
 
     public void exitGame() {
@@ -34,17 +27,21 @@ public class ConsoleView {
         System.out.println("Error running game: " + message);
     }
 
-    public void invalidCommand() {
-        System.out.println("Invalid command.");
+    public void invalidCommand(String commandCategory) {
+        commandCategory += " ";
+        System.out.println("Invalid " + commandCategory + "command.\n");
     }
 
     public void mainMenu() {
         System.out.println("""
-                ESCAPE FROM HONTHIN ESTATE
-                <<=<<=<<=<<<==>>>=>>=>>=>>
-                -> Start
-                -> Continue
-                -> Exit
+                <<=<<=<<=<<=<<=<<=<<<==>>>=>>=>>=>>=>>=>>=>>
+                         ESCAPE FROM HONTHIN ESTATE
+                         <<=<<=<<=<<<==>>>=>>=>>=>>
+                
+                                   
+                → Start
+                → Continue
+                → Exit
                 """);
     }
 
