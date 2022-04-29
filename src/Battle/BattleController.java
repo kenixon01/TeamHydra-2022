@@ -34,6 +34,9 @@ public class BattleController {
                     Math.max(totalMonsterDamage, 0), model.getPlayerName());
         } else {
             view.blockUnsuccessful(model.getPlayerName(), model.getMonsterName());
+            model.attackPlayer();
+            view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
+            view.remainingHealth(model.getMonster(), model.getPlayer());
         }
     }
 
@@ -45,13 +48,16 @@ public class BattleController {
      */
     private void playerDodge() {
         if (model.dodgePlayer()) {
-        view.dodgeSuccessful(model.getPlayerName(), model.getMonsterName());
-        model.attackMonster();
-        view.attackTurnResult(model.getPlayerName(), model.getPlayerAttackPoints(), model.getMonsterName());
-        view.attackTurnResult(model.getMonsterName(), 0, model.getPlayerName());
-    } else {
-        view.dodgeUnsuccessful(model.getPlayerName(), model.getMonsterName());
-    }
+            view.dodgeSuccessful(model.getPlayerName(), model.getMonsterName());
+            model.attackMonster();
+            view.attackTurnResult(model.getPlayerName(), model.getPlayerAttackPoints(), model.getMonsterName());
+            view.attackTurnResult(model.getMonsterName(), 0, model.getPlayerName());
+        } else {
+            view.dodgeUnsuccessful(model.getPlayerName(), model.getMonsterName());
+            model.attackPlayer();
+            view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
+            view.remainingHealth(model.getMonster(), model.getPlayer());
+        }
     }
 
     /**
@@ -67,6 +73,7 @@ public class BattleController {
         }
         model.attackPlayer();
         view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
+        view.remainingHealth(model.getMonster(), model.getPlayer());
     }
 
     /**
@@ -86,7 +93,6 @@ public class BattleController {
                     playerAttack();
                 }
                 // Print remaining health for both monster and player
-                view.remainingHealth(model.getMonster(), model.getPlayer());
             }else {
                 view.cannotStartBattle();
             }

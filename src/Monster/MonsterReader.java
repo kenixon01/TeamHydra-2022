@@ -25,9 +25,8 @@ import java.io.*;
  * @version 1.0
  */
 public final class MonsterReader {
-
-    private boolean HAS_ITEM;
-    public static BufferedReader bonkreigItem, garoldItem, highItem, robertItem, idFile, roomIDFile, itemIDFile, hpFile, damageFile, nameFile, descriptionFile, itemFile;
+    public static BufferedReader bonkreigItem, garoldItem, highItem, robertItem, idFile, roomIDFile, itemIDFile, hpFile,
+            damageFile, nameFile, descriptionFile, itemFile, lockedFile;
     static {
         try {
             bonkreigItem = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/BonkreigItem"));
@@ -41,11 +40,14 @@ public final class MonsterReader {
             damageFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/Damage.txt"));
             nameFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/Name.txt"));
             descriptionFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/Description.txt"));
+            lockedFile = new BufferedReader(new FileReader("src/Monster/MonsterTextFiles/Locked.txt"));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
     private  String NAME, DESCRIPTION, itemName, itemDescription,itemType;
+
+    private boolean isLocked;
     private int ID, ROOM_ID, ITEM_ID, HP, DAMAGE, itemID, itemRoomID, itemDamage,
     itemHeal,  itemHP, itemCriticalHit;
 
@@ -62,6 +64,7 @@ public final class MonsterReader {
         DAMAGE = Integer.parseInt(readAttribute(damageFile));
         NAME = readAttribute(nameFile);
         DESCRIPTION = readAttribute(descriptionFile);
+        isLocked = Boolean.parseBoolean(readAttribute(lockedFile));
         BufferedReader file = null;
         if(NAME.toLowerCase().contains("bonkrieg")) {
             file = bonkreigItem;
@@ -88,6 +91,10 @@ public final class MonsterReader {
 
     public static BufferedReader getNameFile() {
         return nameFile;
+    }
+
+    public boolean isLocked() {
+        return isLocked;
     }
 
     public String getItemName() {
