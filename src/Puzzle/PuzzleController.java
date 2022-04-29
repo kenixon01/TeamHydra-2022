@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import Character.Character;
-
 /**
  * Author: Jayson Dasher and David Huber
  */
@@ -38,19 +36,19 @@ public class PuzzleController {
      * Author: Jayson
      */
     //method referenced from main controller (rest of the puzzle interaction is self contained)
-    public void checkForPuzzle(int roomID, Character character) {
+    public void checkForPuzzle(int roomID) {
         //if there is a puzzle in room, start puzzle interaction, else continue
         if (puzzles.containsKey(Integer.toString(roomID))) {
             //if puzzle in first key index is not solved yet, start puzzle
             if (puzzles.get(Integer.toString(roomID)).get(0).getSolved() == false) {
                 //passes the puzzle for the room to the startPuzzle method.
-                startPuzzle(puzzles.get(Integer.toString(roomID)).get(0), character);
+                startPuzzle(puzzles.get(Integer.toString(roomID)).get(0));
             }
             //if keysize is 2 (holding two puzzles) run second puzzle interaction
             if (puzzles.get(Integer.toString(roomID)).size() == 2) {
                 if (puzzles.get(Integer.toString(roomID)).get(1).getSolved() == false) {
                     //passes the puzzle for the room to the startPuzzle method.
-                    startPuzzle(puzzles.get(Integer.toString(roomID)).get(1), character);
+                    startPuzzle(puzzles.get(Integer.toString(roomID)).get(1));
                 }
             }
         }
@@ -59,7 +57,7 @@ public class PuzzleController {
     /**
      * Author: Jayson
      */
-    public void startPuzzle(Puzzle puzzle, Character character) {
+    public void startPuzzle(Puzzle puzzle) {
         //print puzzle description
         view.puzzleDescription(puzzle);
         //print command options
@@ -80,8 +78,6 @@ public class PuzzleController {
                 } else {
                     view.puzzleExit();
                 }
-
-
                 break;
             }
 
@@ -102,9 +98,9 @@ public class PuzzleController {
                     puzzleSolved(puzzle); //print message and set puzzle to solved
                     //TODO:(check) handle stat modifier type (puzzle #6) (adds 15 hp to players total healthpool)
                     //set character maxhp (current maxhp + hp modifier)
-                    character.setMaxHitPoints(character.getMaxHitPoints() + puzzle.getHpModifier());
+//                    character.setMaxHitPoints(character.getMaxHitPoints() + puzzle.getHpModifier());
                     //set character health (current health + hp modifier)
-                    character.setCurrentHitPoints(character.getCurrentHitPoints() + puzzle.getHpModifier());
+//                    character.setCurrentHitPoints(character.getCurrentHitPoints() + puzzle.getHpModifier());
                     break; //break from puzzle interaction loop
                 }
             }
@@ -117,10 +113,10 @@ public class PuzzleController {
                     break; //break from puzzle interaction loop
                 }
             }
-            while (true) {
-                //if the puzzle in this room is a room locker
-                if (puzzle.getType().equalsIgnoreCase("Room Locker")) {
 
+            //if the puzzle in this room is a room locker
+            if (puzzle.getType().equalsIgnoreCase("Room Locker")) {
+                while (!puzzle.getSolved()) {
                     //if correct solution is inputted
                     if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
                         puzzleSolved(puzzle); //print message and set puzzle to solved
@@ -131,7 +127,7 @@ public class PuzzleController {
                         try {
                             int answer = Integer.parseInt(userInput);
                         } catch (NumberFormatException ex) {
-                            System.out.println("Please enter a number between 0 and 20");
+                            view.numberFormatException();
                             break;
                         }
                     }
@@ -145,8 +141,10 @@ public class PuzzleController {
                         break;
                     }
                 }
-                //if the puzzle in this room is a double threat
-                if (puzzle.getType().equalsIgnoreCase("Double Threat")) {
+            }
+            //if the puzzle in this room is a double threat
+            if (puzzle.getType().equalsIgnoreCase("Double Threat")) {
+                while (!puzzle.getSolved()) {
                     //if correct solution is inputted
                     if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
                         puzzleSolved(puzzle); //print message and set puzzle to solved
@@ -156,23 +154,24 @@ public class PuzzleController {
                     } else { //input doesn't match an available command or puzzle solution
                         //TODO:(check) if puzzle type is double threat, deal damage to player
                         view.puzzleIncorrect(puzzle);
-                        character.setCurrentHitPoints(character.getCurrentHitPoints() - puzzle.getDamage());
+//                        character.setCurrentHitPoints(character.getCurrentHitPoints() - puzzle.getDamage());
                     }
                     break;
                 }
-
+            } else {
+                view.puzzleIncorrect(puzzle);
             }
+
         }
     }
 }
 
+
 class PuzzleControllerTester {
     public static void main(String[] args) {
-        Character character = new Character();
         PuzzleView view = new PuzzleView();
         PuzzleController puzzleController = new PuzzleController(view);
-        //command to call method from main controller (int roomID as the argument being passed)
-        puzzleController.checkForPuzzle(17, character);
-//        puzzleController.puzzles.get(Integer.toString(6)).get(0).getSolved();
+        //command to call method from main controller (roomID[int] and character are passed)
+        puzzleController.checkForPuzzle(8);
     }
 }
