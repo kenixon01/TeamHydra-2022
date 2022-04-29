@@ -12,6 +12,7 @@
 -Puzzle Damage Done (Stat Modifier)-
 -Puzzle HP Modifier (Stat Modifier)-
 -Puzzle Item(#) Dropped (Item Dropper)-
+-Puzzle Incorrect Message-
 -USE A BLANK LINE AS A SEPARATOR-
 ---------------------------------------
 
@@ -26,6 +27,7 @@ Item Giver
 0
 0
 14
+Sorry that is incorrect. Might want to use a hint.
 
 2
 Mantra
@@ -38,6 +40,7 @@ Monster Unlocker
 0
 0
 0
+Sorry that is incorrect. Might want to use a hint.
 
 3
 Random Number of life
@@ -51,6 +54,7 @@ Room Locker
 0
 0
 
+
 4
 Word Padlock
 14
@@ -62,6 +66,7 @@ Item Giver
 0
 0
 9
+Sorry that is incorrect. Might want to use a hint.
 
 5
 Game Trivia
@@ -74,6 +79,7 @@ Double Threat
 20
 0
 17
+The bottle picks up one of the many glass shards and slits your wrists. You lose 20 health. Try again.
 
 6
 Room Number Book Pull
@@ -86,6 +92,7 @@ Stat Modifier
 0
 15
 0
+Sorry that is incorrect. Might want to use a hint.
 
 7
 Matching Book Pull
@@ -98,3 +105,4 @@ Item Giver
 0
 0
 5
+Sorry that is incorrect. Might want to use a hint.

@@ -228,7 +228,7 @@ public class ConsoleController {
                 battleController = new BattleController(battle, battleView);
             }
             // else if puzzleController model exists in room
-            puzzleController.checkForPuzzle(roomID);
+            puzzleController.checkForPuzzle(roomID, character);
             // else if item exists in room
             while (!validCommand) {
                 console.enterCommand();
