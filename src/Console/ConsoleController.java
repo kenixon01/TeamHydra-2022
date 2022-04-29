@@ -219,16 +219,15 @@ public class ConsoleController {
             room = Room.getRoom(character.getRoomNumber());
             roomController.setModel(room);
             int roomID = characterController.getModel().getRoomNumber();
-            if (monsterController.getModel().get(roomID) != null &&
-                    monsterController.getModel().get(roomID).getHp() > 0) {
-                monsterController.monsterInfo(character.getRoomNumber());
-                consoleView.print("");
-                battleView = new BattleView();
-                battle = new Battle(characterController.getModel(), monsterController.getModel().get(roomID));
-                battleController = new BattleController(battle, battleView);
+            Monster tempMonster = monsterController.getModel().get(roomID);
+            if (tempMonster != null && !tempMonster.isLocked() && tempMonster.getHp() > 0) {
+                monsterSpawn(tempMonster);
             }
-            // else if puzzleController model exists in room
-            puzzleController.checkForPuzzle(roomID);
+            else if(puzzleController.getPuzzles().get(Integer.toString(roomID)) != null &&
+                    !puzzleController.getPuzzles().get(Integer.toString(roomID)).get(0).getSolved()) {
+
+                puzzleSpawn(tempMonster,roomID);
+            }
             // else if item exists in room
             while (!validCommand) {
                 console.enterCommand();
@@ -236,6 +235,24 @@ public class ConsoleController {
             }
         }
         exitGame();
+    }
+
+    private void monsterSpawn(Monster monster) {
+        monsterController.monsterInfo(character.getRoomNumber());
+        consoleView.print("");
+        battleView = new BattleView();
+        battle = new Battle(characterController.getModel(), monster);
+        battleController = new BattleController(battle, battleView);
+    }
+
+    private void puzzleSpawn(Monster monster, int roomID) {
+        puzzleController.checkForPuzzle(roomID);
+        if(puzzleController.getPuzzles().get(Integer.toString(roomID)).get(0).getSolved() &&
+                monster != null && monster.getHp() > 0 && monster.isLocked()) {
+            monster.setLocked(false);
+            monsterSpawn(monster);
+        }
+
     }
 
     /**
@@ -318,19 +335,21 @@ public class ConsoleController {
      * Author: Brian and Khamilah
      */
     private void beginBattle(boolean dodge, boolean block) {
-        battleController.printBattleDetails(characterController.getModel().getInventoryController().
-                getItemInventory(), dodge, block);
-        while (battleController.getModel().getMonster().getHp() > 0 &&
-                battleController.getModel().getPlayer().getHp() > 0) {
+        if (!battleController.getModel().getMonster().isLocked()) {
+            battleController.printBattleDetails(characterController.getModel().getInventoryController().
+                    getItemInventory(), dodge, block);
+            while (battleController.getModel().getMonster().getHp() > 0 &&
+                    battleController.getModel().getPlayer().getHp() > 0) {
 
-            boolean validCommand = false;
-            while (!validCommand) {
-                console.enterCommand();
-                validCommand = isBattleCommand();
+                boolean validCommand = false;
+                while (!validCommand) {
+                    console.enterCommand();
+                    validCommand = isBattleCommand();
+                }
             }
-        }
-        if (battleController.getModel().getPlayer().getHp() <= 0) {
-            exitGame();
+            if (battleController.getModel().getPlayer().getHp() <= 0) {
+                exitGame();
+            }
         }
     }
 }

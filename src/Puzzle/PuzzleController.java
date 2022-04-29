@@ -17,28 +17,6 @@ public class PuzzleController {
         this.puzzles = new PuzzleReader().CreatePuzzles();
     }
 
-
-    /**
-     * @param input    player's answer
-     * @param roomID   player's current location
-     * @param puzzleID puzzle id
-     * @author Khamilah Nixon
-     */
-    public void solvePuzzle(String input, int roomID, int puzzleID) {
-        if (input.equalsIgnoreCase(puzzles.get(roomID + "").get(puzzleID).getSolution())) {
-            view.puzzleSuccess(puzzles.get(roomID + "").get(puzzleID));
-        }
-    }
-
-    /**
-     * @param roomID   player's current location
-     * @param puzzleID puzzle id
-     * @author Jayson Dasher and Khamilah Nixon
-     */
-    public void puzzleHint(int roomID, int puzzleID) {
-        view.puzzleHint(puzzles.get(roomID + "").get(puzzleID));
-    }
-
     /**
      * @return puzzles
      * @author Khamilah Nixon
@@ -96,7 +74,7 @@ public class PuzzleController {
             if (userInput.equalsIgnoreCase("exit")) {
                 view.puzzleExit();
                 //TODO: maybe change requirement to lock player in puzzle instead of the room for puzzle #3?
-                
+
                 break;
             }
 

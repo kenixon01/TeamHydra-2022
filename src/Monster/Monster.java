@@ -31,6 +31,8 @@ public class Monster {
 
     private String name, description;
 
+    private boolean isLocked;
+
     private Item item;
 
     public static HashMap<Integer, Monster> monsterHashMap = new HashMap<>();
@@ -39,7 +41,8 @@ public class Monster {
      * Creates a monster object and assigns values to fields using
      * a {@link MonsterReader} reference
      */
-    public Monster(int ID, int ROOM_ID, int ITEM_ID, int DAMAGE, int hp, String NAME, String DESCRIPTION, Item item) {
+    public Monster(int ID, int ROOM_ID, int ITEM_ID, int DAMAGE, int hp, String NAME, String DESCRIPTION,
+                   boolean isLocked, Item item) {
         this.id = ID;
         this.roomId = ROOM_ID;
         this.itemId = ITEM_ID;
@@ -48,6 +51,7 @@ public class Monster {
         this.name = NAME;
         this.description = DESCRIPTION;
         this.item = item;
+        this.isLocked = isLocked;
     }
 
     /**
@@ -70,12 +74,14 @@ public class Monster {
                         monsterReader.getID(), monsterReader.getROOM_ID(),
                         monsterReader.getITEM_ID(), monsterReader.getDAMAGE(),
                         monsterReader.getHP(), monsterReader.getNAME(),
-                        monsterReader.getDESCRIPTION(), new Item(
-                        monsterReader.getItemID(), monsterReader.getItemName(),
-                        monsterReader.getItemDescription(), monsterReader.getItemRoomID() + "",
-                        monsterReader.getItemDamage(), monsterReader.getItemHeal(),
-                        monsterReader.getItemType(), monsterReader.getItemHP(),
-                        monsterReader.getItemCriticalHit(), false, false))
+                        monsterReader.getDESCRIPTION(), monsterReader.isLocked(),
+                        new Item(
+                            monsterReader.getItemID(), monsterReader.getItemName(),
+                            monsterReader.getItemDescription(), monsterReader.getItemRoomID() + "",
+                            monsterReader.getItemDamage(), monsterReader.getItemHeal(),
+                            monsterReader.getItemType(), monsterReader.getItemHP(),
+                            monsterReader.getItemCriticalHit(), false, false)
+                        )
                 );
             }
             else {
@@ -83,11 +89,15 @@ public class Monster {
                         monsterReader.getID(), monsterReader.getROOM_ID(),
                         monsterReader.getITEM_ID(), monsterReader.getDAMAGE(),
                         monsterReader.getHP(), monsterReader.getNAME(),
-                        monsterReader.getDESCRIPTION(), null)
+                        monsterReader.getDESCRIPTION(), monsterReader.isLocked(),null)
                 );
             }
         }
         return hashMap;
+    }
+
+    public boolean isLocked() {
+        return isLocked;
     }
 
     public int getId() {
@@ -127,6 +137,10 @@ public class Monster {
         }
     }
 
+    public void setLocked(boolean locked) {
+        isLocked = locked;
+    }
+
     @Override
     public String toString() {
         return "Monster{" +
@@ -137,6 +151,7 @@ public class Monster {
                 ", hp=" + hp +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", isLocked=" + isLocked +
                 ", item=" + item +
                 '}';
     }
