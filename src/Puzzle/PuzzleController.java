@@ -172,6 +172,6 @@ class PuzzleControllerTester {
         PuzzleView view = new PuzzleView();
         PuzzleController puzzleController = new PuzzleController(view);
         //command to call method from main controller (roomID[int] and character are passed)
-        puzzleController.checkForPuzzle(8);
+        puzzleController.checkForPuzzle(14);
     }
 }

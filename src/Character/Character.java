@@ -45,10 +45,6 @@ public class Character {
         this.damage = damage;
     }
 
-    public Character() {
-
-    }
-
     // Create new Character object with choice 1 - 4.
     public static Character loadCharacterData(int number) {
         String characterFilePath;
