@@ -10,7 +10,7 @@ public class PuzzleReader {
     private String _puzzlesFilePath;
 
     public PuzzleReader() {
-        this._puzzlesFilePath = (System.getProperty("user.dir") + "\\src\\Puzzle\\");
+        this._puzzlesFilePath = (System.getProperty("user.dir") + "/src/Puzzle/");
     }
 
     private Scanner GetFileInputString() {

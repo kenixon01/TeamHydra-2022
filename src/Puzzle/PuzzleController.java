@@ -115,23 +115,35 @@ public class PuzzleController {
                     break; //break from puzzle interaction loop
                 }
             }
+            while(true) {
             //if the puzzle in this room is a room locker
             if (puzzle.getType().equalsIgnoreCase("Room Locker")) {
-                //if correct solution is inputted
-                if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
-                    puzzleSolved(puzzle); //print message and set puzzle to solved
-                    break; //break from puzzle interaction loop
-                }
-                //TODO: if answer is wrong, player will be told if the number is too high or too low and keep guessing until they are correct.
-                else {
-                    if (Integer.parseInt(userInput) > (Integer.parseInt(puzzle.getSolution()))) {
-                        view.randomNumHigh();
+
+                    //if correct solution is inputted
+                    if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
+                        puzzleSolved(puzzle); //print message and set puzzle to solved
+                        break; //break from puzzle interaction loop
+                    }
+                    //TODO: if answer is wrong, player will be told if the number is too high or too low and keep guessing until they are correct.
+                    else {
+                        try {
+                            int answer = Integer.parseInt(userInput);
+                        } catch (NumberFormatException ex) {
+                            System.out.println("Please enter a number between 0 and 20");
+                            break;
+                        }
+                        }
+                        if (Integer.parseInt(userInput) > (Integer.parseInt(puzzle.getSolution()))) {
+                            view.randomNumHigh();
+                            break;
+                        }
+
+                        if (Integer.parseInt(userInput) < (Integer.parseInt(puzzle.getSolution()))) {
+                            view.randomNumLow();
+                            break;
+                        }
                     }
 
-                    if (Integer.parseInt(userInput) < (Integer.parseInt(puzzle.getSolution()))) {
-                        view.randomNumLow();
-                    }
-                }
             }
             //if the puzzle in this room is a double threat
             if (puzzle.getType().equalsIgnoreCase("Double Threat")) {
@@ -149,7 +161,9 @@ public class PuzzleController {
                     //set character hp (current hp - puzzle damage)
                 }
                     else {
-                        view.puzzleIncorrect();
+                        if (!puzzle.getType().equalsIgnoreCase("Room Locker")) {
+                            view.puzzleIncorrect();
+                        }
                 }
             }
         }
@@ -161,7 +175,7 @@ class PuzzleControllerTester {
         PuzzleView view = new PuzzleView();
         PuzzleController puzzleController = new PuzzleController(view);
         //command to call method from main controller (int roomID as the argument being passed)
-        puzzleController.checkForPuzzle(3);
+        puzzleController.checkForPuzzle(8);
 //        puzzleController.puzzles.get(Integer.toString(6)).get(0).getSolved();
     }
 }
