@@ -18,8 +18,9 @@ public class Puzzle {
     private int damage;
     private int hpModifier;
     private String itemDropped;
+    private String incorrectMsg;
 
-    public Puzzle(int id, String name, String description, String room, String hint, String solution, String solvedMessage, String type, int damage, int hpModifier, String itemDropped) {
+    public Puzzle(int id, String name, String description, String room, String hint, String solution, String solvedMessage, String type, int damage, int hpModifier, String itemDropped, String incorrectMsg) {
         this.id = id;
         this.name = name;
         this.room = room;
@@ -31,6 +32,7 @@ public class Puzzle {
         this.damage = damage;
         this.hpModifier = hpModifier;
         this.itemDropped = itemDropped;
+        this.incorrectMsg = incorrectMsg;
         this.isSolved = false;
     }
 
@@ -128,5 +130,9 @@ public class Puzzle {
 
     public void setItemDropped(String itemDropped) {
         this.itemDropped = itemDropped;
+    }
+
+    public String getIncorrectMsg() {
+        return incorrectMsg;
     }
 }

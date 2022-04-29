@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import Character.Character;
+
 /**
  * Author: Jayson Dasher and David Huber
  */
@@ -15,28 +17,6 @@ public class PuzzleController {
     public PuzzleController(PuzzleView view) {
         this.view = view;
         this.puzzles = new PuzzleReader().CreatePuzzles();
-    }
-
-
-    /**
-     * @param input    player's answer
-     * @param roomID   player's current location
-     * @param puzzleID puzzle id
-     * @author Khamilah Nixon
-     */
-    public void solvePuzzle(String input, int roomID, int puzzleID) {
-        if (input.equalsIgnoreCase(puzzles.get(roomID + "").get(puzzleID).getSolution())) {
-            view.puzzleSuccess(puzzles.get(roomID + "").get(puzzleID));
-        }
-    }
-
-    /**
-     * @param roomID   player's current location
-     * @param puzzleID puzzle id
-     * @author Jayson Dasher and Khamilah Nixon
-     */
-    public void puzzleHint(int roomID, int puzzleID) {
-        view.puzzleHint(puzzles.get(roomID + "").get(puzzleID));
     }
 
     /**
@@ -58,19 +38,19 @@ public class PuzzleController {
      * Author: Jayson
      */
     //method referenced from main controller (rest of the puzzle interaction is self contained)
-    public void checkForPuzzle(int roomID) {
+    public void checkForPuzzle(int roomID, Character character) {
         //if there is a puzzle in room, start puzzle interaction, else continue
         if (puzzles.containsKey(Integer.toString(roomID))) {
             //if puzzle in first key index is not solved yet, start puzzle
             if (puzzles.get(Integer.toString(roomID)).get(0).getSolved() == false) {
                 //passes the puzzle for the room to the startPuzzle method.
-                startPuzzle(puzzles.get(Integer.toString(roomID)).get(0));
+                startPuzzle(puzzles.get(Integer.toString(roomID)).get(0), character);
             }
             //if keysize is 2 (holding two puzzles) run second puzzle interaction
             if (puzzles.get(Integer.toString(roomID)).size() == 2) {
                 if (puzzles.get(Integer.toString(roomID)).get(1).getSolved() == false) {
                     //passes the puzzle for the room to the startPuzzle method.
-                    startPuzzle(puzzles.get(Integer.toString(roomID)).get(1));
+                    startPuzzle(puzzles.get(Integer.toString(roomID)).get(1), character);
                 }
             }
         }
@@ -79,13 +59,13 @@ public class PuzzleController {
     /**
      * Author: Jayson
      */
-    public void startPuzzle(Puzzle puzzle) {
+    public void startPuzzle(Puzzle puzzle, Character character) {
         //print puzzle description
         view.puzzleDescription(puzzle);
         //print command options
         view.puzzleCommands();
 
-        while (true) {
+        while (puzzle.getSolved() == false) {
             //scan for user input
             Scanner reader = new Scanner(System.in);
             String userInput = reader.nextLine();
@@ -94,7 +74,14 @@ public class PuzzleController {
                 continue;
             }
             if (userInput.equalsIgnoreCase("exit")) {
-                //TODO: maybe change requirement to lock player in puzzle instead of the room for puzzle #3?
+                if (puzzle.getId() == 3) {
+                    view.lockedIn();
+                    continue;
+                } else {
+                    view.puzzleExit();
+                }
+
+
                 break;
             }
 
@@ -104,7 +91,7 @@ public class PuzzleController {
                 if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
                     puzzleSolved(puzzle); //print message and set puzzle to solved
                     //TODO: address how we are going to handle the item associated. Drop in room? Add to inventory? (puzzle #1,#4,#7)
-
+                    //drop item in room, print message || add item to inventory, print message.
                     break; //break from puzzle interaction loop
                 }
             }
@@ -113,8 +100,11 @@ public class PuzzleController {
                 //if correct solution is inputted
                 if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
                     puzzleSolved(puzzle); //print message and set puzzle to solved
-                    //TODO: handle stat modifier type (puzzle #6) (adds 15 hp to players total healthpool)
-
+                    //TODO:(check) handle stat modifier type (puzzle #6) (adds 15 hp to players total healthpool)
+                    //set character maxhp (current maxhp + hp modifier)
+                    character.setMaxHitPoints(character.getMaxHitPoints() + puzzle.getHpModifier());
+                    //set character health (current health + hp modifier)
+                    character.setCurrentHitPoints(character.getCurrentHitPoints() + puzzle.getHpModifier());
                     break; //break from puzzle interaction loop
                 }
             }
@@ -123,34 +113,54 @@ public class PuzzleController {
                 //if correct solution is inputted
                 if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
                     puzzleSolved(puzzle); //print message and set puzzle to solved
-                    //TODO: handle Monster Unlocker type (puzzle #2) (must complete puzzle first before encountering monster in this room(room6))
-
+                    //TODO @Khamilah(?): handle Monster Unlocker type (puzzle #2) (must complete puzzle first before encountering monster in this room(room6))
                     break; //break from puzzle interaction loop
                 }
             }
-            //if the puzzle in this room is a room locker
-            if (puzzle.getType().equalsIgnoreCase("Room Locker")) {
-                //if correct solution is inputted
-                if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
-                    puzzleSolved(puzzle); //print message and set puzzle to solved
-                    //TODO: handle Room Locker type (puzzle #3) (once started, player can exit puzzle, but not room until the puzzle is solved)
+            while (true) {
+                //if the puzzle in this room is a room locker
+                if (puzzle.getType().equalsIgnoreCase("Room Locker")) {
 
-                    break; //break from puzzle interaction loop
-                }
-                //TODO: if answer is wrong, player will be told if the number is too high or too low and keep guessing until they are correct.
-            }
-            //if the puzzle in this room is a room locker
-            if (puzzle.getType().equalsIgnoreCase("Double Threat")) {
-                //if correct solution is inputted
-                if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
-                    puzzleSolved(puzzle); //print message and set puzzle to solved
-                    //TODO: handle Double Threat type (puzzle #5) (drops item when solved, if incorrect, does damage to player)
+                    //if correct solution is inputted
+                    if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
+                        puzzleSolved(puzzle); //print message and set puzzle to solved
+                        break; //break from puzzle interaction loop
+                    }
+                    //if answer is wrong, player will be told if the number is too high or too low and keep guessing until they are correct.
+                    else {
+                        try {
+                            int answer = Integer.parseInt(userInput);
+                        } catch (NumberFormatException ex) {
+                            System.out.println("Please enter a number between 0 and 20");
+                            break;
+                        }
+                    }
+                    if (Integer.parseInt(userInput) > (Integer.parseInt(puzzle.getSolution()))) {
+                        view.randomNumHigh();
+                        break;
+                    }
 
-                    break; //break from puzzle interaction loop
+                    if (Integer.parseInt(userInput) < (Integer.parseInt(puzzle.getSolution()))) {
+                        view.randomNumLow();
+                        break;
+                    }
                 }
-            } else { //input doesn't match an available command or puzzle solution
-                //TODO: if puzzle type is double threat, deal damage to player
-                view.puzzleIncorrect();
+                //if the puzzle in this room is a double threat
+                if (puzzle.getType().equalsIgnoreCase("Double Threat")) {
+                    //if correct solution is inputted
+                    if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
+                        puzzleSolved(puzzle); //print message and set puzzle to solved
+                        //TODO: handle Double Threat type (puzzle #5) (drops item when solved)
+                        //drop item in room, print message || add item to inventory. print message.
+                        break; //break from puzzle interaction loop
+                    } else { //input doesn't match an available command or puzzle solution
+                        //TODO:(check) if puzzle type is double threat, deal damage to player
+                        view.puzzleIncorrect(puzzle);
+                        character.setCurrentHitPoints(character.getCurrentHitPoints() - puzzle.getDamage());
+                    }
+                    break;
+                }
+
             }
         }
     }
@@ -158,10 +168,11 @@ public class PuzzleController {
 
 class PuzzleControllerTester {
     public static void main(String[] args) {
+        Character character = new Character();
         PuzzleView view = new PuzzleView();
         PuzzleController puzzleController = new PuzzleController(view);
         //command to call method from main controller (int roomID as the argument being passed)
-        puzzleController.checkForPuzzle(6);
+        puzzleController.checkForPuzzle(17, character);
 //        puzzleController.puzzles.get(Integer.toString(6)).get(0).getSolved();
     }
 }

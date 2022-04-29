@@ -166,12 +166,8 @@ public class ConsoleController {
         monsterView = new MonsterView();
         monsterController = new MonsterController(Monster.createMonsters(), monsterView);
 
-//        puzzleView = new PuzzleView();
-//        puzzleController = new PuzzleController(puzzleView);
-
-        PuzzleView view = new PuzzleView();
-        PuzzleController puzzleController = new PuzzleController(view);
-
+        puzzleView = new PuzzleView();
+        puzzleController = new PuzzleController(puzzleView);
     }
 
     /**
@@ -232,6 +228,7 @@ public class ConsoleController {
                 battleController = new BattleController(battle, battleView);
             }
             // else if puzzleController model exists in room
+            puzzleController.checkForPuzzle(roomID, character);
             // else if item exists in room
             while (!validCommand) {
                 console.enterCommand();
@@ -310,37 +307,6 @@ public class ConsoleController {
             }
         }
         consoleView.print("");
-        return true;
-    }
-
-    /**
-     * @return if a command is a valid puzzle command
-     * @author Khamilah Nixon and Brian Smithers
-     */
-    private boolean isPuzzleCommand() {
-        switch (console.puzzleInputValidator()) {
-            case "pickup" -> {
-            } // TODO add pickup item from room functionality
-            case "use" -> {
-            } // TODO add use item functionality
-            case "equip" -> characterController.equip(console.getItem());
-            case "unequip" -> characterController.unEquipItem(console.getItem());
-            case "help" -> characterController.printHelp();
-            case "inventory" -> characterController.printInventory();
-            case "hint" -> {
-            } // TODO add puzzle hint functionality
-            case "exit" -> {
-                if (console.getItem().equalsIgnoreCase(" puzzle")) {
-                    // TODO exit puzzle functionality
-                } else {
-                    exitGame();
-                }
-            }
-            default -> {
-                invalidCommand("puzzle");
-                return false;
-            }
-        }
         return true;
     }
 

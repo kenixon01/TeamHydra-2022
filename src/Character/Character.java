@@ -45,6 +45,10 @@ public class Character {
         this.damage = damage;
     }
 
+    public Character() {
+
+    }
+
     // Create new Character object with choice 1 - 4.
     public static Character loadCharacterData(int number) {
         String characterFilePath;
@@ -109,51 +113,49 @@ public class Character {
     }
 
     public String equipItem(String itemName) {
-       itemName = itemName.stripTrailing();
-       if (itemName.equalsIgnoreCase(weapon.get_itemName()) ||
-               itemName.equalsIgnoreCase(wearable.get_itemName())) {
-           return "This item is already equipped.";
-       }
-       else {
-           for (int i = 0; i < inventoryController.getItemInventory().size(); i++) {
-               if (inventoryController.getItemInventory().get(i).get_itemName()
-                       .equalsIgnoreCase(itemName)) {
-                   // Get item
-                   Item item = inventoryController.getItemInventory().get(i);
-                   if (item.get_itemType().equalsIgnoreCase("weapon")) {
-                       // Add weapon to users weapon slot
-                       setWeapon(item);
-                       setMaxHitPoints(getMaxHitPoints() + item.get_totalHpModifier());
-                       setCurrentHitPoints(getMaxHitPoints());
-                       setDamage(item.get_damageValue());
-                       // equip item
-                       item.setEquipped(true);
-                       return "Player equipped " + item.get_itemName() + "\n" +
-                               "Attack points equal: " + damage + "\n";
-                   }
-                   // If the item is a wearable, add stat buffs.
-                   if (item.get_itemType().equalsIgnoreCase("wearable")) {
-                       // Increase max health if the item increases total hp
-                       setMaxHitPoints(getMaxHitPoints() + item.get_totalHpModifier());
-                       // If the item restores health on pick up, restore health.
-                       if (item.isRestoreHealthOnPickUp()) {
-                           item.setRestoreHealthOnPickUp(false); // item can't restore health again
-                           setHp(getMaxHitPoints());
-                       }
-                       // Increase damage
-                       if (item.get_damageValue() > 0) {
-                           setDamage(getDamage() + item.get_damageValue());
-                       }
-                       // equip item
-                       item.setEquipped(true);
-                   }
-                   else {
-                       return "This item is not capable of being equipped.\n";
-                   }
-               }
-           }
-           return "No such item in inventory.\n";
-       }
+        itemName = itemName.stripTrailing();
+        if (itemName.equalsIgnoreCase(weapon.get_itemName()) ||
+                itemName.equalsIgnoreCase(wearable.get_itemName())) {
+            return "This item is already equipped.";
+        } else {
+            for (int i = 0; i < inventoryController.getItemInventory().size(); i++) {
+                if (inventoryController.getItemInventory().get(i).get_itemName()
+                        .equalsIgnoreCase(itemName)) {
+                    // Get item
+                    Item item = inventoryController.getItemInventory().get(i);
+                    if (item.get_itemType().equalsIgnoreCase("weapon")) {
+                        // Add weapon to users weapon slot
+                        setWeapon(item);
+                        setMaxHitPoints(getMaxHitPoints() + item.get_totalHpModifier());
+                        setCurrentHitPoints(getMaxHitPoints());
+                        setDamage(item.get_damageValue());
+                        // equip item
+                        item.setEquipped(true);
+                        return "Player equipped " + item.get_itemName() + "\n" +
+                                "Attack points equal: " + damage + "\n";
+                    }
+                    // If the item is a wearable, add stat buffs.
+                    if (item.get_itemType().equalsIgnoreCase("wearable")) {
+                        // Increase max health if the item increases total hp
+                        setMaxHitPoints(getMaxHitPoints() + item.get_totalHpModifier());
+                        // If the item restores health on pick up, restore health.
+                        if (item.isRestoreHealthOnPickUp()) {
+                            item.setRestoreHealthOnPickUp(false); // item can't restore health again
+                            setHp(getMaxHitPoints());
+                        }
+                        // Increase damage
+                        if (item.get_damageValue() > 0) {
+                            setDamage(getDamage() + item.get_damageValue());
+                        }
+                        // equip item
+                        item.setEquipped(true);
+                    } else {
+                        return "This item is not capable of being equipped.\n";
+                    }
+                }
+            }
+            return "No such item in inventory.\n";
+        }
     }
 
     public String unEquipItem(String itemName) {
@@ -170,8 +172,7 @@ public class Character {
                     0.0f, false, false));
             return "Player unequipped " + itemName + "\n" +
                     "Attack points equal: " + damage + "\n";
-        }
-        else if (wearable.get_itemName().equalsIgnoreCase(itemName)) {
+        } else if (wearable.get_itemName().equalsIgnoreCase(itemName)) {
             // remove health
             setMaxHitPoints(getMaxHitPoints() - weapon.get_totalHpModifier());
             if (currentHitPoints > maxHitPoints) {
@@ -191,11 +192,13 @@ public class Character {
         // if this item is not equipped you can't unequip
         return "No such item in inventory.\n";
     }
+
     /**
      * Help method that will display a
      * list of commands the player can use.
-     * @author David Huber and Khamilah Nixon
+     *
      * @return a list of commands
+     * @author David Huber and Khamilah Nixon
      */
     // Author: Khamilah and David
     public String help() {
@@ -203,7 +206,7 @@ public class Character {
         BufferedReader file = null;
         try {
             file = new BufferedReader(new FileReader("src/Character/CharacterTextFiles/CommandList.txt"));
-            while(file.ready()) {
+            while (file.ready()) {
                 String next = file.readLine();
                 commandList.append(next).append("\n");
             }
@@ -216,7 +219,7 @@ public class Character {
     /**
      * Author: Brian Smithers
      */
-        public boolean traverseRooms(String direction) {
+    public boolean traverseRooms(String direction) {
         // TODO fix issue with currentRoom
         // Copy room object for the players current room
         Room currentRoom = Objects.requireNonNull(Room.getRoom(getRoomNumber()));
