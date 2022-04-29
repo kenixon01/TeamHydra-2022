@@ -38,11 +38,6 @@ public class PuzzleView {
         System.out.println("Oops. Can't leave this puzzle without solving it");
     }
 
-    public void puzzleDamage() {
-        System.out.println("The bottle picks up one of the many glass shards and slits your wrists. You lose 20 health");
-        System.out.println("Try again.");
-    }
-
     public void randomNumHigh() {
         System.out.println("Oops. That number was too high. Try again.");
     }
