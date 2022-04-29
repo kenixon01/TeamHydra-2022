@@ -17,28 +17,6 @@ public class PuzzleController {
         this.puzzles = new PuzzleReader().CreatePuzzles();
     }
 
-
-    /**
-     * @param input    player's answer
-     * @param roomID   player's current location
-     * @param puzzleID puzzle id
-     * @author Khamilah Nixon
-     */
-    public void solvePuzzle(String input, int roomID, int puzzleID) {
-        if (input.equalsIgnoreCase(puzzles.get(roomID + "").get(puzzleID).getSolution())) {
-            view.puzzleSuccess(puzzles.get(roomID + "").get(puzzleID));
-        }
-    }
-
-    /**
-     * @param roomID   player's current location
-     * @param puzzleID puzzle id
-     * @author Jayson Dasher and Khamilah Nixon
-     */
-    public void puzzleHint(int roomID, int puzzleID) {
-        view.puzzleHint(puzzles.get(roomID + "").get(puzzleID));
-    }
-
     /**
      * @return puzzles
      * @author Khamilah Nixon
@@ -94,8 +72,14 @@ public class PuzzleController {
                 continue;
             }
             if (userInput.equalsIgnoreCase("exit")) {
-                view.puzzleExit();
-                //TODO: maybe change requirement to lock player in puzzle instead of the room for puzzle #3?
+                if (puzzle.getId() == 3){
+                    view.lockedIn();
+                    continue;
+                }
+                else {
+                    view.puzzleExit();
+                }
+
                 
                 break;
             }
@@ -106,7 +90,7 @@ public class PuzzleController {
                 if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
                     puzzleSolved(puzzle); //print message and set puzzle to solved
                     //TODO: address how we are going to handle the item associated. Drop in room? Add to inventory? (puzzle #1,#4,#7)
-
+                    //drop item in room, print message || add item to inventory, print message.
                     break; //break from puzzle interaction loop
                 }
             }
@@ -116,7 +100,8 @@ public class PuzzleController {
                 if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
                     puzzleSolved(puzzle); //print message and set puzzle to solved
                     //TODO: handle stat modifier type (puzzle #6) (adds 15 hp to players total healthpool)
-
+                    //set character maxhp (current maxhp + hp modifier)
+                    //set character health (current health + hp modifier)
                     break; //break from puzzle interaction loop
                 }
             }
@@ -126,7 +111,7 @@ public class PuzzleController {
                 if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
                     puzzleSolved(puzzle); //print message and set puzzle to solved
                     //TODO: handle Monster Unlocker type (puzzle #2) (must complete puzzle first before encountering monster in this room(room6))
-
+                    //khamilah accounting for on monster controller(?)
                     break; //break from puzzle interaction loop
                 }
             }
@@ -135,24 +120,37 @@ public class PuzzleController {
                 //if correct solution is inputted
                 if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
                     puzzleSolved(puzzle); //print message and set puzzle to solved
-                    //TODO: handle Room Locker type (puzzle #3) (once started, player can exit puzzle, but not room until the puzzle is solved)
-
                     break; //break from puzzle interaction loop
                 }
                 //TODO: if answer is wrong, player will be told if the number is too high or too low and keep guessing until they are correct.
+                else {
+                    if (Integer.parseInt(userInput) > (Integer.parseInt(puzzle.getSolution()))) {
+                        view.randomNumHigh();
+                    }
+
+                    if (Integer.parseInt(userInput) < (Integer.parseInt(puzzle.getSolution()))) {
+                        view.randomNumLow();
+                    }
+                }
             }
-            //if the puzzle in this room is a room locker
+            //if the puzzle in this room is a double threat
             if (puzzle.getType().equalsIgnoreCase("Double Threat")) {
                 //if correct solution is inputted
                 if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
                     puzzleSolved(puzzle); //print message and set puzzle to solved
-                    //TODO: handle Double Threat type (puzzle #5) (drops item when solved, if incorrect, does damage to player)
-
+                    //TODO: handle Double Threat type (puzzle #5) (drops item when solved)
+                    //drop item in room, print message || add item to inventory. print message.
                     break; //break from puzzle interaction loop
                 }
             } else { //input doesn't match an available command or puzzle solution
                 //TODO: if puzzle type is double threat, deal damage to player
-                view.puzzleIncorrect();
+                if (puzzle.getType().equalsIgnoreCase("Double Threat")) {
+                    view.puzzleDamage();
+                    //set character hp (current hp - puzzle damage)
+                }
+                    else {
+                        view.puzzleIncorrect();
+                }
             }
         }
     }
@@ -163,7 +161,7 @@ class PuzzleControllerTester {
         PuzzleView view = new PuzzleView();
         PuzzleController puzzleController = new PuzzleController(view);
         //command to call method from main controller (int roomID as the argument being passed)
-        puzzleController.checkForPuzzle(6);
+        puzzleController.checkForPuzzle(3);
 //        puzzleController.puzzles.get(Integer.toString(6)).get(0).getSolved();
     }
 }
