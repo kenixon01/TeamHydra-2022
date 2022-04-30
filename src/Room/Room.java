@@ -20,14 +20,15 @@ public class Room {
     private final String[][] roomConnections;
     private final InventoryController inventoryController;
     //private final LinkedList<Monster> monstersInRooms;
-    private boolean visited;
+    private final String[] keysRequired;
 
     // The idea is that it is a static database that houses all the rooms.
     public static final HashMap<Integer, Room> listOfRooms = new HashMap<>();
 
 
     public Room(int roomNumber, String roomName, String roomDescription, boolean isLocked,
-                String[][] roomConnections, InventoryController inventoryController) {
+                String[][] roomConnections, InventoryController inventoryController,
+                String[] keysRequired) {
         if (roomNumber > 0) {
             this.roomNumber = roomNumber;
         }
@@ -36,6 +37,7 @@ public class Room {
         this.isLocked = isLocked;
         this.roomConnections = roomConnections;
         this.inventoryController = inventoryController;
+        this.keysRequired = keysRequired;
     }
 
     public int getRoomNumber() {

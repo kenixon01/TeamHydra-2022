@@ -217,10 +217,22 @@ public class ConsoleController {
                 nextPass = false;
             }
 
+            //TODO remove after testing
+            String[] keysRequired =
+                    {"Key Piece 1", "Key Piece 2", "Key Piece 3", "Key Piece 4"};
+
+            Room room1 = null;
             String roomName = roomDetails[1];
             boolean isLocked = Boolean.parseBoolean(roomDetails[2]);
-            Room room1 = new Room(i, roomName, roomDescriptions,
-                    isLocked, roomConnections, inventoryController);
+            // TODO remove after testing because this is hardcoded
+            if (i == 20) {
+                room1 = new Room(i, roomName, roomDescriptions,
+                        isLocked, roomConnections, inventoryController, keysRequired);
+            }
+            else {
+                room1 = new Room(i, roomName, roomDescriptions,
+                        isLocked, roomConnections, inventoryController, null);
+            }
 
             // TODO remove after testing
             // displays the item added to the room
@@ -296,7 +308,7 @@ public class ConsoleController {
             case "use" -> itemController.useItem(characterController.getModel());
             case "equip" -> characterController.equip(console.getItem());
             case "unequip" -> characterController.unEquipItem(console.getItem());
-            case "n", "s", "e", "w" -> { // TODO change north, south, east, and west to n, s, e, w
+            case "n", "s", "e", "w" -> {
                 characterController.move(console.inputValidator());
                 roomController.setModel(Room.getRoom(character.getRoomNumber()));
                 roomController.printRoomDescription();
