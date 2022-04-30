@@ -39,6 +39,15 @@ public class BattleView {
         System.out.println(attacker + " exhausted their turn");
     }
 
+    public void accessInventory(Character character) {
+        System.out.println(character.getName() + " gained a one-time usage to the equip, unequip, and" +
+                " use commands without exhausting their turn");
+    }
+
+    public void battleCommands() {
+        System.out.println("Attack, Dodge, or Block");
+    }
+
     /**
      * Author: Khamilah Nixon
      */

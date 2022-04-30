@@ -71,10 +71,10 @@ Sorry that is incorrect. Might want to use a hint.
 5
 Game Trivia
 16
-You find yourself sitting on the floor against the wall. The effects of the wine are strong, you start hallucinating... The bottles start sprouting eyes,mouths,legs, and arms. A big bottle approaches you and speaks in a deep voice. “You’ve drank the blood of my brethren, you must answer my riddle or die! What is the title of Phenrik who guards the Foyer? Your choices are (1) The Bellhop , (2) The Butler , (3) The Doorman” .
+You find yourself sitting on the floor against the wall. The effects of the wine are strong, you start hallucinating... The bottles start sprouting eyes,mouths,legs, and arms. A big bottle approaches you and speaks in a deep voice.  “You’ve drank the blood of my brethren, you must answer my riddle or die! What is the title of Phenrik who guards the Foyer? Your choices are (1) The Bellhop , (2) The Butler , (3) The Doorman” .
 Hint: You think his name might have had something to do with doors?
 3
-“Correct! But you will die anyway!”. You grab the big bottle before it attacks you and chuck it at the wall, shattering into a million pieces. You close your eyes… You open your eyes and realize you’ve been sleeping for a while. You’re holding a bottle in your hand, it reads “Wine Potion!” The nutrition label says it’ll give you 30 health if you drink it. You get back on your feet.
+“Correct! But you will die anyway!”. You grab the big bottle before it attacks you and chuck it at the wall, shattering into a million pieces. You close your eyes…  You open your eyes and realize you’ve been sleeping for a while. You’re holding a bottle in your hand, it reads “Wine Potion!” The nutrition label says it’ll give you 30 health if you drink it. You get back on your feet.
 Double Threat
 20
 0
@@ -84,7 +84,7 @@ The bottle picks up one of the many glass shards and slits your wrists. You lose
 6
 Room Number Book Pull
 17
-You get a strange feeling from a group of numbered books from 0-9, they are seemingly prompting you to pick them up and read them. You resist and take a step back to think. Surely there’s a rhyme or reason for the choice. Pick the correct 3 books to solve this puzzle.
+You get a strange feeling from a group of numbered books from 0-9, they are seemingly prompting you to pick them up and read them.  You resist and take a step back to think. Surely there’s a rhyme or reason for the choice. Pick the correct 3 books to solve this puzzle.
 Hint: Check the map’s room number
 9 5 3
 Congratulations! You have completed the puzzle and have been granted an increase in 15 total HP.
@@ -97,7 +97,7 @@ Sorry that is incorrect. Might want to use a hint.
 7
 Matching Book Pull
 17
-You happen upon 10 books of varying colors arranged in a row, With a box made out of wood with gold linings and inscriptions under them. Out of curiosity, you reach out to pull the box free. In your attempt, you are blasted with a mysterious vision of a world full of red. The sky, the trees, the grass all a deep red. The vision flashes white and you’re back in the library, with an impression that you’re supposed to pull certain books in the row to open the box. Pull the correct color books to solve this puzzle.
+You happen upon 10 books of varying colors arranged in a row, With a box made out of wood with gold linings and inscriptions under them. Out of curiosity, you reach out to pull the box free.  In your attempt, you are blasted with a mysterious vision of a world full of red. The sky, the trees, the grass all a deep red.  The vision flashes white and you’re back in the library, with an impression that you’re supposed to pull certain books in the row to open the box. Pull the correct color books to solve this puzzle.
 Hint: What colors were seen in the vision?
 red white
 Congratulations! You have completed the puzzle and have been rewarded with a MedKit.

@@ -162,8 +162,8 @@ public class Battle {
      */
     private int damageReduction() {
             int randomBlockInt = Math.abs(new Random().nextInt());
-            if (player.getBlockChance() > 0 && randomBlockInt % (1 / player.getBlockChance()) == 0) {
-                return (int) (Math.random() * getMonsterHp() - 1) + 1;
+            if (randomBlockInt % 4 == 0) {
+                return (int) (Math.random() * getMonsterAttackPoints() - 1) + 1;
             }
         return 0;
     }
