@@ -216,7 +216,6 @@ public class Character {
      * Author: Brian Smithers
      */
     public boolean traverseRooms(String direction) {
-        // TODO fix issue with currentRoom
         // Copy room object for the players current room
         Room currentRoom = Objects.requireNonNull(Room.getRoom(getRoomNumber()));
 
@@ -233,6 +232,13 @@ public class Character {
                     if (room[j].equalsIgnoreCase(direction)) {
                         // Get players new room number and assign it to player
                         int newRoomNumber = Integer.parseInt(room[j - 1]);
+
+                        // Check if room is locked
+                        boolean checkIfRoomsIsLocked = Room.getRoom(newRoomNumber).isLocked();
+                        if (checkIfRoomsIsLocked) {
+                            System.out.println("This room is currently locked.");
+                            return false;
+                        }
 
                         setRoomNumber(newRoomNumber);
                         nextPass = true; // Stop iterating
