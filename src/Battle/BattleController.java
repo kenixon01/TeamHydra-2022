@@ -12,9 +12,12 @@ public class BattleController {
     private Battle model;
     private BattleView view;
 
+    private boolean isSuccessfulHit;
+
     public BattleController(Battle model, BattleView view) {
         this.model = model;
         this.view = view;
+        this.isSuccessfulHit = false;
     }
 
     /**
@@ -32,12 +35,17 @@ public class BattleController {
             view.attackTurnResult(model.getPlayerName(), model.getPlayerAttackPoints(), model.getMonsterName());
             view.attackTurnResult(model.getMonsterName(),
                     Math.max(totalMonsterDamage, 0), model.getPlayerName());
-        } else {
+            isSuccessfulHit = true;
+            view.accessInventory(model.getPlayer());
+
+        }
+        else {
             view.blockUnsuccessful(model.getPlayerName(), model.getMonsterName());
             model.attackPlayer();
             view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
-            view.remainingHealth(model.getMonster(), model.getPlayer());
+            isSuccessfulHit = false;
         }
+        view.remainingHealth(model.getMonster(), model.getPlayer());
     }
 
     /**
@@ -49,15 +57,17 @@ public class BattleController {
     private void playerDodge() {
         if (model.dodgePlayer()) {
             view.dodgeSuccessful(model.getPlayerName(), model.getMonsterName());
-            model.attackMonster();
-            view.attackTurnResult(model.getPlayerName(), model.getPlayerAttackPoints(), model.getMonsterName());
-            view.attackTurnResult(model.getMonsterName(), 0, model.getPlayerName());
-        } else {
+            isSuccessfulHit = true;
+            view.accessInventory(model.getPlayer());
+
+        }
+        else {
             view.dodgeUnsuccessful(model.getPlayerName(), model.getMonsterName());
             model.attackPlayer();
             view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
-            view.remainingHealth(model.getMonster(), model.getPlayer());
+            isSuccessfulHit = false;
         }
+        view.remainingHealth(model.getMonster(), model.getPlayer());
     }
 
     /**
@@ -74,6 +84,7 @@ public class BattleController {
         model.attackPlayer();
         view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
         view.remainingHealth(model.getMonster(), model.getPlayer());
+        isSuccessfulHit = false;
     }
 
     /**
@@ -92,7 +103,10 @@ public class BattleController {
                 } else {
                     playerAttack();
                 }
-                // Print remaining health for both monster and player
+                if(!isSuccessfulHit) {
+
+                    view.battleCommands();
+                }
             }else {
                 view.cannotStartBattle();
             }
@@ -100,11 +114,18 @@ public class BattleController {
 
     }
 
+    /**
+     * @author Khamilah Nixon
+     */
     public void exhaustTurn() {
-        view.exhaustTurn(model.getPlayerName());
-        model.attackPlayer();
-        view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
-
+        if(!isSuccessfulHit) {
+            view.exhaustTurn(model.getPlayerName());
+            model.attackPlayer();
+            view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
+        }
+        else {
+            isSuccessfulHit = false;
+        }
     }
 
     public Battle getModel() {

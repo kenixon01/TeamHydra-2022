@@ -162,7 +162,7 @@ public class ConsoleController {
         }
         consoleView.print("");
         character = Character.loadCharacterData(Integer.parseInt(userOption));
-        character.setRoomNumber(16);
+        character.setRoomNumber(1);
         characterController = new CharacterController(character, characterView);
 
         monsterView = new MonsterView();
@@ -351,7 +351,6 @@ public class ConsoleController {
             case "help" -> characterController.printHelp();
             case "inventory" -> {
                 characterController.printInventory();
-                battleController.exhaustTurn();
             }
             case "attack" ->
                     battleController.printBattleDetails(characterController.getModel().getInventoryController().
