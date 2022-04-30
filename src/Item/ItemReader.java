@@ -1,4 +1,6 @@
-package Item; /**
+package Item;
+
+/**
  *  Author: Jayson Dasher
  */
 
@@ -41,9 +43,12 @@ public class ItemReader {
 /*
     to call on item creation:
     Item.ItemReader itemReader = new Item.ItemReader();
-    Map<String, List<Item.Item>> items = itemReader.CreateItems();
+    Map<String, List<Item>> items = itemReader.CreateItems();
  */
-    //TODO: add character starting item to inventory.
+
+    /**
+     * Author: Jayson and Brian
+     */
     public Map<String, List<Item>> CreateItems() {
         Scanner reader = this.GetFileInputString();
 
@@ -71,20 +76,11 @@ public class ItemReader {
                 currItem = new Item(itemNum, itemName, itemDesc, itemRoom, damageValue, healthValue, itemType,
                         hpModifier, critValue, false,false);
 
-                //Check if a previous item has been added to a room.
-                if(items.get(currItem.get_itemRoom()) != null) {
-                    //Room exists in items
-                    items.get(currItem.get_itemRoom()).add(currItem);
-                }
-                else {
-                    // New list of items being added to the Map<>() so we need to initialize the value for the Map entry
-                    List roomItems = new ArrayList<Item>();
-                    roomItems.add(currItem);
-                    items.put(currItem.get_itemRoom(), roomItems);
-                }
+                ArrayList<Item> listOfItems = new ArrayList<>();
+                listOfItems.add(currItem);
+                items.put(currItem.get_itemRoom(), listOfItems);
             }
         }
-
         return items;
     }
 }

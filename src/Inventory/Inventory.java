@@ -10,16 +10,10 @@ import java.util.LinkedList;
  */
 public class Inventory {
     private final LinkedList<Item> itemInventory = new LinkedList<>();
-    private final LinkedList<Puzzle> puzzleInventory = new LinkedList<>();
 
     // Add object to item inventory for initialization
     public void addItem(Item item) {
         itemInventory.add(item);
-    }
-
-    // Add object to puzzle inventory for initialization
-    public void addPuzzle(Puzzle puzzle) {
-        puzzleInventory.add(puzzle);
     }
 
     // Transfer between Player.Player, Monster or Room.Room
@@ -85,9 +79,5 @@ public class Inventory {
 
     public LinkedList<Item> getItemInventory() {
         return itemInventory;
-    }
-
-    public LinkedList<Puzzle> getPuzzleInventory() {
-        return puzzleInventory;
     }
 }

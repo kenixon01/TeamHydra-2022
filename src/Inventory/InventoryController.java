@@ -41,4 +41,8 @@ public class InventoryController {
     public LinkedList<Item> getItemInventory() {
         return model.getItemInventory();
     }
+
+    public void addItem(Item item) {
+        model.addItem(item);
+    }
 }
