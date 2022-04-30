@@ -3,7 +3,7 @@
 22 North
 21 South
 22 South
-22 North
+22 West
 23 West
 24 West
 23 East
@@ -22,7 +22,7 @@
 21 West 3 South 5 North 6 East
 1 South 24 North 9 West 7 East
 23 South 10 West 8 East 20 North
-12 east 18 east
+12 East 18 West 26 North
 17 West 11 East 25 South 27 North
 26 South 28 North 1 East 19 West
 27 South 16 West 13 East 29 North
