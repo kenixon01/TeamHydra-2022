@@ -15,7 +15,7 @@ public class PuzzleView {
 
     public void puzzleSuccess(Puzzle puzzle) {
         System.out.println(puzzle.getSolvedMessage());
-        System.out.println("");
+        System.out.println(" ");
     }
 
     public void puzzleDescription(Puzzle puzzle) {
@@ -23,6 +23,7 @@ public class PuzzleView {
     }
 
     public void puzzleCommands() {
+        System.out.println(" ");
         System.out.println("You may enter the solution to solve the puzzle, 'hint' to get help solving the puzzle, or 'exit' to leave the puzzle.");
     }
 
@@ -48,6 +49,10 @@ public class PuzzleView {
 
     public void numberFormatException() {
         System.out.println("Please enter a number between 0 and 20");
+    }
+
+    public void youDead() {
+        System.out.println("May you rest in peace.");
     }
 
 }

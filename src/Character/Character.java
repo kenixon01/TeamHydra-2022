@@ -359,4 +359,5 @@ public class Character {
     public void setRoomNumber(int roomNumber) {
         this.roomNumber = roomNumber;
     }
+
 }

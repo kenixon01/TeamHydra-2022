@@ -4,17 +4,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import Character.Character;
+import Inventory.Inventory;
+import Inventory.InventoryController;
+
 /**
  * Author: Jayson Dasher and David Huber
  */
 public class PuzzleController {
+    Character character;
     public Map<String, List<Puzzle>> puzzles; //Named puzzles but is the model
     private PuzzleView view;
 
 
-    public PuzzleController(PuzzleView view) {
+    public PuzzleController(PuzzleView view, Character character) {
         this.view = view;
         this.puzzles = new PuzzleReader().CreatePuzzles();
+        this.character = character;
     }
 
     /**
@@ -36,19 +42,19 @@ public class PuzzleController {
      * Author: Jayson
      */
     //method referenced from main controller (rest of the puzzle interaction is self contained)
-    public void checkForPuzzle(int roomID) {
+    public void checkForPuzzle(int roomID, Character character) {
         //if there is a puzzle in room, start puzzle interaction, else continue
         if (puzzles.containsKey(Integer.toString(roomID))) {
             //if puzzle in first key index is not solved yet, start puzzle
             if (puzzles.get(Integer.toString(roomID)).get(0).getSolved() == false) {
                 //passes the puzzle for the room to the startPuzzle method.
-                startPuzzle(puzzles.get(Integer.toString(roomID)).get(0));
+                startPuzzle(puzzles.get(Integer.toString(roomID)).get(0), character);
             }
             //if keysize is 2 (holding two puzzles) run second puzzle interaction
             if (puzzles.get(Integer.toString(roomID)).size() == 2) {
                 if (puzzles.get(Integer.toString(roomID)).get(1).getSolved() == false) {
                     //passes the puzzle for the room to the startPuzzle method.
-                    startPuzzle(puzzles.get(Integer.toString(roomID)).get(1));
+                    startPuzzle(puzzles.get(Integer.toString(roomID)).get(1), character);
                 }
             }
         }
@@ -57,7 +63,7 @@ public class PuzzleController {
     /**
      * Author: Jayson
      */
-    public void startPuzzle(Puzzle puzzle) {
+    public void startPuzzle(Puzzle puzzle, Character character) {
         //print puzzle description
         view.puzzleDescription(puzzle);
         //print command options
@@ -98,9 +104,9 @@ public class PuzzleController {
                     puzzleSolved(puzzle); //print message and set puzzle to solved
                     //TODO:(check) handle stat modifier type (puzzle #6) (adds 15 hp to players total healthpool)
                     //set character maxhp (current maxhp + hp modifier)
-//                    character.setMaxHitPoints(character.getMaxHitPoints() + puzzle.getHpModifier());
+                    character.setMaxHitPoints(character.getMaxHitPoints() + puzzle.getHpModifier());
                     //set character health (current health + hp modifier)
-//                    character.setCurrentHitPoints(character.getCurrentHitPoints() + puzzle.getHpModifier());
+                    character.setCurrentHitPoints(character.getCurrentHitPoints() + puzzle.getHpModifier());
                     break; //break from puzzle interaction loop
                 }
             }
@@ -152,9 +158,16 @@ public class PuzzleController {
                         //drop item in room, print message || add item to inventory. print message.
                         break; //break from puzzle interaction loop
                     } else { //input doesn't match an available command or puzzle solution
-                        //TODO:(check) if puzzle type is double threat, deal damage to player
+                        //TODO:(check) if puzzle type is double threat, deal damage to player upon wrong answer
                         view.puzzleIncorrect(puzzle);
-//                        character.setCurrentHitPoints(character.getCurrentHitPoints() - puzzle.getDamage());
+                        character.setCurrentHitPoints(character.getCurrentHitPoints() - puzzle.getDamage());
+                        if (character.getCurrentHitPoints() > 0) {
+                            break;
+
+                        } else {
+                            view.youDead();
+                            System.exit(0);
+                        }
                     }
                     break;
                 }
@@ -167,11 +180,14 @@ public class PuzzleController {
 }
 
 
-class PuzzleControllerTester {
-    public static void main(String[] args) {
-        PuzzleView view = new PuzzleView();
-        PuzzleController puzzleController = new PuzzleController(view);
-        //command to call method from main controller (roomID[int] and character are passed)
-        puzzleController.checkForPuzzle(14);
-    }
-}
+//class PuzzleControllerTester {
+//    public static void main(String[] args) {
+//        Inventory inventory =
+//        Character character = new Character("3", "monster", InventoryController inventoryController, String description,
+//        int maxHitPoints, double dodgeChance, int damage);
+//        PuzzleView view = new PuzzleView();
+//        PuzzleController puzzleController = new PuzzleController(view);
+//        //command to call method from main controller (roomID[int] and character are passed)
+//        puzzleController.checkForPuzzle(17, character);
+//    }
+//}

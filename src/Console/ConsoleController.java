@@ -160,14 +160,14 @@ public class ConsoleController {
         }
         consoleView.print("");
         character = Character.loadCharacterData(Integer.parseInt(userOption));
-        character.setRoomNumber(1);
+        character.setRoomNumber(16);
         characterController = new CharacterController(character, characterView);
 
         monsterView = new MonsterView();
         monsterController = new MonsterController(Monster.createMonsters(), monsterView);
 
         puzzleView = new PuzzleView();
-        puzzleController = new PuzzleController(puzzleView);
+        puzzleController = new PuzzleController(puzzleView, character);
     }
 
     /**
@@ -222,11 +222,10 @@ public class ConsoleController {
             Monster tempMonster = monsterController.getModel().get(roomID);
             if (tempMonster != null && !tempMonster.isLocked() && tempMonster.getHp() > 0) {
                 monsterSpawn(tempMonster);
-            }
-            else if(puzzleController.getPuzzles().get(Integer.toString(roomID)) != null &&
+            } else if (puzzleController.getPuzzles().get(Integer.toString(roomID)) != null &&
                     !puzzleController.getPuzzles().get(Integer.toString(roomID)).get(0).getSolved()) {
 
-                puzzleSpawn(tempMonster,roomID);
+                puzzleSpawn(tempMonster, roomID);
             }
             // else if item exists in room
             while (!validCommand) {
@@ -246,8 +245,8 @@ public class ConsoleController {
     }
 
     private void puzzleSpawn(Monster monster, int roomID) {
-        puzzleController.checkForPuzzle(roomID);
-        if(puzzleController.getPuzzles().get(Integer.toString(roomID)).get(0).getSolved() &&
+        puzzleController.checkForPuzzle(roomID, character);
+        if (puzzleController.getPuzzles().get(Integer.toString(roomID)).get(0).getSolved() &&
                 monster != null && monster.getHp() > 0 && monster.isLocked()) {
             monster.setLocked(false);
             monsterSpawn(monster);
@@ -311,8 +310,9 @@ public class ConsoleController {
                 characterController.printInventory();
                 battleController.exhaustTurn();
             }
-            case "attack" -> battleController.printBattleDetails(characterController.getModel().getInventoryController().
-                    getItemInventory(), false, false);
+            case "attack" ->
+                    battleController.printBattleDetails(characterController.getModel().getInventoryController().
+                            getItemInventory(), false, false);
 
             case "block" -> battleController.printBattleDetails(characterController.getModel().getInventoryController().
                     getItemInventory(), false, true);

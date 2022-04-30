@@ -46,10 +46,10 @@ public class PuzzleReader {
                 reader.nextLine();
                 String puzzleName = reader.nextLine();
                 String puzzleRoom = reader.nextLine();
-                String puzzleDesc = reader.nextLine();
+                String puzzleDesc = reader.nextLine().replaceAll("  ", "\n");
                 String puzzleHint = reader.nextLine();
                 String puzzleSolution = reader.nextLine();
-                String solvedMessage = reader.nextLine();
+                String solvedMessage = reader.nextLine().replaceAll("  ", "\n");
                 String type = reader.nextLine();
                 int puzzleDamage = reader.nextInt();
                 int puzzleHpModifier = reader.nextInt();
