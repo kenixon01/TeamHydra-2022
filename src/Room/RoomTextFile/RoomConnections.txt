@@ -1,29 +1,29 @@
-21 East 23 North 27 West
-21 North
-22 North
-21 South
-22 South
-22 West
-23 West
-24 West
-23 East
-24 East
-26 West
-25 West
-28 West
-29 West
-29 East
-28 East
-26 East
-25 East
-27 East
-24 South
-1 West 2 South 4 North 22 East
-21 West 3 South 5 North 6 East
-1 South 24 North 9 West 7 East
-23 South 10 West 8 East 20 North
-12 East 18 West 26 North
-17 West 11 East 25 South 27 North
-26 South 28 North 1 East 19 West
-27 South 16 West 13 East 29 North
-15 West 14 East 28 South
+21 E 23 N 27 W
+21 N
+22 N
+21 S
+22 S
+22 W
+23 W
+24 W
+23 E
+24 E
+26 W
+25 W
+28 W
+29 W
+29 E
+28 E
+26 E
+25 E
+27 E
+24 S
+1 W 2 S 4 N 22 E
+21 W 3 S 5 N 6 E
+1 S 24 N 9 W 7 E
+23 S 10 W 8 E 20 N
+12 E 18 W 26 N
+17 W 11 E 25 S 27 N
+26 S 28 N 1 E 19 W
+27 S 16 W 13 E 29 N
+15 W 14 E 28 S

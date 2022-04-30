@@ -10,7 +10,9 @@ import Monster.*;
 import Puzzle.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Authors: Brian Smithers and Khamilah Nixon
@@ -174,16 +176,23 @@ public class ConsoleController {
      * Author: Brian Smithers
      */
     public void createRooms() {
+        // Get room connections
         ReadRoomConnections readRoomConnections =
                 new ReadRoomConnections("src/Room/RoomTextFile/RoomConnections.txt");
         readRoomConnections.read();
 
+        // Get room descriptions
         ReadRoomDescription readRoomDescription =
                 new ReadRoomDescription("src/Room/RoomTextFile/RoomDescriptions.txt");
         readRoomDescription.read();
 
+        // Get room name and lock status
         RoomReader roomReader = new RoomReader("src/Room/RoomTextFile/Rooms_1.txt");
         roomReader.read();
+
+        // Get all items
+        ItemReader readItems = new ItemReader();
+        Map<String, List<Item>> roomItems = readItems.CreateItems();
 
         int numberOfRooms = readRoomDescription.getRoomNumber();
         for (int i = 1; i < numberOfRooms + 1; i++) {
@@ -191,12 +200,34 @@ public class ConsoleController {
             String roomDescriptions = readRoomDescription.getRoomDescriptionHashMap().get(i);
             String[] roomDetails = roomReader.getHashMap().get(i);
 
+            InventoryController inventoryController =
+                    new InventoryController(new Inventory(), new InventoryView());
+
+            // Put items into their respective rooms
+            Item item = null;
+            boolean nextPass = true;
+            while (nextPass) {
+                List<Item> itemList = roomItems.get(String.valueOf(i));
+                if (itemList != null) {
+                    for (Item value : itemList) {
+                        item = value;
+                        inventoryController.addItem(item);
+                    }
+                }
+                nextPass = false;
+            }
+
             String roomName = roomDetails[1];
             boolean isLocked = Boolean.parseBoolean(roomDetails[2]);
             Room room1 = new Room(i, roomName, roomDescriptions,
-                    isLocked, roomConnections, new InventoryController(
-                    new Inventory(), new InventoryView()));
+                    isLocked, roomConnections, inventoryController);
 
+            // TODO remove after testing
+            // displays the item added to the room
+            if (item != null) {
+                System.out.println(item.get_itemName()
+                        + " added to " + room1.getRoomName());
+            }
             Room.addRoom(room1);
         }
         // Make model and view for controller
@@ -265,7 +296,7 @@ public class ConsoleController {
             case "use" -> itemController.useItem(characterController.getModel());
             case "equip" -> characterController.equip(console.getItem());
             case "unequip" -> characterController.unEquipItem(console.getItem());
-            case "north", "south", "east", "west" -> { // TODO change north, south, east, and west to n, s, e, w
+            case "n", "s", "e", "w" -> { // TODO change north, south, east, and west to n, s, e, w
                 characterController.move(console.inputValidator());
                 roomController.setModel(Room.getRoom(character.getRoomNumber()));
                 roomController.printRoomDescription();
