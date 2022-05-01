@@ -159,4 +159,8 @@ public class Monster implements Serializable {
                 ", inventory=" + inventory +
                 '}';
     }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
 }

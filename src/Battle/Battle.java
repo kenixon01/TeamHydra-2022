@@ -57,7 +57,7 @@ public class Battle implements Serializable {
         if (getPlayerHp() > 0 && getMonsterHp() > 0) {
             monster.setHp(loseHealth(getMonsterHp(),getPlayerAttackPoints()));
 
-//            health restoration functionality
+//          health restoration functionality
             assert playerInventory != null;
             if(playerInventory.size() > 0) {
                 int healthRestoration = playerHealthRestore(playerInventory, playerInventory.size() - 1);
@@ -65,6 +65,12 @@ public class Battle implements Serializable {
                     player.setHp(gainHealth(getPlayerHp(), getPlayer().getMaxHitPoints(), healthRestoration));
 
                 }
+            }
+            if (getMonsterHp() <= 0) {
+                Item item = getMonster().getInventory().getItemInventory().getFirst();
+                getPlayer().getInventoryController().transferItem(
+                        "Remove this", "remove this",
+                        getMonster().getInventory().getItemInventory(), item.get_itemName());
             }
             return true;
         }
