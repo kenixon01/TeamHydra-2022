@@ -70,8 +70,8 @@ public class ItemController implements Serializable {
         for (int i = 0; i < character.getInventoryController().getItemInventory().size(); i++) {
             if (character.getInventoryController().getItemInventory().get(i).getEquipped()) {
                 equippedCount += 1;
-                System.out.println(Integer.toString(equippedCount - 1));
-                view.printNumName(character.getInventoryController().getItemInventory().get(i));
+                System.out.println(Integer.toString(equippedCount - 1) + ". " + character.getInventoryController().getItemInventory().get(i).get_itemName());
+//                view.printNumName(character.getInventoryController().getItemInventory().get(i));
             }
         }
         //if not, print out message
@@ -86,7 +86,7 @@ public class ItemController implements Serializable {
             if (currentItem.getEquipped() == true) {
                 currentItem.setEquipped(false);
                 character.setDamage(character.getDamage() - currentItem.get_damageValue());
-                character.setHp(character.getHp() + currentItem.get_healValue());
+                character.setMaxHitPoints(character.getMaxHitPoints() + currentItem.get_healValue());
             }
         }
 
