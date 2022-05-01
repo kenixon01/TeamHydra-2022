@@ -66,7 +66,7 @@ public class CharacterReader implements Serializable {
         return new Item(itemId, itemName, itemDescription,
                 itemRoomId, itemDamage, itemHealthRestoration, itemType,
                 itemTotalHitPointsModifier, 0.0f, false,
-                false);
+                false, true);
     }
 
     private void addStarterItemToPlayerInventoryAndEquipItem() {

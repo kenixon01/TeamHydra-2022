@@ -22,7 +22,7 @@ Sacred Verse of the Two Gods
 Please rehearse a sacred verse from the Bible of the Two Gods that can be found in the Room of Antiquities.
 Hint: Sacred scrolls, texts and religious books can be found in the East wing/hallway 2 of the estate.
 All hail the mighty Fathers Anemis and Aaldir. Give us light and give us dark! Luce et Tenebris!
-Congratulations! You have completed the puzzle and a bronze safe has opened revealing a sacred item!
+Congratulations! You have completed the puzzle and a bronze safe has opened revealing the sacred item, Eyes of the Two Gods!
 Item Giver
 0
 0
@@ -74,7 +74,7 @@ Game Trivia
 You find yourself sitting on the floor against the wall. The effects of the wine are strong, you start hallucinating... The bottles start sprouting eyes,mouths,legs, and arms. A big bottle approaches you and speaks in a deep voice.  “You’ve drank the blood of my brethren, you must answer my riddle or die! What is the title of Phenrik who guards the Foyer? Your choices are (1) The Bellhop , (2) The Butler , (3) The Doorman” .
 Hint: You think his name might have had something to do with doors?
 3
-“Correct! But you will die anyway!”. You grab the big bottle before it attacks you and chuck it at the wall, shattering into a million pieces. You close your eyes…  You open your eyes and realize you’ve been sleeping for a while. You’re holding a bottle in your hand, it reads “Wine Potion!” The nutrition label says it’ll give you 30 health if you drink it. You get back on your feet.
+“Correct! But you will die anyway!”. You grab the big bottle before it attacks you and chuck it at the wall, shattering into a million pieces. You close your eyes…  You open your eyes and realize you’ve been sleeping for a while. You see a bottle on the ground, it reads “2x Wine Potion”! The nutrition label says it’ll give you 30 health if you drink it. You get back on your feet.
 Double Threat
 20
 0
@@ -100,7 +100,7 @@ Matching Book Pull
 You happen upon 10 books of varying colors arranged in a row, With a box made out of wood with gold linings and inscriptions under them. Out of curiosity, you reach out to pull the box free.  In your attempt, you are blasted with a mysterious vision of a world full of red. The sky, the trees, the grass all a deep red.  The vision flashes white and you’re back in the library, with an impression that you’re supposed to pull certain books in the row to open the box. Pull the correct color books to solve this puzzle.
 Hint: What colors were seen in the vision?
 red white
-Congratulations! You have completed the puzzle and have been rewarded with a MedKit.
+Congratulations! You have completed the puzzle and a  1x Medkit falls to the ground by your feet.
 Item Giver
 0
 0

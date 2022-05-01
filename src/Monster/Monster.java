@@ -77,7 +77,7 @@ public class Monster implements Serializable {
                         monsterReader.getItemDescription(), monsterReader.getItemRoomID() + "",
                         monsterReader.getItemDamage(), monsterReader.getItemHeal(),
                         monsterReader.getItemType(), monsterReader.getItemHP(),
-                        monsterReader.getItemCriticalHit(), false, false);
+                        monsterReader.getItemCriticalHit(), false, false, true);
                 Inventory items = new Inventory();
                 items.addItem(item);
                 hashMap.put(monsterReader.getROOM_ID(), new Monster(

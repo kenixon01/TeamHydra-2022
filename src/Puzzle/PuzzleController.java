@@ -1,13 +1,16 @@
 package Puzzle;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import Room.Room;
 import Character.Character;
 import Inventory.Inventory;
 import Inventory.InventoryController;
+import Item.Item;
 
 /**
  * Author: Jayson Dasher and David Huber
@@ -70,6 +73,9 @@ public class PuzzleController implements Serializable {
         //print command options
         view.puzzleCommands();
 
+        LinkedList<Item> roomInventory =
+                Room.getRoom(character.getRoomNumber()).getInventoryController().getItemInventory();
+
         while (puzzle.getSolved() == false) {
             //scan for user input
             Scanner reader = new Scanner(System.in);
@@ -93,8 +99,8 @@ public class PuzzleController implements Serializable {
                 //if correct solution is inputted
                 if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
                     puzzleSolved(puzzle); //print message and set puzzle to solved
-                    //TODO: address how we are going to handle the item associated. Drop in room? Add to inventory? (puzzle #1,#4,#7)
-                    //drop item in room, print message || add item to inventory, print message.
+                    //set itemUnlocked to true
+                    roomInventory.get(0).setItemUnlocked(true);
                     break; //break from puzzle interaction loop
                 }
             }
@@ -116,7 +122,6 @@ public class PuzzleController implements Serializable {
                 //if correct solution is inputted
                 if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
                     puzzleSolved(puzzle); //print message and set puzzle to solved
-                    //TODO @Khamilah(?): handle Monster Unlocker type (puzzle #2) (must complete puzzle first before encountering monster in this room(room6))
                     break; //break from puzzle interaction loop
                 }
             }
@@ -155,8 +160,9 @@ public class PuzzleController implements Serializable {
                     //if correct solution is inputted
                     if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
                         puzzleSolved(puzzle); //print message and set puzzle to solved
-                        //TODO: handle Double Threat type (puzzle #5) (drops item when solved)
-                        //drop item in room, print message || add item to inventory. print message.
+                        //handle Double Threat type (puzzle #5) (drops item when solved)
+                        //set itemUnlocked to true
+                        roomInventory.get(0).setItemUnlocked(true);
                         break; //break from puzzle interaction loop
                     } else { //input doesn't match an available command or puzzle solution
                         // if puzzle type is double threat, deal damage to player upon wrong answer

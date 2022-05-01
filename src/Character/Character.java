@@ -166,7 +166,7 @@ public class Character implements Serializable {
             // equip bare hands
             setWeapon(new Item(0, "Hands", "Your Hands",
                     "None", 0, 0, "Weapon", 0,
-                    0.0f, false, false));
+                    0.0f, false, false, true));
             return "Player unequipped " + itemName + "\n" +
                     "Attack points equal: " + damage + "\n";
         } else if (wearable.get_itemName().equalsIgnoreCase(itemName)) {
