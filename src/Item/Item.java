@@ -3,7 +3,7 @@ package Item;
 import java.util.LinkedList;
 
 /**
- *  Author: Jayson Dasher
+ * Author: Jayson Dasher
  */
 public class Item {
 
@@ -22,11 +22,13 @@ public class Item {
     private boolean wearable; // Author: Brian Smithers
     private Boolean restoreHealthOnPickUp; // Author: Brian Smithers
 
+    private Boolean itemUnlocked;
+
     private static LinkedList<Item> itemList = new LinkedList<>();
 
     public Item(int itemNum, String itemName, String itemDesc, String itemRoom, int damageValue,
                 int healValue, String itemType, int totalHpModifier, float criticalHitChance,
-                boolean wearable, boolean restoreHealthOnPickUp) {
+                boolean wearable, boolean restoreHealthOnPickUp, Boolean itemUnlocked) {
         this._itemNumber = itemNum;
         this._itemName = itemName;
         this._itemDescription = itemDesc;
@@ -39,6 +41,7 @@ public class Item {
         //this.isEquipped = false;
         this.wearable = wearable;
         this.restoreHealthOnPickUp = restoreHealthOnPickUp;
+        this.itemUnlocked = itemUnlocked;
     }
 
     public int get_itemNumber() {
@@ -139,5 +142,13 @@ public class Item {
     // to remove if its healing affects.
     public void setRestoreHealthOnPickUp(boolean status) {
         restoreHealthOnPickUp = status;
+    }
+
+    public Boolean getItemUnlocked() {
+        return itemUnlocked;
+    }
+
+    public void setItemUnlocked(Boolean itemUnlocked) {
+        this.itemUnlocked = itemUnlocked;
     }
 }
