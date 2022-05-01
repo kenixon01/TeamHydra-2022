@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class  ItemReader implements Serializable {
+public class ItemReader implements Serializable {
 
     private String _itemsFilePath;
 
@@ -71,6 +71,7 @@ public class  ItemReader implements Serializable {
                 reader.nextLine();
                 int hpModifier = reader.nextInt();
                 float critValue = reader.nextFloat();// not implemented
+                reader.nextLine();
                 String tempBoolean = reader.nextLine();
                 Boolean itemUnlocked = Boolean.valueOf(tempBoolean);
                 currItem = new Item(itemNum, itemName, itemDesc, itemRoom, damageValue, healthValue, itemType,

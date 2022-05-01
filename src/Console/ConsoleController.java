@@ -45,7 +45,7 @@ public class ConsoleController {
     public ConsoleController(Console console, ConsoleView consoleView) {
         this.console = console;
         this.consoleView = consoleView;
-        try{
+        try {
             writeFile = new ObjectOutputStream(new FileOutputStream(file, true));
             readFile = new ObjectInputStream(new FileInputStream(file));
         } catch (IOException ie) {
@@ -93,10 +93,9 @@ public class ConsoleController {
         createNewGame = true;
         System.out.println("new save game");
         try {
-            if(file.exists() && file.createNewFile()) {
+            if (file.exists() && file.createNewFile()) {
                 System.out.println("file created");
-            }
-            else{
+            } else {
                 System.out.println("file exits and overridden");
             }
         } catch (IOException i) {
@@ -117,10 +116,10 @@ public class ConsoleController {
             writeFile.writeObject(monsterController);
             writeFile.writeObject(battleController);
             writeFile.writeObject(puzzleController);
-            HashMap<Integer,Room> listOfRooms = Room.listOfRooms;
+            HashMap<Integer, Room> listOfRooms = Room.listOfRooms;
             writeFile.writeObject(listOfRooms);
             writeFile.writeObject(character);
-        }catch (IOException io) {
+        } catch (IOException io) {
             io.printStackTrace();
         }
         consoleView.saveGame();
@@ -162,10 +161,10 @@ public class ConsoleController {
                     validMenuOption = true;
                 }
                 case "exit" -> {
-                    try{
+                    try {
                         writeFile.close();
                         readFile.close();
-                    }catch (IOException io) {
+                    } catch (IOException io) {
                         io.printStackTrace();
                     }
                     exitGame();
@@ -188,7 +187,7 @@ public class ConsoleController {
 
         boolean validMenuOption = false;
         String userOption = "";
-        if(createNewGame) {
+        if (createNewGame) {
             while (!validMenuOption) {
                 characterView = new CharacterView();
                 characterView.characterSelect(); // TODO call by character controller
@@ -198,11 +197,11 @@ public class ConsoleController {
                     case "1", "4", "2", "3" -> validMenuOption = true;
                     default -> invalidCommand("character menu");
                 }
-                if(validMenuOption) {
+                if (validMenuOption) {
                     character = Character.loadCharacterData(Integer.parseInt(userOption));
                     consoleView.verifyCharacter(character); // TODO call by character controller
-                    userOption = console.menuInputValidator(new String[]{"y","n"});
-                    if(userOption.equalsIgnoreCase("n")) {
+                    userOption = console.menuInputValidator(new String[]{"y", "n"});
+                    if (userOption.equalsIgnoreCase("n")) {
                         validMenuOption = false;
                     }
                 }
@@ -216,17 +215,16 @@ public class ConsoleController {
 
             PuzzleView puzzleView = new PuzzleView();
             puzzleController = new PuzzleController(puzzleView, character);
-        }
-        else {
+        } else {
             try {
                 characterController = (CharacterController) readFile.readObject();
                 roomController = (RoomController) readFile.readObject();
                 monsterController = (MonsterController) readFile.readObject();
                 battleController = (BattleController) readFile.readObject();
                 puzzleController = (PuzzleController) readFile.readObject();
-                HashMap<Integer,Room> rooms = (HashMap<Integer, Room>) readFile.readObject();
+                HashMap<Integer, Room> rooms = (HashMap<Integer, Room>) readFile.readObject();
                 Room.listOfRooms.clear();
-                for(Room r : rooms.values()) {
+                for (Room r : rooms.values()) {
                     Room.addRoom(r);
                 }
                 character = (Character) readFile.readObject();
@@ -242,7 +240,7 @@ public class ConsoleController {
      */
     public void createRooms() {
         // Get room connections
-        if(createNewGame) {
+        if (createNewGame) {
             ReadRoomConnections readRoomConnections =
                     new ReadRoomConnections("src/Room/RoomTextFile/RoomConnections.txt");
             readRoomConnections.read();
@@ -365,8 +363,10 @@ public class ConsoleController {
             case "pickup" -> characterController.pickUpItem(console.getItem());
             case "stats" -> characterController.printPlayerDetails();
             case "use" -> itemController.useItem(characterController.getModel());
-            case "equip" -> characterController.equip(console.getItem());
-            case "unequip" -> characterController.unEquipItem(console.getItem());
+//            case "equip" -> characterController.equip(console.getItem());
+            case "equip" -> itemController.equipItem(character);
+//            case "unequip" -> characterController.unEquipItem(console.getItyem());
+            case "unequip" -> itemController.unequipItem(character);
             case "n", "s", "e", "w" -> {
                 characterController.move(console.inputValidator());
                 roomController.setModel(Room.getRoom(character.getRoomNumber()));
