@@ -24,6 +24,14 @@ public class ConsoleView {
         System.out.println("Exiting game.");
     }
 
+    public void saveGameCreated() {
+        System.out.println("NEW SAVE CREATED");
+    }
+
+    public void fileNotFound() {
+        System.out.println("Save file does not exist.\nCreating a new save file.");
+    }
+
     public void gameCrash(String message) {
         System.out.println("Error running game: " + message);
     }

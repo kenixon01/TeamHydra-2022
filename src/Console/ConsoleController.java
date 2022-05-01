@@ -64,11 +64,17 @@ public class ConsoleController {
      */
     public void startup() {
         consoleView.startGame();
-        String userOption = console.menuInputValidator(new String[]{"y", "n"});
-        if (!userOption.equalsIgnoreCase("y")) {
-            exitGame();
+        while(true) {
+            String userOption = console.menuInputValidator(new String[]{"y", "n"});
+            if(userOption.equalsIgnoreCase("y")) {
+                consoleView.gameDescription();
+                break;
+            }
+            if(userOption.equalsIgnoreCase("n")) {
+                exitGame();
+            }
+            invalidCommand("");
         }
-        consoleView.gameDescription();
     }
 
     /**
@@ -94,7 +100,7 @@ public class ConsoleController {
         createNewGame = true;
         try {
             if(file.exists() && file.createNewFile()) {
-                System.out.println("NEW SAVE CREATED");
+                consoleView.saveGameCreated();
             }
             if(gameRunning) {
                 characterSelect();
@@ -137,17 +143,30 @@ public class ConsoleController {
      * @author Khamilah Nixon
      */
     public void continueGame() {
-        createNewGame = false;
-        consoleView.continueGame();
-        consoleView.print("");
-        try {
-            if(gameRunning) {
-                characterSelect();
-                createRooms();
-                enterCommand();
+        if(file.length() > 4) {
+            createNewGame = false;
+            consoleView.continueGame();
+            consoleView.print("");
+            try {
+                if(gameRunning) {
+                    characterSelect();
+                    createRooms();
+                    enterCommand();
+                }
+            }catch (IOException io) {
+                io.printStackTrace();
             }
-        }catch (IOException io) {
-            io.printStackTrace();
+        }
+        else {
+            consoleView.fileNotFound();
+            createNewGame = true;
+            try {
+                if(file.createNewFile()) {
+                    consoleView.saveGameCreated();
+                }
+            } catch (IOException io) {
+                io.printStackTrace();
+            }
         }
     }
 
