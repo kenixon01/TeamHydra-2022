@@ -1,10 +1,12 @@
 
 package Puzzle;
 
+import java.io.Serializable;
+
 /**
  * Author: Jayson Dasher
  */
-public class Puzzle {
+public class Puzzle implements Serializable {
 
     private int id;
     private String name;

@@ -9,8 +9,9 @@ import Character.*;
 import Monster.*;
 import Puzzle.*;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import java.io.*;
+import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,33 +20,38 @@ import java.util.Map;
  */
 public class ConsoleController {
     private BattleController battleController;
-    private Battle battle;
-    private BattleView battleView;
     private CharacterController characterController;
     private Character character;
     private CharacterView characterView;
 
     private ItemController itemController;
-    private Item item;
-    private ItemView itemView;
 
     private MonsterController monsterController;
-    private MonsterView monsterView;
 
     private PuzzleController puzzleController;
-    private Puzzle puzzle;
-    private PuzzleView puzzleView;
 
     private RoomController roomController;
     private Room room;
-    private RoomView roomView;
 
     private Console console;
     private ConsoleView consoleView;
 
+    private File file = new File("save.dat");
+
+    private boolean createNewGame;
+
+    private ObjectOutputStream writeFile;
+    private ObjectInputStream readFile;
+
     public ConsoleController(Console console, ConsoleView consoleView) {
         this.console = console;
         this.consoleView = consoleView;
+        try{
+            writeFile = new ObjectOutputStream(new FileOutputStream(file, true));
+            readFile = new ObjectInputStream(new FileInputStream(file));
+        } catch (IOException ie) {
+            ie.printStackTrace();
+        }
     }
 
     /**
@@ -56,7 +62,7 @@ public class ConsoleController {
      *
      * @author Khamilah Nixon
      */
-    public void startGame() {
+    public void startup() {
         consoleView.startGame();
         String userOption = console.menuInputValidator(new String[]{"y", "n"});
         if (!userOption.equalsIgnoreCase("y")) {
@@ -84,6 +90,21 @@ public class ConsoleController {
         System.exit(0);
     }
 
+    public void startGame() {
+        createNewGame = true;
+        System.out.println("new save game");
+        try {
+            if(file.exists() && file.createNewFile()) {
+                System.out.println("file created");
+            }
+            else{
+                System.out.println("file exits and overridden");
+            }
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+
     /**
      * Saves player's current progress and prints a
      * confirmation message in the console
@@ -92,6 +113,18 @@ public class ConsoleController {
      */
     public void saveGame() {
         //placeholder comment for save game functionality
+        try {
+            writeFile.writeObject(characterController);
+            writeFile.writeObject(roomController);
+            writeFile.writeObject(monsterController);
+            writeFile.writeObject(battleController);
+            writeFile.writeObject(puzzleController);
+            HashMap<Integer,Room> listOfRooms = Room.listOfRooms;
+            writeFile.writeObject(listOfRooms);
+            writeFile.writeObject(character);
+        }catch (IOException io) {
+            io.printStackTrace();
+        }
         consoleView.saveGame();
     }
 
@@ -102,6 +135,7 @@ public class ConsoleController {
      * @author Khamilah Nixon
      */
     public void continueGame() {
+        createNewGame = false;
         //placeholder comment for load game functionality
         consoleView.continueGame();
         consoleView.print("");
@@ -131,6 +165,13 @@ public class ConsoleController {
                     validMenuOption = true;
                 }
                 case "exit" -> {
+                    try{
+
+                        writeFile.close();
+                        readFile.close();
+                    }catch (IOException io) {
+                        io.printStackTrace();
+                    }
                     exitGame();
                     validMenuOption = true;
                 }
@@ -146,114 +187,136 @@ public class ConsoleController {
      * @author Khamilah Nixon, Brian Smithers, Jayson Dasher
      */
     public void characterSelect() throws IOException {
-        itemView = new ItemView();
+        ItemView itemView = new ItemView();
         itemController = new ItemController(new ItemReader().CreateItems(), itemView);
 
         boolean validMenuOption = false;
         String userOption = "";
-        while (!validMenuOption) {
-            characterView = new CharacterView();
-            characterView.characterSelect(); // TODO call by character controller
+        if(createNewGame) {
+            while (!validMenuOption) {
+                characterView = new CharacterView();
+                characterView.characterSelect(); // TODO call by character controller
 
-            userOption = console.menuInputValidator(new String[]{"1", "2", "3", "4"});
-            switch (userOption) {
-                case "1", "4", "2", "3" -> validMenuOption = true;
-                default -> invalidCommand("character menu");
-            }
-            if(validMenuOption) {
-                character = Character.loadCharacterData(Integer.parseInt(userOption));
-                consoleView.verifyCharacter(character); // TODO call by character controller
-                userOption = console.menuInputValidator(new String[]{"y","n"});
-                if(userOption.equalsIgnoreCase("n")) {
-                    validMenuOption = false;
+                userOption = console.menuInputValidator(new String[]{"1", "2", "3", "4"});
+                switch (userOption) {
+                    case "1", "4", "2", "3" -> validMenuOption = true;
+                    default -> invalidCommand("character menu");
+                }
+                if(validMenuOption) {
+                    character = Character.loadCharacterData(Integer.parseInt(userOption));
+                    consoleView.verifyCharacter(character); // TODO call by character controller
+                    userOption = console.menuInputValidator(new String[]{"y","n"});
+                    if(userOption.equalsIgnoreCase("n")) {
+                        validMenuOption = false;
+                    }
                 }
             }
+            consoleView.print("");
+            character.setRoomNumber(1);
+            characterController = new CharacterController(character, characterView);
+
+            MonsterView monsterView = new MonsterView();
+            monsterController = new MonsterController(Monster.createMonsters(), monsterView);
+
+            PuzzleView puzzleView = new PuzzleView();
+            puzzleController = new PuzzleController(puzzleView, character);
         }
-        consoleView.print("");
-        character.setRoomNumber(1);
-        characterController = new CharacterController(character, characterView);
+        else {
+            try {
+                    characterController = (CharacterController) readFile.readObject();
+                    roomController = (RoomController) readFile.readObject();
+                    monsterController = (MonsterController) readFile.readObject();
+                    battleController = (BattleController) readFile.readObject();
+                    puzzleController = (PuzzleController) readFile.readObject();
+                   HashMap<Integer,Room> rooms = (HashMap<Integer, Room>) readFile.readObject();
+                   Room.listOfRooms.clear();
+                   for(Room r : rooms.values()) {
+                       Room.addRoom(r);
+                   }
+                   character = (Character) readFile.readObject();
 
-        monsterView = new MonsterView();
-        monsterController = new MonsterController(Monster.createMonsters(), monsterView);
-
-        puzzleView = new PuzzleView();
-        puzzleController = new PuzzleController(puzzleView, character);
+            } catch (IOException | ClassNotFoundException io) {
+                io.printStackTrace();
+            }
+        }
     }
 
     /**
      * Author: Brian Smithers
      */
     public void createRooms() {
-        // Get room connections
-        ReadRoomConnections readRoomConnections =
-                new ReadRoomConnections("src/Room/RoomTextFile/RoomConnections.txt");
-        readRoomConnections.read();
+        if(createNewGame) {
+            // Get room connections
+            ReadRoomConnections readRoomConnections =
+                    new ReadRoomConnections("src/Room/RoomTextFile/RoomConnections.txt");
+            readRoomConnections.read();
 
-        // Get room descriptions
-        ReadRoomDescription readRoomDescription =
-                new ReadRoomDescription("src/Room/RoomTextFile/RoomDescriptions.txt");
-        readRoomDescription.read();
+            // Get room descriptions
+            ReadRoomDescription readRoomDescription =
+                    new ReadRoomDescription("src/Room/RoomTextFile/RoomDescriptions.txt");
+            readRoomDescription.read();
 
-        // Get room name and lock status
-        RoomReader roomReader = new RoomReader("src/Room/RoomTextFile/Rooms_1.txt");
-        roomReader.read();
+            // Get room name and lock status
+            RoomReader roomReader = new RoomReader("src/Room/RoomTextFile/Rooms_1.txt");
+            roomReader.read();
 
-        // Get all items
-        ItemReader readItems = new ItemReader();
-        Map<String, List<Item>> roomItems = readItems.CreateItems();
+            // Get all items
+            ItemReader readItems = new ItemReader();
+            Map<String, List<Item>> roomItems = readItems.CreateItems();
 
-        int numberOfRooms = readRoomDescription.getRoomNumber();
-        for (int i = 1; i < numberOfRooms + 1; i++) {
-            String[][] roomConnections = readRoomConnections.getHashMap().get(i);
-            String roomDescriptions = readRoomDescription.getRoomDescriptionHashMap().get(i);
-            String[] roomDetails = roomReader.getHashMap().get(i);
+            int numberOfRooms = readRoomDescription.getRoomNumber();
+            for (int i = 1; i < numberOfRooms + 1; i++) {
+                String[][] roomConnections = readRoomConnections.getHashMap().get(i);
+                String roomDescriptions = readRoomDescription.getRoomDescriptionHashMap().get(i);
+                String[] roomDetails = roomReader.getHashMap().get(i);
 
-            InventoryController inventoryController =
-                    new InventoryController(new Inventory(), new InventoryView());
+                InventoryController inventoryController =
+                        new InventoryController(new Inventory(), new InventoryView());
 
-            // Put items into their respective rooms
-            Item item = null;
-            boolean nextPass = true;
-            while (nextPass) {
-                List<Item> itemList = roomItems.get(String.valueOf(i));
-                if (itemList != null) {
-                    for (Item value : itemList) {
-                        item = value;
-                        inventoryController.addItem(item);
+                // Put items into their respective rooms
+                Item item = null;
+                boolean nextPass = true;
+                while (nextPass) {
+                    List<Item> itemList = roomItems.get(String.valueOf(i));
+                    if (itemList != null) {
+                        for (Item value : itemList) {
+                            item = value;
+                            inventoryController.addItem(item);
+                        }
                     }
+                    nextPass = false;
                 }
-                nextPass = false;
-            }
 
-            //TODO remove after testing
-            String[] keysRequired =
-                    {"Key Piece 1", "Key Piece 2", "Key Piece 3", "Key Piece 4"};
+                //TODO remove after testing
+                String[] keysRequired =
+                        {"Key Piece 1", "Key Piece 2", "Key Piece 3", "Key Piece 4"};
 
-            Room room1 = null;
-            String roomName = roomDetails[1];
-            boolean isLocked = Boolean.parseBoolean(roomDetails[2]);
-            // TODO remove after testing because this is hardcoded
-            if (i == 20) {
-                room1 = new Room(i, roomName, roomDescriptions,
-                        isLocked, roomConnections, inventoryController, keysRequired);
-            }
-            else {
-                room1 = new Room(i, roomName, roomDescriptions,
-                        isLocked, roomConnections, inventoryController, null);
-            }
+                Room room1 = null;
+                String roomName = roomDetails[1];
+                boolean isLocked = Boolean.parseBoolean(roomDetails[2]);
+                // TODO remove after testing because this is hardcoded
+                if (i == 20) {
+                    room1 = new Room(i, roomName, roomDescriptions,
+                            isLocked, roomConnections, inventoryController, keysRequired);
+                } else {
+                    room1 = new Room(i, roomName, roomDescriptions,
+                            isLocked, roomConnections, inventoryController, null);
+                }
 
-            // TODO remove after testing
-            // displays the item added to the room
-            if (item != null) {
-                System.out.println(item.get_itemName()
-                        + " added to " + room1.getRoomName());
+                // TODO remove after testing
+                // displays the item added to the room
+                if (item != null) {
+                    System.out.println(item.get_itemName()
+                            + " added to " + room1.getRoomName());
+                }
+                Room.addRoom(room1);
             }
-            Room.addRoom(room1);
+            // Make model and view for controller
+            room = Room.getRoom(1);
+            RoomView roomView = new RoomView();
+            roomController = new RoomController(room, roomView);
+
         }
-        // Make model and view for controller
-        room = Room.getRoom(1);
-        roomView = new RoomView();
-        roomController = new RoomController(room, roomView);
 
         roomController.printRoomDescription();
         consoleView.print("");
@@ -267,7 +330,7 @@ public class ConsoleController {
     public void enterCommand() {
         while (!console.getInput().equalsIgnoreCase("exit")) {
             boolean validCommand = false;
-            room = Room.getRoom(character.getRoomNumber());
+            room = Room.getRoom(characterController.getModel().getRoomNumber());
             roomController.setModel(room);
             int roomID = characterController.getModel().getRoomNumber();
             Monster tempMonster = monsterController.getModel().get(roomID);
@@ -294,8 +357,8 @@ public class ConsoleController {
     private void monsterSpawn(Monster monster) {
         monsterController.monsterInfo(character.getRoomNumber());
         consoleView.print("");
-        battleView = new BattleView();
-        battle = new Battle(characterController.getModel(), monster);
+        BattleView battleView = new BattleView();
+        Battle battle = new Battle(characterController.getModel(), monster);
         battleController = new BattleController(battle, battleView);
     }
 
@@ -335,6 +398,7 @@ public class ConsoleController {
             case "location" -> characterController.printPlayerLocation();
             case "inventory" -> characterController.printInventory();
             case "save" -> saveGame();
+            case "menu" -> mainMenu();
             case "resume" -> continueGame();
             case "dodge" -> beginBattle(true, false);
             case "help" -> characterController.printHelp();

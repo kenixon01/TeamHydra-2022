@@ -4,10 +4,12 @@ package Puzzle;
  * @author Khamilah Nixon
  */
 
+import java.io.Serializable;
+
 /**
  * Author: Jayson Dasher David Huber
  */
-public class PuzzleView {
+public class PuzzleView implements Serializable {
 
     public void puzzleHint(Puzzle puzzle) {
         System.out.println(puzzle.getHint());

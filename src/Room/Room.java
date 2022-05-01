@@ -4,13 +4,14 @@ package Room;
 
 import Inventory.*;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  * Author: Brian Smithers
  */
 
-public class Room {
+public class Room implements Serializable {
     private int roomNumber;
     private final String roomName;
     private final String roomDescription;
@@ -39,6 +40,7 @@ public class Room {
         this.inventoryController = inventoryController;
         this.keysRequired = keysRequired;
     }
+
 
     public int getRoomNumber() {
         return roomNumber;

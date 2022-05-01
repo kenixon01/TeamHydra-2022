@@ -1,11 +1,12 @@
 package Monster;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  * @author Khamilah Nixon
  */
-public class MonsterController {
+public class MonsterController implements Serializable {
     private MonsterView view;
     private HashMap<Integer, Monster> model;
 

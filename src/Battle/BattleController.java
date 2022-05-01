@@ -2,12 +2,13 @@ package Battle;
 
 import Item.Item;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *  Author: Brian Smithers
  */
-public class BattleController {
+public class BattleController implements Serializable {
 
     private Battle model;
     private BattleView view;

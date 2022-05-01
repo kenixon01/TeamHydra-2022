@@ -2,12 +2,13 @@ package Inventory;
 
 import Item.Item;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
  * Author: Brian Smithers
  */
-public class InventoryController {
+public class InventoryController implements Serializable {
     private Inventory model;
     private InventoryView view;
 

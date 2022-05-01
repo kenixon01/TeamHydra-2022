@@ -5,6 +5,7 @@ import Item.Item;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -26,7 +27,7 @@ import java.util.HashMap;
  * @author Khamilah E. Nixon
  * @version 1.5
  */
-public class Monster {
+public class Monster implements Serializable {
     private static final String ITEM_FILE_PATH = "src/Monster/MonsterTextFiles/Item.txt";
     private int id, roomId, itemId, damage, hp;
 

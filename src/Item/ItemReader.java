@@ -6,13 +6,14 @@ package Item;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class ItemReader {
+public class  ItemReader implements Serializable {
 
     private String _itemsFilePath;
 

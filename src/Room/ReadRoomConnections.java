@@ -4,6 +4,7 @@ import Item.Item;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.Scanner;
 /**
  * Author: Brian Smithers
  */
-public class ReadRoomConnections {
+public class ReadRoomConnections  implements Serializable {
     private int currentRoom;
     private final String filePath;
     private final HashMap<Integer, String[][]> hashMap = new HashMap<>();

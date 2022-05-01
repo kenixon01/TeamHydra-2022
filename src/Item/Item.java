@@ -1,11 +1,12 @@
 package Item;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
  *  Author: Jayson Dasher
  */
-public class Item {
+public class Item implements Serializable {
 
     // define variables
     private int _itemNumber;

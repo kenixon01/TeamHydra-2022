@@ -1,9 +1,11 @@
 package Room;
 
+import java.io.Serializable;
+
 /**
  * Author: Brian Smithers
  */
-public class RoomController {
+public class RoomController implements Serializable {
     private Room model;
     private RoomView view;
 

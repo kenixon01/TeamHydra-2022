@@ -1,10 +1,12 @@
 package Monster;
 
+import java.io.Serializable;
+
 /**
  * Prints all related information related to a Monster to the console
  * @author Khamilah Nixon
  */
-public final class MonsterView {
+public final class MonsterView implements Serializable {
     public void print(String message) {
         System.out.println(message);
     }
