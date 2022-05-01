@@ -303,13 +303,6 @@ public class ConsoleController {
                 room1 = new Room(i, roomName, roomDescriptions,
                         isLocked, roomConnections, inventoryController, roomKeysToUnlockRoom);
 
-
-                // TODO remove after testing
-                // displays the item added to the room
-                if (item != null) {
-                    System.out.println(item.get_itemName()
-                            + " added to " + room1.getRoomName());
-                }
                 Room.addRoom(room1);
             }
             // Make model and view for controller
