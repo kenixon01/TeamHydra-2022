@@ -38,6 +38,7 @@ public class ConsoleController {
     private File file = new File("save.dat");
 
     private boolean createNewGame;
+    private boolean gameRunning = false;
 
     private ObjectOutputStream writeFile;
     private ObjectInputStream readFile;
@@ -91,13 +92,14 @@ public class ConsoleController {
 
     public void startGame() {
         createNewGame = true;
-        System.out.println("new save game");
         try {
             if(file.exists() && file.createNewFile()) {
-                System.out.println("file created");
+                System.out.println("NEW SAVE CREATED");
             }
-            else{
-                System.out.println("file exits and overridden");
+            if(gameRunning) {
+                characterSelect();
+                createRooms();
+                enterCommand();
             }
         } catch (IOException i) {
             i.printStackTrace();
@@ -112,6 +114,8 @@ public class ConsoleController {
      */
     public void saveGame() {
         try {
+            writeFile = new ObjectOutputStream(new FileOutputStream(file));
+            readFile = new ObjectInputStream(new FileInputStream(file));
             writeFile.writeObject(characterController);
             writeFile.writeObject(roomController);
             writeFile.writeObject(monsterController);
@@ -136,6 +140,15 @@ public class ConsoleController {
         createNewGame = false;
         consoleView.continueGame();
         consoleView.print("");
+        try {
+            if(gameRunning) {
+                characterSelect();
+                createRooms();
+                enterCommand();
+            }
+        }catch (IOException io) {
+            io.printStackTrace();
+        }
     }
 
     /**
@@ -315,6 +328,7 @@ public class ConsoleController {
      * @author Brian Smithers and Khamilah Nixon
      */
     public void enterCommand() {
+        gameRunning = true;
         while (!console.getInput().equalsIgnoreCase("exit")) {
             boolean validCommand = false;
             room = Room.getRoom(character.getRoomNumber());
