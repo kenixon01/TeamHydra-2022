@@ -10,7 +10,6 @@ import Monster.*;
 import Puzzle.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -198,7 +197,8 @@ public class ConsoleController {
         for (int i = 1; i < numberOfRooms + 1; i++) {
             String[][] roomConnections = readRoomConnections.getHashMap().get(i);
             String roomDescriptions = readRoomDescription.getRoomDescriptionHashMap().get(i);
-            String[] roomDetails = roomReader.getHashMap().get(i);
+            String[] roomDetails = roomReader.getRoomReaderRoomDetailsHashMap().get(i);
+            String[] roomKeysToUnlockRoom = roomReader.getRoomReaderRoomKeysToUnlockRoomHashMap().get(i);
 
             InventoryController inventoryController =
                     new InventoryController(new Inventory(), new InventoryView());
@@ -217,22 +217,12 @@ public class ConsoleController {
                 nextPass = false;
             }
 
-            //TODO remove after testing
-            String[] keysRequired =
-                    {"Key Piece 1", "Key Piece 2", "Key Piece 3", "Key Piece 4"};
-
             Room room1 = null;
             String roomName = roomDetails[1];
             boolean isLocked = Boolean.parseBoolean(roomDetails[2]);
-            // TODO remove after testing because this is hardcoded
-            if (i == 20) {
-                room1 = new Room(i, roomName, roomDescriptions,
-                        isLocked, roomConnections, inventoryController, keysRequired);
-            }
-            else {
-                room1 = new Room(i, roomName, roomDescriptions,
-                        isLocked, roomConnections, inventoryController, null);
-            }
+            room1 = new Room(i, roomName, roomDescriptions,
+                        isLocked, roomConnections, inventoryController, roomKeysToUnlockRoom);
+
 
             // TODO remove after testing
             // displays the item added to the room
@@ -304,6 +294,8 @@ public class ConsoleController {
      */
     public boolean isValidGameCommand() {
         switch (console.inputValidator()) {
+            // TODO pickup is for testing purposes right now
+            case "pickup" -> characterController.pickUpItem(console.getItem());
             case "stats" -> characterController.printPlayerDetails();
             case "use" -> itemController.useItem(characterController.getModel());
             case "equip" -> characterController.equip(console.getItem());

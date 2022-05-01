@@ -50,12 +50,26 @@ public class CharacterController {
         view.printInventory(model);
     }
 
+    /**
+     * Author: Brian Smithers
+     */
     public void equip(String itemName) {
         System.out.println(getModel().equipItem(itemName));
     }
 
+    /**
+     * Author: Brian Smithers
+     */
     public void unEquipItem(String itemName) {
         System.out.println(getModel().unEquipItem(itemName));
+    }
+
+    // TODO this may need to be removed after testing //
+    public void pickUpItem(String item) {
+        Room room = Room.getRoom(model.getRoomNumber());
+        model.getInventoryController().transferItem(
+                "Room", "Pick Up",
+                room.getInventoryController().getItemInventory(), item.strip());
     }
 
     public Character getModel() {

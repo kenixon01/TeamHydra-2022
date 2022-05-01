@@ -216,37 +216,49 @@ public class Character {
      * Author: Brian Smithers
      */
     public boolean traverseRooms(String direction) {
-        // Copy room object for the players current room
+        // Get the player's current room and its connections.
         Room currentRoom = Objects.requireNonNull(Room.getRoom(getRoomNumber()));
-
-        // Get connections from copied room object
         String[][] roomConnections = currentRoom.getRoomConnections();
 
-        // Do not iterate if direction is "-1"
-        boolean nextPass = direction.equalsIgnoreCase("-1");
-
         for (String[] room : roomConnections) {
-            if (!nextPass) {
                 for (int j = 0; j < room.length; j++) {
-                    // Look for direction (N, S, E, W)
+                    // Look for direction (N, S, E, W) in the array.
                     if (room[j].equalsIgnoreCase(direction)) {
-                        // Get players new room number and assign it to player
+                        // Retrieve the room number associated with the direction.
                         int newRoomNumber = Integer.parseInt(room[j - 1]);
 
-                        // Check if room is locked
+                        /*
+                        Check if the player's room is locked by looking at its lock status. If the room is locked
+                        get the keys required to open the door. Player's inventory will be compared to the keys.
+                         */
                         boolean checkIfRoomsIsLocked = Room.getRoom(newRoomNumber).isLocked();
                         if (checkIfRoomsIsLocked) {
-                            System.out.println("This room is currently locked.");
-                            return false;
+                            String[] keysRequiredToOpenDoor = Room.getRoom(newRoomNumber).getKeysRequired();
+                            int numberOfKeysRequired = keysRequiredToOpenDoor.length;
+                            for (int i = 0; i < inventoryController.getItemInventory().size(); i++) {
+                                for (String s : keysRequiredToOpenDoor) {
+                                    if (inventoryController.getItemInventory().get(i).get_itemName()
+                                            .equalsIgnoreCase(s)) {
+                                        numberOfKeysRequired--;
+                                    }
+                                }
+                            }
+                            if (numberOfKeysRequired != 0) {
+                                System.out.println("This room is currently locked.");
+                                return false;
+                            }
+                            else {
+                                System.out.println("The door has been unlocked.");
+                                setRoomNumber(newRoomNumber);
+                                return true;
+                            }
                         }
-
+                        // No keys are required for this operation.
                         setRoomNumber(newRoomNumber);
-                        nextPass = true; // Stop iterating
                         return true;
                     }
                 }
             }
-        }
         return false;
     }
 

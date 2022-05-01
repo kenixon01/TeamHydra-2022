@@ -40,11 +40,6 @@ public class ItemReader {
 
         return reader;
     }
-/*
-    to call on item creation:
-    Item.ItemReader itemReader = new Item.ItemReader();
-    Map<String, List<Item>> items = itemReader.CreateItems();
- */
 
     /**
      * Author: Jayson and Brian
