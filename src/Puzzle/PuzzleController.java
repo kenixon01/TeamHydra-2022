@@ -102,7 +102,7 @@ public class PuzzleController {
                 //if correct solution is inputted
                 if (puzzle.getSolution().equalsIgnoreCase(userInput)) {
                     puzzleSolved(puzzle); //print message and set puzzle to solved
-                    //TODO:(check) handle stat modifier type (puzzle #6) (adds 15 hp to players total healthpool)
+                    // handle stat modifier type (puzzle #6) (adds 15 hp to players total healthpool)
                     //set character maxhp (current maxhp + hp modifier)
                     character.setMaxHitPoints(character.getMaxHitPoints() + puzzle.getHpModifier());
                     //set character health (current health + hp modifier)
@@ -158,7 +158,7 @@ public class PuzzleController {
                         //drop item in room, print message || add item to inventory. print message.
                         break; //break from puzzle interaction loop
                     } else { //input doesn't match an available command or puzzle solution
-                        //TODO:(check) if puzzle type is double threat, deal damage to player upon wrong answer
+                        // if puzzle type is double threat, deal damage to player upon wrong answer
                         view.puzzleIncorrect(puzzle);
                         character.setCurrentHitPoints(character.getCurrentHitPoints() - puzzle.getDamage());
                         if (character.getCurrentHitPoints() > 0) {
