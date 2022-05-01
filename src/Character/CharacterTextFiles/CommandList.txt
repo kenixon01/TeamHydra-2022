@@ -19,3 +19,4 @@ pickup     adds item to inventory
 hint       provides hint to current room's puzzle
 stats      view player stats
 location   displays the player's room and room number
+menu       displays main menu
