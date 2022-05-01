@@ -29,7 +29,8 @@ Havok
 False
 ----
 Armory
-False
+True
+Armory Key
 ----
 Treasury
 False
@@ -57,6 +58,10 @@ False
 ----
 Basement
 True
+Key Piece 1
+Key Piece 2
+Key Piece 3
+Key Piece 4
 ----
 Hallway 1
 False

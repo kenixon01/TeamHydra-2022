@@ -16,12 +16,12 @@ public class Inventory {
         itemInventory.add(item);
     }
 
+    // TODO add the view method for returning a boolean
     // Transfer between Player.Player, Monster or Room.Room
     public boolean transferItem(LinkedList<Item> inventory2, String item) {
         for (int i = 0; i < inventory2.size(); i++) {
             // TODO Fix this line of code
-            /*
-            if (inventory2.get(i).getName().equalsIgnoreCase(item)) {
+            if (inventory2.get(i).get_itemName().equalsIgnoreCase(item)) {
                 // Transfer item from inventory1 to inventory2
                 Item tempItem = inventory2.get(i);
                 itemInventory.add(tempItem);
@@ -29,8 +29,6 @@ public class Inventory {
                 inventory2.remove(i);
                 return true;
             }
-
-             */
         }
         return false;
     }

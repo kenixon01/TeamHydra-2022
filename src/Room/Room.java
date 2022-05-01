@@ -19,7 +19,6 @@ public class Room {
     private boolean isLocked;
     private final String[][] roomConnections;
     private final InventoryController inventoryController;
-    //private final LinkedList<Monster> monstersInRooms;
     private final String[] keysRequired;
 
     // The idea is that it is a static database that houses all the rooms.
@@ -80,53 +79,8 @@ public class Room {
         return inventoryController;
     }
 
-//    public void addMonster(Monster monster) {
-//        monstersInRooms.add(monster);
-//    }
-//
-//    public void removeMonster() {
-//        monstersInRooms.removeFirst();
-//    }
-//
-//    public LinkedList<Monster> getMonstersInRooms() {
-//        return monstersInRooms;
-//    }
-    /*
-    private String name_; //name of room
-    private String roomID_; //A room's ID need for item sorting
-    private boolean isLocked_;
-    private String[] neighbors_; //names of neighboring rooms
-    private String description_; //short description
-
-
-    public Room(String roomID, String name, boolean isLocked, String description, String[] neighbors) {
-        roomID_ = roomID;
-        name_ = name;
-        isLocked_ = isLocked;
-        description_ = description;
-        neighbors_ = neighbors;
-
+    public String[] getKeysRequired() {
+        return keysRequired;
     }
-
-    public String getRoomID_() {
-        return roomID_;
-    }
-    public String[] getNeighbors() {
-        return neighbors_;
-    }
-
-    public String getName() {
-        return name_;
-    }
-
-    public boolean isLocked() {
-        return isLocked_;
-    }
-
-    public String getDescription_() {
-        return description_;
-    }
-
-     */
 }
 
