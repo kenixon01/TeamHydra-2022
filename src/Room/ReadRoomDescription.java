@@ -35,10 +35,10 @@ public class ReadRoomDescription  implements Serializable {
                 }
                 else {
                     roomDescription.setLength(roomDescription.length() - 1); // removes last \n
-                    roomDescriptionHashMap.put(roomNumber, roomDescription.toString());
                     roomNumber++;
                     roomDescription.setLength(0); // reset Stringbuilder
                 }
+                roomDescriptionHashMap.put(roomNumber, roomDescription.toString().trim());
             }
         }
         catch (FileNotFoundException ex) {
