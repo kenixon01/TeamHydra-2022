@@ -32,8 +32,8 @@ public class ConsoleView {
         System.out.println("Save file does not exist.\nCreating a new save file.");
     }
 
-    public void gameCrash(String message) {
-        System.out.println("Error running game: " + message);
+    public void cannotSaveGame() {
+        System.out.println("You cannot save here.\nProceed to a hallway to save the game.");
     }
 
     public void invalidCommand(String commandCategory) {
