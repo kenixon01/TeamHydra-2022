@@ -1,7 +1,7 @@
 package Item;
 
 /**
- *  Author: Jayson Dasher
+ * Author: Jayson Dasher
  */
 
 import java.io.File;
@@ -17,7 +17,9 @@ public class  ItemReader implements Serializable {
 
     private String _itemsFilePath;
 
-    public ItemReader() { this._itemsFilePath = (System.getProperty("user.dir") + "\\src\\Item\\"); }
+    public ItemReader() {
+        this._itemsFilePath = (System.getProperty("user.dir") + "\\src\\Item\\");
+    }
 
     // Purpose: to only attempt to reach the file and create it.
     // Read the user's input of "gameRooms.txt"
@@ -68,9 +70,11 @@ public class  ItemReader implements Serializable {
                 int healthValue = reader.nextInt();
                 reader.nextLine();
                 int hpModifier = reader.nextInt();
-                float critValue = reader.nextFloat(); // not implemented
+                float critValue = reader.nextFloat();// not implemented
+                String tempBoolean = reader.nextLine();
+                Boolean itemUnlocked = Boolean.valueOf(tempBoolean);
                 currItem = new Item(itemNum, itemName, itemDesc, itemRoom, damageValue, healthValue, itemType,
-                        hpModifier, critValue, false,false);
+                        hpModifier, critValue, false, false, itemUnlocked);
 
                 ArrayList<Item> listOfItems = new ArrayList<>();
                 listOfItems.add(currItem);

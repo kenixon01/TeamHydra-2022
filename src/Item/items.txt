@@ -10,6 +10,7 @@
 -Item.Item Health Restoration Value-
 -Total HP Modifier-
 -Critical Hit Chance-
+-Item Unlocked Boolean-
 -USE A BLANK LINE AS A SEPARATOR-
 ---------------------------------------
 
@@ -22,6 +23,7 @@ A shiny and luminous black obsidian amulet and other precious gemstones around i
 50
 50
 0
+true
 
 2
 Axe
@@ -32,6 +34,7 @@ A black double-sided bearded axe. The engraving on the side reads "Tyr!". Just b
 0
 0
 0
+true
 
 3
 Spear
@@ -42,6 +45,7 @@ A long spear capable of attacking from a distance.
 0
 0
 0
+true
 
 4
 8x Bandage
@@ -52,6 +56,7 @@ A box of bandages already opened. Could probably cover a scratch or two, there�
 20
 0
 0
+true
 
 5
 1x Medkit
@@ -62,6 +67,7 @@ A fully stocked medical emergency kit. For really big paper cuts.
 150
 0
 0
+false
 
 6
 Sword
@@ -72,6 +78,7 @@ The sword called “Gate Keeper”  will be able to be picked up and used agains
 0
 0
 0
+true
 
 7
 Key Piece 1
@@ -82,6 +89,7 @@ This key piece could be obtained by defeating High Priest Elwyn in room 5. This 
 0
 0
 0
+false
 
 8
 Key Piece 2
@@ -92,6 +100,7 @@ Lodged in the enormous calf of Bonkreig, this is one of the 4 key pieces tos unl
 0
 0
 0
+false
 
 9
 Key Piece 3
@@ -102,6 +111,7 @@ This key piece can be obtained by opening the safe in the study room.
 0
 0
 0
+false
 
 10
 Key Piece 4
@@ -112,6 +122,7 @@ By defeating the monster from room 7, this key piece will help you unlock the ba
 0
 0
 0
+false
 
 11
 Armory Key
@@ -122,6 +133,7 @@ Worn as a necklace around his neck, Robert Fitz drops it when defeated. A key wi
 0
 0
 0
+false
 
 14
 Eyes of the Two Gods
@@ -132,6 +144,7 @@ Two set of sacred rings resembles the eyes of the Two Gods.
 0
 0
 .10
+false
 
 17
 2x Wine Potion
@@ -142,3 +155,4 @@ A wine potion,instead of getting you drunk, it gives you health.
 30
 0
 0
+false
