@@ -427,6 +427,7 @@ public class ConsoleController {
                 // TODO add use item command
                 battleController.exhaustTurn();
             }
+            case "stats" -> characterController.printPlayerDetails();
             case "equip" -> {
                 characterController.equip(console.getItem());
                 battleController.exhaustTurn();
