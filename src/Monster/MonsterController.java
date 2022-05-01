@@ -1,11 +1,12 @@
 package Monster;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  * @author Khamilah Nixon
  */
-public class MonsterController {
+public class MonsterController implements Serializable {
     private MonsterView view;
     private HashMap<Integer, Monster> model;
 
@@ -26,9 +27,4 @@ public class MonsterController {
         return model;
     }
 
-    public void die(int key) {
-        view.died(model.get(key));
-        view.itemDrop(model.get(key));
-        model = null;
-    }
 }

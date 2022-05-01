@@ -3,12 +3,13 @@ package Inventory;
 import Item.Item;
 import Puzzle.Puzzle;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
  * Author: Brian Smithers
  */
-public class Inventory {
+public class Inventory implements Serializable {
     private final LinkedList<Item> itemInventory = new LinkedList<>();
 
     // Add object to item inventory for initialization

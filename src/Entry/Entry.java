@@ -20,7 +20,7 @@ public class Entry {
         ConsoleController consoleController = new ConsoleController(console, consoleView);
 
         try {
-            consoleController.startGame();
+            consoleController.startup();
 
             //main menu displays on console
             //enter start, continue, or exit on main menu

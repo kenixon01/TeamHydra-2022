@@ -1,11 +1,12 @@
 package Item;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *  Author: Jayson Dasher
  */
-public class ItemView {
+public class ItemView implements Serializable {
 
     public ItemView() { }
 

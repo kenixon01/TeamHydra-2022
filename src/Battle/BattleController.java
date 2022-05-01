@@ -2,12 +2,13 @@ package Battle;
 
 import Item.Item;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *  Author: Brian Smithers
  */
-public class BattleController {
+public class BattleController implements Serializable {
 
     private Battle model;
     private BattleView view;
@@ -103,7 +104,7 @@ public class BattleController {
                 } else {
                     playerAttack();
                 }
-                if(!isSuccessfulHit) {
+                if(!isSuccessfulHit && model.getMonster().getHp() > 0) {
 
                     view.battleCommands();
                 }

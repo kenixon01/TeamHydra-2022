@@ -2,13 +2,14 @@ package Room;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Scanner;
 
 /**
  * Author: Brian Smithers
  */
-public class ReadRoomDescription {
+public class ReadRoomDescription  implements Serializable {
     private StringBuilder roomDescription;
     private final String roomDescriptionFilePath;
     private final HashMap<Integer, String> roomDescriptionHashMap = new HashMap<>();

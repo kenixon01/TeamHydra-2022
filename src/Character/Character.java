@@ -8,6 +8,7 @@ import Inventory.*;
 import Item.Item;
 import Room.Room;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -15,7 +16,7 @@ import java.util.*;
  * Co Authors: Khamilah
  */
 
-public class Character {
+public class Character implements Serializable {
     private int roomNumber;
 
     private final String id;

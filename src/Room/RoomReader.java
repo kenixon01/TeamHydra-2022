@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * Author: Brian Smithers
  */
-public class RoomReader {
+public class RoomReader implements Serializable{
     private final String filePath;
     private final HashMap<Integer, String[]> roomReaderRoomDetailsHashMap = new HashMap<>();
     private final HashMap<Integer, String[]> roomReaderRoomKeysToUnlockRoomHashMap = new HashMap<>();

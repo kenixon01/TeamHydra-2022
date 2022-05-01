@@ -24,7 +24,7 @@ import java.io.*;
  * @author Khamilah E. Nixon
  * @version 1.0
  */
-public final class MonsterReader {
+public final class MonsterReader implements Serializable{
     public static BufferedReader bonkreigItem, garoldItem, highItem, robertItem, idFile, roomIDFile, itemIDFile, hpFile,
             damageFile, nameFile, descriptionFile, itemFile, lockedFile;
     static {

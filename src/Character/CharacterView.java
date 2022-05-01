@@ -1,7 +1,9 @@
 package Character;
 
 
-public class CharacterView {
+import java.io.Serializable;
+
+public class CharacterView implements Serializable {
 
     /**
      * Author: Brian Smithers

@@ -5,11 +5,12 @@ import Item.Item;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Scanner;
 
 /*** Author: Brian Smithers */
-public class CharacterReader {
+public class CharacterReader implements Serializable {
 
     private File file;
     private Scanner scanner;

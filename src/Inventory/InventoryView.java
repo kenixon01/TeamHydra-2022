@@ -1,6 +1,8 @@
 package Inventory;
 
-public class InventoryView {
+import java.io.Serializable;
+
+public class InventoryView implements Serializable {
     /**
      * Author: Brian and Khamilah
      */

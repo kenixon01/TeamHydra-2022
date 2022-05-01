@@ -1,12 +1,13 @@
 package Puzzle;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * Author: Jayson Dasher
  */
-public class PuzzleReader {
+public class PuzzleReader implements Serializable {
     private String _puzzlesFilePath;
 
     public PuzzleReader() {

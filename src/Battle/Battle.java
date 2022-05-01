@@ -4,13 +4,14 @@ import Item.Item;
 import Monster.Monster;
 import Character.Character;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Random;
 
 /**
  * Author: Brian Smithers
  */
-public class Battle {
+public class Battle implements Serializable {
     private final Character player;
     private final Monster monster;
 

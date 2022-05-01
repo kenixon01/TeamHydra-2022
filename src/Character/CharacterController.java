@@ -2,10 +2,12 @@ package Character;
 
 import Room.Room;
 
+import java.io.Serializable;
+
 /**
  * Author: Brian Smithers
  */
-public class CharacterController {
+public class CharacterController implements Serializable {
     private Character model;
     private CharacterView view;
 

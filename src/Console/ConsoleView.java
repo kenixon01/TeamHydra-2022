@@ -1,6 +1,7 @@
 package Console;
 
 import Utilities.ConsoleColors;
+import Character.Character;
 
 /**
  * This class will print any general game messages and information
@@ -43,6 +44,12 @@ public class ConsoleView {
                 → Continue
                 → Exit
                 """);
+    }
+
+    public void verifyCharacter(Character character) {
+        System.out.println("Would you like to continue as " +
+                character.getName() + "\nThis decision is final. [y] or [n]"
+        );
     }
 
     public void gameDescription() {

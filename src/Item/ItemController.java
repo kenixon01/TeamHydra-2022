@@ -2,6 +2,7 @@ package Item;
 
 import Character.Character;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -9,7 +10,7 @@ import java.util.Scanner;
 /**
  *  Author: Jayson Dasher
  */
-public class ItemController {
+public class ItemController implements Serializable {
     // Room Number, Item for the Map
     private Map<String, List<Item>> model;
     private ItemView view;

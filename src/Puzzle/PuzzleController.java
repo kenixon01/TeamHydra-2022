@@ -1,5 +1,6 @@
 package Puzzle;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -11,7 +12,7 @@ import Inventory.InventoryController;
 /**
  * Author: Jayson Dasher and David Huber
  */
-public class PuzzleController {
+public class PuzzleController implements Serializable {
     Character character;
     public Map<String, List<Puzzle>> puzzles; //Named puzzles but is the model
     private PuzzleView view;

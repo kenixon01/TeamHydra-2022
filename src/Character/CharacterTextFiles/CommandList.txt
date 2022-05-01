@@ -1,15 +1,20 @@
-List of Commands
-To save the game, enter "Save" (not implemented)
-To access your inventory, enter "Inventory"
-To move your character, enter "N, S, E, or W"
-To attack a monster during combat, enter "attack"
-To block in combat, enter "block" (this takes up the players turn)
-To dodge in combat, enter "dodge" (this takes up the players turn)
-To equip an item, enter "equip" followed by the name of the item (partially implemented)
-To use an item while in combat, enter "Use item" (not implemented)
-To unequip an item, enter "unequip"
-To use an item from your inventory, enter "Use" followed by the item's name. (not implemented)
-To pickup an item, enter "yes" when prompted "Do you wish to take it?" (not implemented)
-To receive a hint during a puzzle, enter "Puzzle Hint" (not implemented)
-To exit a puzzle, enter "Exit Puzzle" (not implemented)
-To see a player's stats enter "Stats" (not implemented)
+↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔
+                            List of Commands
+↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔
+
+save       saves current game progress only when player is in a hallway
+exit       exits game
+n          move north
+s          move south
+e          move east
+w          move west
+attack     initiates combat and attacks monster
+block      initiates combat and chance to block monster attack
+dodge      initiates combat and chance to dodge monster attack
+equip      equips an item, uses turn during combat
+unequip    unequips an equipped item, uses turn during combat
+use        consumes an item, uses turn during combat
+inventory  access player's stored items
+pickup     adds item to inventory
+hint       provides hint to current room's puzzle
+stats      view player stats
