@@ -31,8 +31,9 @@ public class CharacterView implements Serializable {
     /**
      * Author: Brian Smithers
      */
-    public void printPlayerLocation(String location) {
-        System.out.println("Current room: " + location);
+    public void printPlayerLocation(int roomNumber, String roomName) {
+        System.out.println("Room Number: " + roomNumber
+                + "\n" + "Room Name: " + roomName);
     }
 
     /**

@@ -33,8 +33,8 @@ public class CharacterController implements Serializable {
      * Author: Brian Smithers
      */
     public void printPlayerLocation() {
-        view.printPlayerLocation(
-                Room.listOfRooms.get(model.getRoomNumber()).getRoomDescription());
+        view.printPlayerLocation(model.getRoomNumber(),
+                Room.getRoom(model.getRoomNumber()).getRoomName());
     }
 
     /**
