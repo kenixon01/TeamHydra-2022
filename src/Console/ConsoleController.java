@@ -119,21 +119,26 @@ public class ConsoleController {
      * @author Khamilah Nixon
      */
     public void saveGame() {
-        try {
-            writeFile = new ObjectOutputStream(new FileOutputStream(file));
-            readFile = new ObjectInputStream(new FileInputStream(file));
-            writeFile.writeObject(characterController);
-            writeFile.writeObject(roomController);
-            writeFile.writeObject(monsterController);
-            writeFile.writeObject(battleController);
-            writeFile.writeObject(puzzleController);
-            HashMap<Integer,Room> listOfRooms = Room.listOfRooms;
-            writeFile.writeObject(listOfRooms);
-            writeFile.writeObject(character);
-        }catch (IOException io) {
-            io.printStackTrace();
+        if(characterController.getModel().getRoomNumber() >= 21) {
+            try {
+                writeFile = new ObjectOutputStream(new FileOutputStream(file));
+                readFile = new ObjectInputStream(new FileInputStream(file));
+                writeFile.writeObject(characterController);
+                writeFile.writeObject(roomController);
+                writeFile.writeObject(monsterController);
+                writeFile.writeObject(battleController);
+                writeFile.writeObject(puzzleController);
+                HashMap<Integer,Room> listOfRooms = Room.listOfRooms;
+                writeFile.writeObject(listOfRooms);
+                writeFile.writeObject(character);
+            }catch (IOException io) {
+                io.printStackTrace();
+            }
+            consoleView.saveGame();
         }
-        consoleView.saveGame();
+        else {
+            consoleView.cannotSaveGame();
+        }
     }
 
     /**
