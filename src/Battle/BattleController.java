@@ -29,14 +29,13 @@ public class BattleController implements Serializable {
      * @author Brian Smithers and Khamilah Nixon
      */
     private void playerBlock() {
-        int damageReduction = model.blockPlayer();
+        int damageReduction = model.damageReduction();
         if (damageReduction > 0) {
             view.blockSuccessful(model.getPlayerName(), model.getMonsterName());
             int totalMonsterDamage = model.getMonsterAttackPoints() - damageReduction;
             model.attackMonster();
             view.attackTurnResult(model.getPlayerName(), model.getPlayerAttackPoints(), model.getMonsterName());
-            view.attackTurnResult(model.getMonsterName(),
-                    Math.max(totalMonsterDamage, 0), model.getPlayerName());
+            view.attackTurnResult(model.getMonsterName(), totalMonsterDamage, model.getPlayerName());
             isSuccessfulHit = true;
             view.accessInventory(model.getPlayer());
 
@@ -81,12 +80,14 @@ public class BattleController implements Serializable {
         view.attackTurnResult(model.getPlayerName(), model.getPlayerAttackPoints(), model.getMonsterName());
         if (model.getMonster().getHp() <= 0) {
             view.monsterSlayed(model.getMonster());
-            return;
         }
-        model.attackPlayer();
-        view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
-        view.remainingHealth(model.getMonster(), model.getPlayer());
-        isSuccessfulHit = false;
+        else {
+            model.attackPlayer();
+            view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
+            view.remainingHealth(model.getMonster(), model.getPlayer());
+            isSuccessfulHit = false;
+
+        }
     }
 
     /**

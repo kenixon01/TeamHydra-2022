@@ -32,11 +32,11 @@ public class Battle implements Serializable {
     /**
      * Author: Khamilah Nixon
      */
-    public int gainHealth(int health, int maxHealth, int val) {
-        if (health + val > maxHealth) {
+    public int gainHealth(int health, int maxHealth, int restoration) {
+        if (health + restoration > maxHealth) {
             health = maxHealth;
         } else {
-            health += val;
+            health += restoration;
         }
         return health;
     }
@@ -84,11 +84,9 @@ public class Battle implements Serializable {
         // look for an item that is of weapon type and has a positive health restoration value
         // get that item
         int restore = 0;
-        for (int i = 0; i < inventory.size(); i++) {
-            if (inventory.get(i).get_itemType().equalsIgnoreCase("weapon") &&
-                    inventory.get(i).get_healValue() > 0 && inventory.get(i).getEquipped()) {
-                // do something
-                restore += inventory.get(i).get_healValue();
+        for (Item item : inventory) {
+            if (item.get_healValue() > 0 && item.getEquipped()) {
+                restore += item.get_healValue();
             }
         }
         return restore;
@@ -120,39 +118,13 @@ public class Battle implements Serializable {
     }
 
     /**
-     * @author Khamilah Nixon
-     */
-    public boolean dodgePlayer() {
-        boolean hasDodged = false;
-        if (getPlayerHp() > 0 && getMonsterHp() > 0) {
-            hasDodged = playerDodge();
-            if (!hasDodged) {
-                player.setCurrentHitPoints(loseHealth(getPlayerHp(), getMonsterAttackPoints()));
-            }
-        }
-        return hasDodged;
-    }
-
-    /**
-     * @author Khamilah Nixon
-     */
-    public int blockPlayer() {
-        int dmgReduction = 0;
-        if (getPlayerHp() > 0 && getMonsterHp() > 0) {
-            dmgReduction = damageReduction();
-            player.setCurrentHitPoints(loseHealth(getPlayerHp(), getMonsterAttackPoints()) + dmgReduction);
-        }
-        return dmgReduction;
-    }
-
-    /**
      * Determines if the player dodges an attack.  This is dependent on the player's dodge chance:
      * If the player successfully dodges, then they will absorb all incoming damage.
      *
      * @return if the player dodges an incoming monster attack
      * @author Khamilah Nixon
      */
-    private boolean playerDodge() {
+    public boolean dodgePlayer() {
         int randomDodgeInt = Math.abs(new Random().nextInt());
         return (player.getDodgeChance() > 0 && (randomDodgeInt % (1 / player.getDodgeChance()) == 0));
     }
@@ -164,7 +136,7 @@ public class Battle implements Serializable {
      * @return damage reduction
      * @author Khamilah Nixon
      */
-    private int damageReduction() {
+    public int damageReduction() {
         int randomBlockInt = Math.abs(new Random().nextInt());
         if (randomBlockInt % 4 == 0) {
             return (int) (Math.random() * getMonsterAttackPoints() - 1) + 1;
