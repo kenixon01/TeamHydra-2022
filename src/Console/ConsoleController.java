@@ -149,19 +149,27 @@ public class ConsoleController {
         itemView = new ItemView();
         itemController = new ItemController(new ItemReader().CreateItems(), itemView);
 
-        characterView = new CharacterView();
-        characterView.characterSelect(); // TODO call by character controller
         boolean validMenuOption = false;
         String userOption = "";
         while (!validMenuOption) {
+            characterView = new CharacterView();
+            characterView.characterSelect(); // TODO call by character controller
+
             userOption = console.menuInputValidator(new String[]{"1", "2", "3", "4"});
             switch (userOption) {
                 case "1", "4", "2", "3" -> validMenuOption = true;
                 default -> invalidCommand("character menu");
             }
+            if(validMenuOption) {
+                character = Character.loadCharacterData(Integer.parseInt(userOption));
+                consoleView.verifyCharacter(character); // TODO call by character controller
+                userOption = console.menuInputValidator(new String[]{"y","n"});
+                if(userOption.equalsIgnoreCase("n")) {
+                    validMenuOption = false;
+                }
+            }
         }
         consoleView.print("");
-        character = Character.loadCharacterData(Integer.parseInt(userOption));
         character.setRoomNumber(1);
         characterController = new CharacterController(character, characterView);
 
@@ -279,6 +287,10 @@ public class ConsoleController {
         exitGame();
     }
 
+    /**
+     * @author Khamilah Nixon
+     * @param monster a monster in current room
+     */
     private void monsterSpawn(Monster monster) {
         monsterController.monsterInfo(character.getRoomNumber());
         consoleView.print("");
@@ -287,6 +299,11 @@ public class ConsoleController {
         battleController = new BattleController(battle, battleView);
     }
 
+    /**
+     * @author Khamilah Nixon
+     * @param monster a monster in current room
+     * @param roomID current room number
+     */
     private void puzzleSpawn(Monster monster, int roomID) {
         puzzleController.checkForPuzzle(roomID, character);
         if (puzzleController.getPuzzles().get(Integer.toString(roomID)).get(0).getSolved() &&
@@ -301,11 +318,12 @@ public class ConsoleController {
      * @return if player entered a valid command
      * @author Khamilah Nixon, Brian Smithers, Jayson Dasher
      */
-    public boolean isValidGameCommand() {
+    private boolean isValidGameCommand() {
         switch (console.inputValidator()) {
             case "stats" -> characterController.printPlayerDetails();
             case "use" -> itemController.useItem(characterController.getModel());
             case "equip" -> characterController.equip(console.getItem());
+            case "pickup" -> {}
             case "unequip" -> characterController.unEquipItem(console.getItem());
             case "n", "s", "e", "w" -> {
                 characterController.move(console.inputValidator());

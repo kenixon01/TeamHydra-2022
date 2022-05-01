@@ -103,7 +103,7 @@ public class BattleController {
                 } else {
                     playerAttack();
                 }
-                if(!isSuccessfulHit) {
+                if(!isSuccessfulHit && model.getMonster().getHp() > 0) {
 
                     view.battleCommands();
                 }

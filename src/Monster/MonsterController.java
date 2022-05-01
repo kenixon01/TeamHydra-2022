@@ -26,9 +26,4 @@ public class MonsterController {
         return model;
     }
 
-    public void die(int key) {
-        view.died(model.get(key));
-        view.itemDrop(model.get(key));
-        model = null;
-    }
 }

@@ -1,5 +1,6 @@
 package Monster;
 
+import Inventory.Inventory;
 import Item.Item;
 
 import java.io.FileNotFoundException;
@@ -33,7 +34,7 @@ public class Monster {
 
     private boolean isLocked;
 
-    private Item item;
+    private Inventory inventory;
 
     public static HashMap<Integer, Monster> monsterHashMap = new HashMap<>();
 
@@ -42,7 +43,7 @@ public class Monster {
      * a {@link MonsterReader} reference
      */
     public Monster(int ID, int ROOM_ID, int ITEM_ID, int DAMAGE, int hp, String NAME, String DESCRIPTION,
-                   boolean isLocked, Item item) {
+                   boolean isLocked, Inventory inventory) {
         this.id = ID;
         this.roomId = ROOM_ID;
         this.itemId = ITEM_ID;
@@ -50,7 +51,7 @@ public class Monster {
         this.hp = hp;
         this.name = NAME;
         this.description = DESCRIPTION;
-        this.item = item;
+        this.inventory = inventory;
         this.isLocked = isLocked;
     }
 
@@ -70,19 +71,21 @@ public class Monster {
             //if a monster stores an item, add a monster with an item to the HashMap
             //otherwise, set the monster item to null
             if(monsterReader.getITEM_ID() > 0) {
+                Item item = new Item(
+                        monsterReader.getItemID(), monsterReader.getItemName(),
+                        monsterReader.getItemDescription(), monsterReader.getItemRoomID() + "",
+                        monsterReader.getItemDamage(), monsterReader.getItemHeal(),
+                        monsterReader.getItemType(), monsterReader.getItemHP(),
+                        monsterReader.getItemCriticalHit(), false, false);
+                Inventory items = new Inventory();
+                items.addItem(item);
                 hashMap.put(monsterReader.getROOM_ID(), new Monster(
                         monsterReader.getID(), monsterReader.getROOM_ID(),
                         monsterReader.getITEM_ID(), monsterReader.getDAMAGE(),
                         monsterReader.getHP(), monsterReader.getNAME(),
                         monsterReader.getDESCRIPTION(), monsterReader.isLocked(),
-                        new Item(
-                            monsterReader.getItemID(), monsterReader.getItemName(),
-                            monsterReader.getItemDescription(), monsterReader.getItemRoomID() + "",
-                            monsterReader.getItemDamage(), monsterReader.getItemHeal(),
-                            monsterReader.getItemType(), monsterReader.getItemHP(),
-                            monsterReader.getItemCriticalHit(), false, false)
-                        )
-                );
+                        items
+                ));
             }
             else {
                 hashMap.put(monsterReader.getROOM_ID(), new Monster(
@@ -152,7 +155,7 @@ public class Monster {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", isLocked=" + isLocked +
-                ", item=" + item +
+                ", inventory=" + inventory +
                 '}';
     }
 }
