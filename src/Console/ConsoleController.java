@@ -148,31 +148,36 @@ public class ConsoleController {
      * @author Khamilah Nixon
      */
     public void continueGame() {
-        if(file.length() > 4) {
-            createNewGame = false;
-            consoleView.continueGame();
-            consoleView.print("");
-            try {
-                if(gameRunning) {
+        try {
+            if(file.length() > 4 && !file.createNewFile()) {
+                createNewGame = false;
+                consoleView.continueGame();
+                consoleView.print("");
+                try {
+                    if(gameRunning) {
+                        characterSelect();
+                        createRooms();
+                        enterCommand();
+                    }
+                }catch (IOException io) {
+                    io.printStackTrace();
+                }
+            }else {
+                consoleView.fileNotFound();
+                createNewGame = true;
+                try {
+                    consoleView.saveGameCreated();
                     characterSelect();
                     createRooms();
                     enterCommand();
+                } catch (IOException io) {
+                    io.printStackTrace();
                 }
-            }catch (IOException io) {
-                io.printStackTrace();
             }
+        } catch (IOException io) {
+            io.printStackTrace();
         }
-        else {
-            consoleView.fileNotFound();
-            createNewGame = true;
-            try {
-                if(file.createNewFile()) {
-                    consoleView.saveGameCreated();
-                }
-            } catch (IOException io) {
-                io.printStackTrace();
-            }
-        }
+
     }
 
     /**

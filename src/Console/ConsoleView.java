@@ -29,7 +29,7 @@ public class ConsoleView {
     }
 
     public void fileNotFound() {
-        System.out.println("Save file does not exist.\nCreating a new save file.");
+        System.out.println("Save file does not exist.");
     }
 
     public void cannotSaveGame() {
