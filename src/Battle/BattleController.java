@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- *  Author: Brian Smithers
+ * Author: Brian Smithers
  */
 public class BattleController implements Serializable {
 
@@ -25,6 +25,7 @@ public class BattleController implements Serializable {
      * Determines the amount of damage reduction
      * If a player successfully blocks an attack, then the incoming
      * damage will be reduced
+     *
      * @author Brian Smithers and Khamilah Nixon
      */
     private void playerBlock() {
@@ -39,8 +40,7 @@ public class BattleController implements Serializable {
             isSuccessfulHit = true;
             view.accessInventory(model.getPlayer());
 
-        }
-        else {
+        } else {
             view.blockUnsuccessful(model.getPlayerName(), model.getMonsterName());
             model.attackPlayer();
             view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
@@ -53,6 +53,7 @@ public class BattleController implements Serializable {
      * Determines if a player successfully dodged an attack
      * If a player successfully dodges an attack, then a monster
      * will not attack the player
+     *
      * @author Brian Smithers and Khamilah Nixon
      */
     private void playerDodge() {
@@ -61,8 +62,7 @@ public class BattleController implements Serializable {
             isSuccessfulHit = true;
             view.accessInventory(model.getPlayer());
 
-        }
-        else {
+        } else {
             view.dodgeUnsuccessful(model.getPlayerName(), model.getMonsterName());
             model.attackPlayer();
             view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
@@ -73,12 +73,13 @@ public class BattleController implements Serializable {
 
     /**
      * Allows player to use attack command
+     *
      * @author Brian Smithers and Khamilah Nixon
      */
     private void playerAttack() {
         model.attackMonster();
         view.attackTurnResult(model.getPlayerName(), model.getPlayerAttackPoints(), model.getMonsterName());
-        if(model.getMonster().getHp() <= 0) {
+        if (model.getMonster().getHp() <= 0) {
             view.monsterSlayed(model.getMonster());
             return;
         }
@@ -91,12 +92,13 @@ public class BattleController implements Serializable {
     /**
      * Allows player and monster to engage in battle.  Displays
      * attack damage information after each attack.
+     *
      * @author Brian Smithers and Khamilah Nixon
      */
     public void printBattleDetails(List<Item> inventory, boolean playerSelectedDodge,
                                    boolean playerSelectedBlock) {
-        if(model.getMonster() != null) {
-            if (model.getMonster().getHp() > 0 && model.getPlayer().getHp() > 0) {
+        if (model.getMonster() != null) {
+            if (model.getMonster().getHp() > 0 && model.getPlayer().getCurrentHitPoints() > 0) {
                 if (playerSelectedBlock) {
                     playerBlock();
                 } else if (playerSelectedDodge) {
@@ -104,11 +106,11 @@ public class BattleController implements Serializable {
                 } else {
                     playerAttack();
                 }
-                if(!isSuccessfulHit && model.getMonster().getHp() > 0) {
+                if (!isSuccessfulHit && model.getMonster().getHp() > 0) {
 
                     view.battleCommands();
                 }
-            }else {
+            } else {
                 view.cannotStartBattle();
             }
         }
@@ -119,12 +121,11 @@ public class BattleController implements Serializable {
      * @author Khamilah Nixon
      */
     public void exhaustTurn() {
-        if(!isSuccessfulHit) {
+        if (!isSuccessfulHit) {
             view.exhaustTurn(model.getPlayerName());
             model.attackPlayer();
             view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
-        }
-        else {
+        } else {
             isSuccessfulHit = false;
         }
     }

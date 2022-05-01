@@ -21,10 +21,9 @@ public class Battle implements Serializable {
     }
 
     public int loseHealth(int health, int damage) {
-        if(health - damage < 0) {
+        if (health - damage < 0) {
             health = 0;
-        }
-        else {
+        } else {
             health -= damage;
         }
         return health;
@@ -34,10 +33,9 @@ public class Battle implements Serializable {
      * Author: Khamilah Nixon
      */
     public int gainHealth(int health, int maxHealth, int val) {
-        if(health + val > maxHealth) {
+        if (health + val > maxHealth) {
             health = maxHealth;
-        }
-        else {
+        } else {
             health += val;
         }
         return health;
@@ -48,6 +46,7 @@ public class Battle implements Serializable {
      * during the player's attack.  If the player equipped an item that can
      * regenerate player health after attacking, then the player's health
      * points will increase accordingly.
+     *
      * @return if the player is alive
      * @author Brian Smithers and Khamilah Nixon
      */
@@ -55,14 +54,14 @@ public class Battle implements Serializable {
 //        inventory = itemController.model.get("0");
         LinkedList<Item> playerInventory = player.getInventoryController().getItemInventory();
         if (getPlayerHp() > 0 && getMonsterHp() > 0) {
-            monster.setHp(loseHealth(getMonsterHp(),getPlayerAttackPoints()));
+            monster.setHp(loseHealth(getMonsterHp(), getPlayerAttackPoints()));
 
 //            health restoration functionality
             assert playerInventory != null;
-            if(playerInventory.size() > 0) {
+            if (playerInventory.size() > 0) {
                 int healthRestoration = playerHealthRestore(playerInventory, playerInventory.size() - 1);
                 if (healthRestoration > 0) {
-                    player.setHp(gainHealth(getPlayerHp(), getPlayer().getMaxHitPoints(), healthRestoration));
+                    player.setCurrentHitPoints(gainHealth(getPlayerHp(), getPlayer().getMaxHitPoints(), healthRestoration));
 
                 }
             }
@@ -74,8 +73,9 @@ public class Battle implements Serializable {
     /**
      * This method will determine to total amount of health points the player will
      * receive if they use an item that restores health during a fight
+     *
      * @param inventory Array of equipped inventory items
-     * @param length size of inventory
+     * @param length    size of inventory
      * @return total health points restored to player
      * @author Khamilah Nixon
      */    // This is for the shadow bow
@@ -86,7 +86,7 @@ public class Battle implements Serializable {
         int restore = 0;
         for (int i = 0; i < inventory.size(); i++) {
             if (inventory.get(i).get_itemType().equalsIgnoreCase("weapon") &&
-            inventory.get(i).get_healValue() > 0 && inventory.get(i).getEquipped()) {
+                    inventory.get(i).get_healValue() > 0 && inventory.get(i).getEquipped()) {
                 // do something
                 restore += inventory.get(i).get_healValue();
             }
@@ -107,12 +107,13 @@ public class Battle implements Serializable {
      * Determines if a monster can attack the player.  Sets the player health points during a
      * fight using the monster attack damage.  This method uses {@link Random} to generate a random
      * {@code int} to determine if the player can dodge or block an incoming attack.
+     *
      * @return if a monster is alive
      * @author Brian Smithers and Khamilah Nixon
      */
     public boolean attackPlayer() {
         if (getPlayerHp() > 0 && getMonsterHp() > 0) {
-            player.setHp(loseHealth(getPlayerHp(),getMonsterAttackPoints()));
+            player.setCurrentHitPoints(loseHealth(getPlayerHp(), getMonsterAttackPoints()));
             return true;
         }
         return false;
@@ -125,8 +126,8 @@ public class Battle implements Serializable {
         boolean hasDodged = false;
         if (getPlayerHp() > 0 && getMonsterHp() > 0) {
             hasDodged = playerDodge();
-            if(!hasDodged) {
-                player.setHp(loseHealth(getPlayerHp(),getMonsterAttackPoints()));
+            if (!hasDodged) {
+                player.setCurrentHitPoints(loseHealth(getPlayerHp(), getMonsterAttackPoints()));
             }
         }
         return hasDodged;
@@ -139,7 +140,7 @@ public class Battle implements Serializable {
         int dmgReduction = 0;
         if (getPlayerHp() > 0 && getMonsterHp() > 0) {
             dmgReduction = damageReduction();
-            player.setHp(loseHealth(getPlayerHp(),getMonsterAttackPoints()) + dmgReduction);
+            player.setCurrentHitPoints(loseHealth(getPlayerHp(), getMonsterAttackPoints()) + dmgReduction);
         }
         return dmgReduction;
     }
@@ -147,6 +148,7 @@ public class Battle implements Serializable {
     /**
      * Determines if the player dodges an attack.  This is dependent on the player's dodge chance:
      * If the player successfully dodges, then they will absorb all incoming damage.
+     *
      * @return if the player dodges an incoming monster attack
      * @author Khamilah Nixon
      */
@@ -158,20 +160,23 @@ public class Battle implements Serializable {
     /**
      * Calculates the amount of damage reduction from an incoming monster attack if the player
      * has a block chance percentage.
+     *
      * @return damage reduction
      * @author Khamilah Nixon
      */
     private int damageReduction() {
-            int randomBlockInt = Math.abs(new Random().nextInt());
-            if (randomBlockInt % 4 == 0) {
-                return (int) (Math.random() * getMonsterAttackPoints() - 1) + 1;
-            }
+        int randomBlockInt = Math.abs(new Random().nextInt());
+        if (randomBlockInt % 4 == 0) {
+            return (int) (Math.random() * getMonsterAttackPoints() - 1) + 1;
+        }
         return 0;
     }
 
     // Used in the view
+
     /**
      * Determines the monster deal damage
+     *
      * @return monster damage
      * @author Khamilah Nixon
      */
@@ -180,8 +185,10 @@ public class Battle implements Serializable {
     }
 
     // Used in the view
+
     /**
      * Determines the player deal damage
+     *
      * @return player damage
      * @author Khamilah Nixon
      */
@@ -191,7 +198,7 @@ public class Battle implements Serializable {
 
     // Used in the view
     public int getPlayerHp() {
-        return player.getHp();
+        return player.getCurrentHitPoints();
     }
 
     // Used in the view

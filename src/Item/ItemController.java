@@ -43,6 +43,9 @@ public class ItemController implements Serializable {
                     currentItem.setEquipped(true);
                     //add weapon damage modifier to character damage
                     character.setDamage(character.getDamage() + currentItem.get_damageValue());
+                } else {
+                    currentItem.setEquipped(true);
+                    character.setDamage(character.getDamage() + currentItem.get_damageValue());
                 }
             }
         }
@@ -67,6 +70,7 @@ public class ItemController implements Serializable {
         for (int i = 0; i < character.getInventoryController().getItemInventory().size(); i++) {
             if (character.getInventoryController().getItemInventory().get(i).getEquipped()) {
                 equippedCount += 1;
+                System.out.println(Integer.toString(equippedCount - 1));
                 view.printNumName(character.getInventoryController().getItemInventory().get(i));
             }
         }
@@ -99,7 +103,10 @@ public class ItemController implements Serializable {
         //check to see if consumable
         if (currentItem.get_itemType().equalsIgnoreCase("Consumable")) {
             //alter health
-            character.setHp(character.getHp() + currentItem.get_healValue());
+            character.setCurrentHitPoints(character.getCurrentHitPoints() + currentItem.get_healValue());
+            if (character.getCurrentHitPoints() > character.getMaxHitPoints()) {
+                character.setCurrentHitPoints(character.getMaxHitPoints());
+            }
             //alter character damage output
             character.setDamage(character.getDamage() + currentItem.get_damageValue());
             // delete item from local inventory and character inventory

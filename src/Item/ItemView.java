@@ -20,7 +20,7 @@ public class ItemView implements Serializable {
     }
 
     public void printNumName(Item item) {
-        System.out.println(item.get_itemNumbe() + ". " + item.get_itemName());
+        System.out.println(". " + item.get_itemName());
     }
 
     public void itemPromt(Item item) {

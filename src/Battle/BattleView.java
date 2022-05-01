@@ -33,6 +33,7 @@ public class BattleView implements Serializable {
     public void monsterSlayed(Monster monster) {
         System.out.println(monster.getName() + " was slayed");
     }
+
     public void cannotStartBattle() {
         System.out.println("There is no monster to fight");
     }
@@ -54,7 +55,7 @@ public class BattleView implements Serializable {
      * Author: Khamilah Nixon
      */
     public void remainingHealth(Monster monster, Character character) {
-        System.out.println(character.getName() + "'s Remaining Health: " + character.getHp());
+        System.out.println(character.getName() + "'s Remaining Health: " + character.getCurrentHitPoints());
         System.out.println(monster.getName() + "'s Remaining Health: " + monster.getHp());
     }
 

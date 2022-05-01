@@ -22,7 +22,7 @@ public class Inventory implements Serializable {
     public boolean transferItem(LinkedList<Item> inventory2, String item) {
         for (int i = 0; i < inventory2.size(); i++) {
             // TODO Fix this line of code
-            if (inventory2.get(i).get_itemName().equalsIgnoreCase(item) && inventory2.get(0).getItemUnlocked()) {
+            if (inventory2.get(i).get_itemName().equalsIgnoreCase(item) && inventory2.get(i).getItemUnlocked()) {
                 // Transfer item from inventory1 to inventory2
                 Item tempItem = inventory2.get(i);
                 itemInventory.add(tempItem);
