@@ -77,10 +77,3 @@ public class PuzzleReader implements Serializable {
         return puzzles;
     }
 }
-
-class PuzzleReaderTester {
-    public static void main(String[] args) {
-        PuzzleReader puzzleReader = new PuzzleReader();
-        puzzleReader.CreatePuzzles();
-    }
-}

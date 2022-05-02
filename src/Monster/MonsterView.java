@@ -18,15 +18,6 @@ public final class MonsterView implements Serializable {
         System.out.println("Damage: " + monster.getDamage() + " DMG");
         System.out.println(monster.getDescription());
     }
-
-
-    public void monsterUnavailable() {
-        System.out.println("There is no monster.");
-    }
-
-    public void died(Monster monster) {
-        System.out.println(monster.getName() + " died.");
-    }
     public void itemDrop(Monster monster) {
         System.out.println(monster.getName() + " dropped an item");
     }

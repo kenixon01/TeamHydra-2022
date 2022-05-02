@@ -439,7 +439,7 @@ public class ConsoleController {
         switch (console.battleInputValidator()) {
             case "exit" -> exitGame();
             case "use" -> {
-                // TODO add use item command
+                itemController.useItem(characterController.getModel(), console.getItem());
                 battleController.exhaustTurn();
             }
             case "stats" -> characterController.printPlayerDetails();
