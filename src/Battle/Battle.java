@@ -67,6 +67,9 @@ public class Battle implements Serializable {
             }
             return true;
         }
+        Item item = monster.getInventory().getItemInventory().getFirst();
+        getPlayer().getInventoryController().transferItem("NEVER USED","NEVER USED",
+                monster.getInventory().getItemInventory(),item.get_itemName());
         return false;
     }
 
