@@ -134,6 +134,8 @@ public class Character implements Serializable {
             if (item.get_damageValue() > 0) {
                 setDamage(getDamage() + item.get_damageValue());
             }
+            setWearable(item);
+            wearable.setEquipped(true);
             item.setEquipped(true);
         }
         return true;
@@ -141,7 +143,8 @@ public class Character implements Serializable {
 
     public boolean unEquipItem(String itemSlot) {
         itemSlot = itemSlot.stripTrailing();
-        String itemName = inventoryController.getItemInventory().get(Integer.parseInt(itemSlot) - 1).get_itemName();
+        Item item = inventoryController.getItemInventory().get(Integer.parseInt(itemSlot) - 1);
+        String itemName = item.get_itemName();
         if (weapon.get_itemName().equalsIgnoreCase(itemName) && !weapon.get_itemName()
                 .equalsIgnoreCase("hands")) {
             // remove attack points
@@ -153,16 +156,21 @@ public class Character implements Serializable {
                     "None", 0, 0, "Weapon", 0,
                     0.0f, false, false, true));
         }
-        else if (wearable.get_itemName().equalsIgnoreCase(itemName)) {
-            // remove health
-            setMaxHitPoints(getMaxHitPoints() - weapon.get_totalHpModifier());
-            if (currentHitPoints > maxHitPoints) {
-                currentHitPoints = maxHitPoints;
+        if (wearable != null) {
+            if (wearable.get_itemName().equalsIgnoreCase(itemName)) {
+                // remove health
+                setMaxHitPoints(getMaxHitPoints() - weapon.get_totalHpModifier());
+                if (currentHitPoints > maxHitPoints) {
+                    currentHitPoints = maxHitPoints;
+                }
+                // add damage back
+                setDamage(getDamage() + wearable.get_damageValue());
+                // unequip item
+                setWearable(new Item(0, "Empty", "None",
+                        "None", 0, 0, "wearable", 0,
+                        0, true, false, true));
+                wearable.setEquipped(false);
             }
-            // add damage back
-            setDamage(getDamage() + wearable.get_damageValue());
-            // equip item
-            wearable.setEquipped(false);
         }
         return false;
     }
@@ -352,4 +360,11 @@ public class Character implements Serializable {
         this.roomNumber = roomNumber;
     }
 
+    public void setWearable(Item wearable) {
+        this.wearable = wearable;
+    }
+
+    public Item getWearable() {
+        return wearable;
+    }
 }
