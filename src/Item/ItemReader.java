@@ -74,8 +74,9 @@ public class ItemReader implements Serializable {
                 reader.nextLine();
                 String tempBoolean = reader.nextLine();
                 Boolean itemUnlocked = Boolean.valueOf(tempBoolean);
+                boolean restoreItemOnPickUp = Boolean.parseBoolean(reader.nextLine());
                 currItem = new Item(itemNum, itemName, itemDesc, itemRoom, damageValue, healthValue, itemType,
-                        hpModifier, critValue, false, false, itemUnlocked);
+                        hpModifier, critValue, false, restoreItemOnPickUp, itemUnlocked);
 
                 ArrayList<Item> listOfItems = new ArrayList<>();
                 listOfItems.add(currItem);

@@ -1,6 +1,7 @@
 package Inventory;
 
 import Item.Item;
+import Character.Character;
 
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -18,8 +19,8 @@ public class InventoryController implements Serializable {
     }
 
     public void transferItem(String roomName, String action, LinkedList<Item> inventory2,
-                             String item) {
-        model.transferItem(inventory2, item);
+                             String item, Character character) {
+        model.transferItem(character, inventory2, item);
     }
 
     public Inventory getModel() {

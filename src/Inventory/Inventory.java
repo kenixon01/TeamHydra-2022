@@ -1,7 +1,7 @@
 package Inventory;
 
 import Item.Item;
-import Puzzle.Puzzle;
+import Character.Character;
 
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -18,13 +18,20 @@ public class Inventory implements Serializable {
     }
 
     // Transfer between Player, Monster or Room
-    public boolean transferItem(LinkedList<Item> inventory2, String item) {
+    public boolean transferItem(Character character, LinkedList<Item> inventory2,
+                                String item) {
         for (int i = 0; i < inventory2.size(); i++) {
             if (inventory2.get(i).get_itemName().equalsIgnoreCase(item) &&
                     inventory2.get(i).getItemUnlocked()) {
                 // Transfer item from inventory1 to inventory2
                 Item tempItem = inventory2.get(i);
                 itemInventory.add(tempItem);
+
+                if (tempItem.isRestoreHealthOnPickUp()) {
+                    tempItem.setRestoreHealthOnPickUp(false); // item can't restore health again
+                    character.setCurrentHitPoints(character.getMaxHitPoints());
+                }
+
                 // Remove item from
                 inventory2.remove(i);
                 return true;

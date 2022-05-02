@@ -125,7 +125,7 @@ public class Character implements Serializable {
             // If the item restores health on pick up, restore health.
             if (item.isRestoreHealthOnPickUp()) {
                 item.setRestoreHealthOnPickUp(false); // item can't restore health again
-                setHp(getMaxHitPoints());
+                setCurrentHitPoints(getMaxHitPoints());
             }
             // Increase damage
             if (item.get_damageValue() > 0) {
@@ -269,10 +269,6 @@ public class Character implements Serializable {
 
     public int getHp() {
         return maxHitPoints;
-    }
-
-    public void setHp(int hitPoints) {
-        this.maxHitPoints = hitPoints;
     }
 
     public double getCriticalHitChance() {

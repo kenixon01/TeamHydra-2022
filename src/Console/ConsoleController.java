@@ -474,10 +474,6 @@ public class ConsoleController {
         return true;
     }
 
-    /*private void beginPuzzle() {
-        while(!console.getInput().equalsIgnoreCase(""))
-    }*/
-
     /**
      * Author: Brian and Khamilah
      */

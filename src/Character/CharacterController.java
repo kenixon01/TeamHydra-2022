@@ -57,6 +57,7 @@ public class CharacterController implements Serializable {
      */
     public void equip(String itemName) {
         getModel().equipItem(itemName);
+
     }
 
     /**
@@ -64,6 +65,7 @@ public class CharacterController implements Serializable {
      */
     public void unEquipItem(String itemName) {
         getModel().unEquipItem(itemName);
+
     }
 
     // TODO this may need to be removed after testing //
@@ -71,7 +73,7 @@ public class CharacterController implements Serializable {
         Room room = Room.getRoom(model.getRoomNumber());
         model.getInventoryController().transferItem(
                 "Room", "Pick Up",
-                room.getInventoryController().getItemInventory(), item.strip());
+                room.getInventoryController().getItemInventory(), item.strip(), model);
     }
 
     public Character getModel() {
