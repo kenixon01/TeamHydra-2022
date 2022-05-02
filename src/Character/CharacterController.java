@@ -56,14 +56,14 @@ public class CharacterController implements Serializable {
      * Author: Brian Smithers
      */
     public void equip(String itemName) {
-        System.out.println(getModel().equipItem(itemName));
+        getModel().equipItem(itemName);
     }
 
     /**
      * Author: Brian Smithers
      */
     public void unEquipItem(String itemName) {
-        System.out.println(getModel().unEquipItem(itemName));
+        getModel().unEquipItem(itemName);
     }
 
     // TODO this may need to be removed after testing //

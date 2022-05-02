@@ -109,54 +109,36 @@ public class Character implements Serializable {
         return cr.getCharacter();
     }
 
-    public String equipItem(String itemName) {
-        itemName = itemName.stripTrailing();
-        if (itemName.equalsIgnoreCase(weapon.get_itemName()) ||
-                itemName.equalsIgnoreCase(wearable.get_itemName())) {
-            return "This item is already equipped.";
-        } else {
-            for (int i = 0; i < inventoryController.getItemInventory().size(); i++) {
-                if (inventoryController.getItemInventory().get(i).get_itemName()
-                        .equalsIgnoreCase(itemName)) {
-                    // Get item
-                    Item item = inventoryController.getItemInventory().get(i);
-                    if (item.get_itemType().equalsIgnoreCase("weapon")) {
-                        // Add weapon to users weapon slot
-                        setWeapon(item);
-                        setMaxHitPoints(getMaxHitPoints() + item.get_totalHpModifier());
-                        setCurrentHitPoints(getMaxHitPoints());
-                        setDamage(item.get_damageValue());
-                        // equip item
-                        item.setEquipped(true);
-                        return "Player equipped " + item.get_itemName() + "\n" +
-                                "Attack points equal: " + damage + "\n";
-                    }
-                    // If the item is a wearable, add stat buffs.
-                    if (item.get_itemType().equalsIgnoreCase("wearable")) {
-                        // Increase max health if the item increases total hp
-                        setMaxHitPoints(getMaxHitPoints() + item.get_totalHpModifier());
-                        // If the item restores health on pick up, restore health.
-                        if (item.isRestoreHealthOnPickUp()) {
-                            item.setRestoreHealthOnPickUp(false); // item can't restore health again
-                            setHp(getMaxHitPoints());
-                        }
-                        // Increase damage
-                        if (item.get_damageValue() > 0) {
-                            setDamage(getDamage() + item.get_damageValue());
-                        }
-                        // equip item
-                        item.setEquipped(true);
-                    } else {
-                        return "This item is not capable of being equipped.\n";
-                    }
-                }
-            }
-            return "No such item in inventory.\n";
+    public boolean equipItem(String itemSlot) {
+        itemSlot = itemSlot.stripTrailing();
+        Item item = inventoryController.getItemInventory().get(Integer.parseInt(itemSlot) - 1);
+        if (item.get_itemType().equalsIgnoreCase("weapon")) {
+            // Add weapon to users weapon slot
+            setWeapon(item);
+            setDamage(item.get_damageValue());
+            // equip item
+            item.setEquipped(true);
         }
+        else if (item.get_itemType().equalsIgnoreCase("wearable")) {
+            // Increase max health if the item increases total hp
+            setMaxHitPoints(getMaxHitPoints() + item.get_totalHpModifier());
+            // If the item restores health on pick up, restore health.
+            if (item.isRestoreHealthOnPickUp()) {
+                item.setRestoreHealthOnPickUp(false); // item can't restore health again
+                setHp(getMaxHitPoints());
+            }
+            // Increase damage
+            if (item.get_damageValue() > 0) {
+                setDamage(getDamage() + item.get_damageValue());
+            }
+            item.setEquipped(true);
+        }
+        return true;
     }
 
-    public String unEquipItem(String itemName) {
-        itemName = itemName.stripTrailing();
+    public boolean unEquipItem(String itemSlot) {
+        itemSlot = itemSlot.stripTrailing();
+        String itemName = inventoryController.getItemInventory().get(Integer.parseInt(itemSlot) - 1).get_itemName();
         if (weapon.get_itemName().equalsIgnoreCase(itemName) && !weapon.get_itemName()
                 .equalsIgnoreCase("hands")) {
             // remove attack points
@@ -167,9 +149,8 @@ public class Character implements Serializable {
             setWeapon(new Item(0, "Hands", "Your Hands",
                     "None", 0, 0, "Weapon", 0,
                     0.0f, false, false, true));
-            return "Player unequipped " + itemName + "\n" +
-                    "Attack points equal: " + damage + "\n";
-        } else if (wearable.get_itemName().equalsIgnoreCase(itemName)) {
+        }
+        else if (wearable.get_itemName().equalsIgnoreCase(itemName)) {
             // remove health
             setMaxHitPoints(getMaxHitPoints() - weapon.get_totalHpModifier());
             if (currentHitPoints > maxHitPoints) {
@@ -180,14 +161,7 @@ public class Character implements Serializable {
             // equip item
             wearable.setEquipped(false);
         }
-        if (itemName.equalsIgnoreCase("Hands")) {
-            return "You can't remove your hands!\n";
-        }
-        if (!weapon.get_itemName().equalsIgnoreCase(itemName)) {
-            return "This item is not equipped.";
-        }
-        // if this item is not equipped you can't unequip
-        return "No such item in inventory.\n";
+        return false;
     }
 
     /**

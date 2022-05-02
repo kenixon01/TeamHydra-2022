@@ -3,7 +3,8 @@
 ↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔
 
 save       saves current game progress only when player is in a hallway
-exit       exits game
+continue   loads last save game only on main menu
+exit       exits game only on main menu
 n          move north
 s          move south
 e          move east

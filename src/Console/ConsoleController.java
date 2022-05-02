@@ -355,6 +355,8 @@ public class ConsoleController {
      * @author Brian Smithers and Khamilah Nixon
      */
     public void enterCommand() {
+        // TODO remove this after testing
+        character.setCurrentHitPoints(50);
         gameRunning = true;
         while (!console.getInput().equalsIgnoreCase("exit")) {
             boolean validCommand = false;

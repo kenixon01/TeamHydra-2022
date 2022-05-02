@@ -47,7 +47,6 @@ public class RoomReader implements Serializable{
                 keys exist, make a copy of this list and assign to the
                 array.
                  */
-
                 boolean nextPass = true;
                 while (scanner.hasNext() && nextPass) {
                     String next = scanner.nextLine();
