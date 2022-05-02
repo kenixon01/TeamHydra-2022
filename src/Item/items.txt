@@ -24,6 +24,7 @@ A shiny and luminous black obsidian amulet and other precious gemstones around i
 50
 0
 true
+true
 
 2
 Axe
@@ -35,6 +36,7 @@ A black double-sided bearded axe. The engraving on the side reads "Tyr!". Just b
 0
 0
 true
+false
 
 3
 Spear
@@ -46,6 +48,7 @@ A long spear capable of attacking from a distance.
 0
 0
 true
+false
 
 4
 8x Bandage
@@ -57,6 +60,7 @@ A box of bandages already opened. Could probably cover a scratch or two, there�
 0
 0
 true
+false
 
 5
 1x Medkit
@@ -67,6 +71,7 @@ A fully stocked medical emergency kit. For really big paper cuts.
 150
 0
 0
+false
 false
 
 6
@@ -79,6 +84,7 @@ The sword called “Gate Keeper”  will be able to be picked up and used agains
 0
 0
 true
+false
 
 7
 Key Piece 1
@@ -89,6 +95,7 @@ This key piece could be obtained by defeating High Priest Elwyn in room 5. This 
 0
 0
 0
+false
 false
 
 8
@@ -101,6 +108,7 @@ Lodged in the enormous calf of Bonkreig, this is one of the 4 key pieces tos unl
 0
 0
 false
+false
 
 9
 Key Piece 3
@@ -111,6 +119,7 @@ This key piece can be obtained by opening the safe in the study room.
 0
 0
 0
+false
 false
 
 10
@@ -123,6 +132,7 @@ By defeating the monster from room 7, this key piece will help you unlock the ba
 0
 0
 false
+false
 
 11
 Armory Key
@@ -133,6 +143,7 @@ Worn as a necklace around his neck, Robert Fitz drops it when defeated. A key wi
 0
 0
 0
+false
 false
 
 14
@@ -145,6 +156,7 @@ Two set of sacred rings resembles the eyes of the Two Gods.
 0
 .10
 false
+false
 
 17
 2x Wine Potion
@@ -155,4 +167,5 @@ A wine potion,instead of getting you drunk, it gives you health.
 30
 0
 0
+false
 false
