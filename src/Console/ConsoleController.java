@@ -229,23 +229,28 @@ public class ConsoleController {
         itemController = new ItemController(new ItemReader().CreateItems(), itemView);
 
         boolean validMenuOption = false;
-        String userOption = "";
         if(createNewGame) {
             while (!validMenuOption) {
                 characterView = new CharacterView();
                 characterView.characterSelect(); // TODO call by character controller
 
-                userOption = console.menuInputValidator(new String[]{"1", "2", "3", "4"});
-                switch (userOption) {
+                String characterOption = console.menuInputValidator(new String[]{"1", "2", "3", "4"});
+                switch (characterOption) {
                     case "1", "4", "2", "3" -> validMenuOption = true;
                     default -> invalidCommand("character menu");
                 }
                 if(validMenuOption) {
-                    character = Character.loadCharacterData(Integer.parseInt(userOption));
+                    character = Character.loadCharacterData(Integer.parseInt(characterOption));
                     consoleView.verifyCharacter(character); // TODO call by character controller
-                    userOption = console.menuInputValidator(new String[]{"y","n"});
-                    if(userOption.equalsIgnoreCase("n")) {
-                        validMenuOption = false;
+                    while(true) {
+                        String verifyCharacterOption = console.menuInputValidator(new String[]{"y", "n"});
+                        if(verifyCharacterOption.equalsIgnoreCase("y")) {
+                            consoleView.gameDescription();
+                            break;
+                        }
+                        if(!verifyCharacterOption.equalsIgnoreCase("n")) {
+                            invalidCommand("");
+                        }
                     }
                 }
             }

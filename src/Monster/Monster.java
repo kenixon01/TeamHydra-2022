@@ -28,7 +28,6 @@ import java.util.HashMap;
  * @version 1.5
  */
 public class Monster implements Serializable {
-    private static final String ITEM_FILE_PATH = "src/Monster/MonsterTextFiles/Item.txt";
     private int id, roomId, itemId, damage, hp;
 
     private String name, description;
@@ -36,8 +35,6 @@ public class Monster implements Serializable {
     private boolean isLocked;
 
     private Inventory inventory;
-
-    public static HashMap<Integer, Monster> monsterHashMap = new HashMap<>();
 
     /**
      * Creates a monster object and assigns values to fields using
@@ -100,20 +97,16 @@ public class Monster implements Serializable {
         return hashMap;
     }
 
+    public Inventory getInventory() {
+        return inventory;
+    }
+
     public boolean isLocked() {
         return isLocked;
     }
 
     public int getId() {
         return id;
-    }
-
-    public int getRoomId() {
-        return roomId;
-    }
-
-    public int getItemId() {
-        return itemId;
     }
 
     public int getHp() {
