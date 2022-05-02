@@ -18,7 +18,6 @@ import java.util.*;
 
 public class Character implements Serializable {
     private int roomNumber;
-
     private final String id;
     private final String name;
     private final String description;
@@ -28,7 +27,7 @@ public class Character implements Serializable {
     private double criticalHitChance;
     private int damage;
     private Item weapon;
-    private Item wearable;
+    private Item wearable; // unused
 
     private final InventoryController inventoryController;
 
@@ -63,7 +62,8 @@ public class Character implements Serializable {
                 characterDescriptionFilePath = "src/Character/CharacterTextFiles/Character_01/" +
                         "CHAR_01_Description.txt";
                 cr = new CharacterReader(characterFilePath, startingItemFilePath,
-                        characterDescriptionFilePath, startingItemDescriptionFilePath);
+                        characterDescriptionFilePath,
+                        startingItemDescriptionFilePath);
                 cr.read();
             }
             case 2 -> {
@@ -75,7 +75,8 @@ public class Character implements Serializable {
                 characterDescriptionFilePath = "src/Character/CharacterTextFiles/" +
                         "Character_02/CHAR_02_Description.txt";
                 cr = new CharacterReader(characterFilePath, startingItemFilePath,
-                        characterDescriptionFilePath, startingItemDescriptionFilePath);
+                        characterDescriptionFilePath,
+                        startingItemDescriptionFilePath);
                 cr.read();
             }
             case 3 -> {
@@ -87,7 +88,8 @@ public class Character implements Serializable {
                 characterDescriptionFilePath = "src/Character/CharacterTextFiles/Character_03/" +
                         "CHAR_03_Description.txt";
                 cr = new CharacterReader(characterFilePath, startingItemFilePath,
-                        characterDescriptionFilePath, startingItemDescriptionFilePath);
+                        characterDescriptionFilePath,
+                        startingItemDescriptionFilePath);
                 cr.read();
             }
             case 4 -> {
@@ -99,11 +101,12 @@ public class Character implements Serializable {
                 characterDescriptionFilePath = "src/Character/CharacterTextFiles/Character_04/" +
                         "CHAR_04_Description.txt";
                 cr = new CharacterReader(characterFilePath, startingItemFilePath,
-                        characterDescriptionFilePath, startingItemDescriptionFilePath);
+                        characterDescriptionFilePath,
+                        startingItemDescriptionFilePath);
                 cr.read();
             }
-            default -> {
-            } // TODO make default
+            default -> { // No default.
+            }
         }
         assert cr != null;
         return cr.getCharacter();

@@ -20,10 +20,14 @@ public class Battle implements Serializable {
         this.monster = monster;
     }
 
+    /**
+     * Author: Brian Smithers
+     */
     public int loseHealth(int health, int damage) {
         if (health - damage < 0) {
             health = 0;
-        } else {
+        }
+        else {
             health -= damage;
         }
         return health;
@@ -35,7 +39,8 @@ public class Battle implements Serializable {
     public int gainHealth(int health, int maxHealth, int restoration) {
         if (health + restoration > maxHealth) {
             health = maxHealth;
-        } else {
+        }
+        else {
             health += restoration;
         }
         return health;
@@ -56,13 +61,13 @@ public class Battle implements Serializable {
         if (getPlayerHp() > 0 && getMonsterHp() > 0) {
             monster.setHp(loseHealth(getMonsterHp(), getPlayerAttackPoints()));
 
-//            health restoration functionality
+//          health restoration functionality
             assert playerInventory != null;
             if (playerInventory.size() > 0) {
                 int healthRestoration = playerHealthRestore(playerInventory, playerInventory.size() - 1);
                 if (healthRestoration > 0) {
-                    player.setCurrentHitPoints(gainHealth(getPlayerHp(), getPlayer().getMaxHitPoints(), healthRestoration));
-
+                    player.setCurrentHitPoints(gainHealth(getPlayerHp(), getPlayer().getMaxHitPoints(),
+                            healthRestoration));
                 }
             }
             return true;
@@ -78,7 +83,7 @@ public class Battle implements Serializable {
      * @param length    size of inventory
      * @return total health points restored to player
      * @author Khamilah Nixon
-     */    // This is for the shadow bow
+     */ // This is for the shadow bow
     private int playerHealthRestore(LinkedList<Item> inventory, int length) {
         // run through the linkedlist array
         // look for an item that is of weapon type and has a positive health restoration value
@@ -90,14 +95,6 @@ public class Battle implements Serializable {
             }
         }
         return restore;
-
-//        int hp = inventory.get(length).get_healValue();
-//        boolean isEquipped = inventory.get(length).getEquipped();
-//        String type = inventory.get(length).get_itemType();
-//        for(Item item : inventory) {
-//            if(isEquipped && hp > 0 && type.equalsIgnoreCase("weapon")) {
-//            }
-//        }
     }
 
 
@@ -144,8 +141,6 @@ public class Battle implements Serializable {
         return 0;
     }
 
-    // Used in the view
-
     /**
      * Determines the monster deal damage
      *
@@ -155,8 +150,6 @@ public class Battle implements Serializable {
     public int getMonsterAttackPoints() {
         return monster.getDamage();
     }
-
-    // Used in the view
 
     /**
      * Determines the player deal damage

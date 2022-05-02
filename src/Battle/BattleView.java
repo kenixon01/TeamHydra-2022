@@ -21,17 +21,20 @@ public class BattleView implements Serializable {
 
     public void blockSuccessful(String attacker, String defender) {
         System.out.println(
-                colors.textColor(attacker + " successfully blocked " + defender + "'s attack","b/green"));
+                colors.textColor(attacker + " successfully blocked " + defender + "'s attack",
+                        "b/green"));
     }
 
     public void blockUnsuccessful(String attacker, String defender) {
         System.out.println(
-                colors.textColor(attacker + " did not block " + defender + "'s attack","red"));
+                colors.textColor(attacker + " did not block " + defender + "'s attack",
+                        "red"));
     }
 
     public void dodgeSuccessful(String attacker, String defender) {
         System.out.println(
-                colors.textColor(attacker + " successfully dodged " + defender + "'s attack","b/green"));
+                colors.textColor(attacker + " successfully dodged " + defender + "'s attack",
+                        "b/green"));
     }
 
     public void dodgeUnsuccessful(String attacker, String defender) {
@@ -40,13 +43,11 @@ public class BattleView implements Serializable {
     }
 
     public void monsterSlayed(Monster monster) {
-
         System.out.println(
                 colors.textColor(monster.getName() + " was slayed","red"));
     }
 
     public void cannotStartBattle() {
-
         System.out.println(colors.textColor("There is no monster to fight","red"));
     }
 
@@ -63,7 +64,8 @@ public class BattleView implements Serializable {
 
     public void monsterDropItem(Monster monster, Item drop) {
         System.out.println(
-                colors.textColor(monster.getName() + " dropped " + drop.get_itemName(),"red"));
+                colors.textColor(monster.getName() + " dropped " + drop.get_itemName(),
+                        "red"));
     }
 
     public void battleCommands() {

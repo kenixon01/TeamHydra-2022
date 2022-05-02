@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 /**
  * Author: Brian Smithers
+ * Co-Author: Khamilah Nixon
  */
 public class Console {
     private String item = "";
@@ -39,6 +40,9 @@ public class Console {
         return input;
     }
 
+    /**
+     * Author: Brian and Khamilah
+     */
     public String battleInputValidator() {
         String[] inputValidator = input.split("\\s+");
         item = "";
@@ -84,6 +88,9 @@ public class Console {
         return input;
     }
 
+    /**
+     * Authors: Brian and Khamilah
+     */
     // This is used to validate input that is done to an object
     public String inputValidator() {
         String[] inputValidator = input.split("\\s+");
@@ -103,8 +110,7 @@ public class Console {
                 || inputValidator[0].equalsIgnoreCase("resume")
                 || inputValidator[0].equalsIgnoreCase("block")
                 || inputValidator[0].equalsIgnoreCase("dodge")
-                || inputValidator[0].equalsIgnoreCase("exit")
-        ) {
+                || inputValidator[0].equalsIgnoreCase("exit")) {
             input = inputValidator[0];
             // recombine string to pass for method
             for (int i = 1; i < inputValidator.length; i++) {
