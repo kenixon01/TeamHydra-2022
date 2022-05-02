@@ -114,62 +114,66 @@ public class Character implements Serializable {
 
     public boolean equipItem(String itemSlot) {
         itemSlot = itemSlot.stripTrailing();
-        Item item = inventoryController.getItemInventory().get(Integer.parseInt(itemSlot) - 1);
-        if (item.get_itemType().equalsIgnoreCase("weapon")) {
-            // Add weapon to users weapon slot
-            setWeapon(item);
-            setDamage(item.get_damageValue());
-            // equip item
-            item.setEquipped(true);
-        }
-        else if (item.get_itemType().equalsIgnoreCase("wearable")) {
-            // Increase max health if the item increases total hp
-            setMaxHitPoints(getMaxHitPoints() + item.get_totalHpModifier());
-            // If the item restores health on pick up, restore health.
-            if (item.isRestoreHealthOnPickUp()) {
-                item.setRestoreHealthOnPickUp(false); // item can't restore health again
-                setCurrentHitPoints(getMaxHitPoints());
+        if (itemSlot.matches("[0-9]+")) {
+            Item item = inventoryController.getItemInventory().get(Integer.parseInt(itemSlot) - 1);
+            if (item.get_itemType().equalsIgnoreCase("weapon")) {
+                // Add weapon to users weapon slot
+                setWeapon(item);
+                setDamage(item.get_damageValue());
+                // equip item
+                item.setEquipped(true);
             }
-            // Increase damage
-            if (item.get_damageValue() > 0) {
-                setDamage(getDamage() + item.get_damageValue());
+            else if (item.get_itemType().equalsIgnoreCase("wearable")) {
+                // Increase max health if the item increases total hp
+                setMaxHitPoints(getMaxHitPoints() + item.get_totalHpModifier());
+                // If the item restores health on pick up, restore health.
+                if (item.isRestoreHealthOnPickUp()) {
+                    item.setRestoreHealthOnPickUp(false); // item can't restore health again
+                    setCurrentHitPoints(getMaxHitPoints());
+                }
+                // Increase damage
+                if (item.get_damageValue() > 0) {
+                    setDamage(getDamage() + item.get_damageValue());
+                }
+                setWearable(item);
+                wearable.setEquipped(true);
+                item.setEquipped(true);
             }
-            setWearable(item);
-            wearable.setEquipped(true);
-            item.setEquipped(true);
         }
         return true;
     }
 
     public boolean unEquipItem(String itemSlot) {
         itemSlot = itemSlot.stripTrailing();
-        Item item = inventoryController.getItemInventory().get(Integer.parseInt(itemSlot) - 1);
-        String itemName = item.get_itemName();
-        if (weapon.get_itemName().equalsIgnoreCase(itemName) && !weapon.get_itemName()
-                .equalsIgnoreCase("hands")) {
-            // remove attack points
-            setDamage(damage - weapon.get_damageValue());
-            // set unequipped
-            weapon.setEquipped(false);
-            // equip bare hands
-            setWeapon(new Item(0, "Hands", "Your Hands",
-                    "None", 0, 0, "Weapon", 0,
-                    0.0f, false, false, true));
-        }
-        if (wearable != null) {
-            if (wearable.get_itemName().equalsIgnoreCase(itemName)) {
-                // remove health
-                setMaxHitPoints(getMaxHitPoints() - item.get_totalHpModifier());
-                if (currentHitPoints > maxHitPoints) {
-                    currentHitPoints = maxHitPoints;
+        if (itemSlot.matches("[0-9]+")) {
+            Item item = inventoryController.getItemInventory().get(Integer.parseInt(itemSlot) - 1);
+            String itemName = item.get_itemName();
+            if (weapon.get_itemName().equalsIgnoreCase(itemName) && !weapon.get_itemName()
+                    .equalsIgnoreCase("hands")) {
+                // remove attack points
+                setDamage(damage - weapon.get_damageValue());
+                // set unequipped
+                weapon.setEquipped(false);
+                // equip bare hands
+                setWeapon(new Item(0, "Hands", "Your Hands",
+                        "None", 0, 0, "Weapon", 0,
+                        0.0f, false, false, true));
+            }
+            if (wearable != null) {
+                if (wearable.get_itemName().equalsIgnoreCase(itemName)) {
+                    // remove health
+                    setMaxHitPoints(getMaxHitPoints() - item.get_totalHpModifier());
+                    if (currentHitPoints > maxHitPoints) {
+                        currentHitPoints = maxHitPoints;
+                    }
+                    // add damage back
+                    setDamage(getDamage() + wearable.get_damageValue());
+                    // unequip item
+                    setWearable(new Item(0, "Empty", "None",
+                            "None", 0, 0, "wearable", 0,
+                            0, true, false, true));
+                    wearable.setEquipped(false);
                 }
-                // add damage back
-                setDamage(getDamage() + wearable.get_damageValue());
-                // unequip item
-                setWearable(new Item(0, "Empty", "None",
-                        "None", 0, 0, "wearable", 0,
-                        0, true, false, true));
-                wearable.setEquipped(false);
             }
         }
         return false;
