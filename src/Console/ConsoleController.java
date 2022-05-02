@@ -37,7 +37,7 @@ public class ConsoleController {
 
     private File file = new File("save.dat");
 
-    private boolean createNewGame;
+    private boolean createNewGame = false;
     private boolean gameRunning = false;
 
     private ObjectOutputStream writeFile;
@@ -96,12 +96,18 @@ public class ConsoleController {
         System.exit(0);
     }
 
+    /**
+     * @author Khamilah Nixon
+     */
+
     public void startGame() {
         createNewGame = true;
         try {
-            if(file.exists() && file.createNewFile()) {
+            if(file.createNewFile() && !file.createNewFile()){
                 consoleView.saveGameCreated();
             }
+            writeFile = new ObjectOutputStream(new FileOutputStream(file));
+            readFile = new ObjectInputStream(new FileInputStream(file));
             if(gameRunning) {
                 characterSelect();
                 createRooms();
@@ -232,7 +238,7 @@ public class ConsoleController {
         if(createNewGame) {
             while (!validMenuOption) {
                 characterView = new CharacterView();
-                characterView.characterSelect(); // TODO call by character controller
+                characterView.characterSelect();
 
                 String characterOption = console.menuInputValidator(new String[]{"1", "2", "3", "4"});
                 switch (characterOption) {
@@ -241,16 +247,17 @@ public class ConsoleController {
                 }
                 if(validMenuOption) {
                     character = Character.loadCharacterData(Integer.parseInt(characterOption));
-                    consoleView.verifyCharacter(character); // TODO call by character controller
-                    while(true) {
-                        String verifyCharacterOption = console.menuInputValidator(new String[]{"y", "n"});
-                        if(verifyCharacterOption.equalsIgnoreCase("y")) {
-                            consoleView.gameDescription();
-                            break;
-                        }
-                        if(!verifyCharacterOption.equalsIgnoreCase("n")) {
-                            invalidCommand("");
-                        }
+                    consoleView.verifyCharacter(character);
+                    String verifyCharacterOption = console.menuInputValidator(new String[]{"y", "n"});
+                    if(verifyCharacterOption.equalsIgnoreCase("y")) {
+                        break;
+                    }
+                    else if(verifyCharacterOption.equalsIgnoreCase("n")) {
+                        validMenuOption = false;
+                    }
+                    else {
+                        consoleView.invalidCommand("");
+                        validMenuOption = false;
                     }
                 }
             }
@@ -278,7 +285,7 @@ public class ConsoleController {
                 }
                 character = (Character) readFile.readObject();
 
-            } catch (IOException | ClassNotFoundException io) {
+            } catch (EOFException | ClassNotFoundException io) {
                 io.printStackTrace();
             }
         }
@@ -378,6 +385,7 @@ public class ConsoleController {
         exitGame();
     }
 
+    //Author: Khamilah Nixon
     private void monsterSpawn(Monster monster) {
         monsterController.monsterInfo(character.getRoomNumber());
         consoleView.print("");
@@ -386,6 +394,7 @@ public class ConsoleController {
         battleController = new BattleController(battle, battleView);
     }
 
+    //Author: Khamilah Nixon
     private void puzzleSpawn(Monster monster, int roomID) {
         puzzleController.checkForPuzzle(roomID, character);
         if (puzzleController.getPuzzles().get(Integer.toString(roomID)).get(0).getSolved() &&
@@ -402,7 +411,6 @@ public class ConsoleController {
      */
     public boolean isValidGameCommand() {
         switch (console.inputValidator()) {
-            // TODO pickup is for testing purposes right now
             case "pickup" -> characterController.pickUpItem(console.getItem());
             case "stats" -> characterController.printPlayerDetails();
             case "use" -> itemController.useItem(characterController.getModel(), console.getItem());
@@ -456,13 +464,10 @@ public class ConsoleController {
                 characterController.printInventory();
             }
             case "attack" ->
-                    battleController.printBattleDetails(characterController.getModel().getInventoryController().
-                            getItemInventory(), false, false);
+                    battleController.printBattleDetails(false, false);
 
-            case "block" -> battleController.printBattleDetails(characterController.getModel().getInventoryController().
-                    getItemInventory(), false, true);
-            case "dodge" -> battleController.printBattleDetails(characterController.getModel().getInventoryController().
-                    getItemInventory(), true, false);
+            case "block" -> battleController.printBattleDetails(false, true);
+            case "dodge" -> battleController.printBattleDetails(true, false);
             default -> {
                 invalidCommand("battle");
                 return false;
@@ -477,8 +482,7 @@ public class ConsoleController {
      */
     private void beginBattle(boolean dodge, boolean block) {
         if (!battleController.getModel().getMonster().isLocked()) {
-            battleController.printBattleDetails(characterController.getModel().getInventoryController().
-                    getItemInventory(), dodge, block);
+            battleController.printBattleDetails(dodge, block);
             while (battleController.getModel().getMonster().getHp() > 0 &&
                     battleController.getModel().getPlayer().getHp() > 0) {
 

@@ -33,8 +33,7 @@ public class BattleController implements Serializable {
         if (damageReduction > 0) {
             view.blockSuccessful(model.getPlayerName(), model.getMonsterName());
             int totalMonsterDamage = model.getMonsterAttackPoints() - damageReduction;
-            model.attackMonster();
-            view.attackTurnResult(model.getPlayerName(), model.getPlayerAttackPoints(), model.getMonsterName());
+            model.getPlayer().setCurrentHitPoints(model.getPlayerHp() - totalMonsterDamage);
             view.attackTurnResult(model.getMonsterName(), totalMonsterDamage, model.getPlayerName());
             isSuccessfulHit = true;
             view.accessInventory(model.getPlayer());
@@ -80,6 +79,13 @@ public class BattleController implements Serializable {
         view.attackTurnResult(model.getPlayerName(), model.getPlayerAttackPoints(), model.getMonsterName());
         if (model.getMonster().getHp() <= 0) {
             view.monsterSlayed(model.getMonster());
+            if (model.getMonster().getInventory() != null) {
+                Item item = model.getMonster().getInventory().getItemInventory().getFirst();
+                view.monsterDropItem(model.getMonster(), item);
+                model.getPlayer().getInventoryController().transferItem(
+                        "Remove this", "remove this",
+                        model.getMonster().getInventory().getItemInventory(), item.get_itemName(), null);
+            }
         }
         else {
             model.attackPlayer();
@@ -96,7 +102,7 @@ public class BattleController implements Serializable {
      *
      * @author Brian Smithers and Khamilah Nixon
      */
-    public void printBattleDetails(List<Item> inventory, boolean playerSelectedDodge,
+    public void printBattleDetails(boolean playerSelectedDodge,
                                    boolean playerSelectedBlock) {
         if (model.getMonster() != null) {
             if (model.getMonster().getHp() > 0 && model.getPlayer().getCurrentHitPoints() > 0) {
@@ -126,6 +132,7 @@ public class BattleController implements Serializable {
             view.exhaustTurn(model.getPlayerName());
             model.attackPlayer();
             view.attackTurnResult(model.getMonsterName(), model.getMonsterAttackPoints(), model.getPlayerName());
+            view.remainingHealth(model.getMonster(), model.getPlayer());
         } else {
             isSuccessfulHit = false;
         }

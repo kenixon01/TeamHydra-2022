@@ -66,32 +66,16 @@ public class Puzzle implements Serializable {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getHint() {
         return hint;
-    }
-
-    public void setHint(String hint) {
-        this.hint = hint;
     }
 
     public String getSolution() {
         return solution;
     }
 
-    public void setSolution(String solution) {
-        this.solution = solution;
-    }
-
     public String getSolvedMessage() {
         return solvedMessage;
-    }
-
-    public void setSolvedMessage(String solvedMessage) {
-        this.solvedMessage = solvedMessage;
     }
 
     public String getType() {
@@ -120,18 +104,6 @@ public class Puzzle implements Serializable {
 
     public int getHpModifier() {
         return hpModifier;
-    }
-
-    public void setHpModifier(int hpModifier) {
-        this.hpModifier = hpModifier;
-    }
-
-    public String getItemDropped() {
-        return itemDropped;
-    }
-
-    public void setItemDropped(String itemDropped) {
-        this.itemDropped = itemDropped;
     }
 
     public String getIncorrectMsg() {

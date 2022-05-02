@@ -8,60 +8,79 @@ import Character.Character;
  * @author Khamilah Nixon
  */
 public class ConsoleView {
+    private ConsoleColors colors = new ConsoleColors();
+
+    public ConsoleView() {
+        colors.setTextColor("yellow");
+    }
     public void print(String message) {
         System.out.println(message);
     }
 
     public void continueGame() {
-        System.out.println("Save game loaded.");
+        System.out.println(colors.textColor("Save game loaded.","b/purple"));
     }
 
     public void startGame() {
-        System.out.println("Do you want to start the game? [y] or [n]");
+        System.out.println(
+                colors.textColor("Do you want to start the game? [") +
+                        colors.textColor("y", "b/green") +
+                colors.textColor("] or [") + colors.textColor("n","b/red") +
+                colors.textColor("]"));
     }
 
     public void exitGame() {
-        System.out.println("Exiting game.");
+        System.out.println(
+                colors.textColor("Exiting game.","b/green"));
     }
 
     public void saveGameCreated() {
-        System.out.println("NEW SAVE CREATED");
+        System.out.println(
+                colors.textColor("NEW SAVE CREATED","b/purple"));
     }
 
     public void fileNotFound() {
-        System.out.println("Save file does not exist.");
+        System.out.println(
+                colors.textColor("Save file does not exist.", "b/red"));
     }
 
     public void cannotSaveGame() {
-        System.out.println("You cannot save here.\nProceed to a hallway to save the game.");
+        System.out.println(
+                colors.textColor("You cannot save here.\nProceed to a hallway to save the game.","b/red"));
     }
 
     public void invalidCommand(String commandCategory) {
         commandCategory += " ";
-        System.out.println("Invalid " + commandCategory + "command.\n");
+        System.out.println(colors.textColor("Invalid " + commandCategory + "command.\n", "b/red"));
     }
 
     public void mainMenu() {
-        System.out.println("""
+        System.out.println(colors.textColor("""
                 <<=<<=<<=<<=<<=<<=<<<==>>>=>>=>>=>>=>>=>>=>>
                          ESCAPE FROM HONTHIN ESTATE
                          <<=<<=<<=<<<==>>>=>>=>>=>>
-                
+                ""","b/red") +
+                colors.textColor("""
                                    
                 → Start
                 → Continue
                 → Exit
-                """);
+                """));
     }
 
     public void verifyCharacter(Character character) {
-        System.out.println("Would you like to continue as " +
-                character.getName() + "\nThis decision is final. [y] or [n]"
+        System.out.println(
+                colors.textColor(character.getDescription(), "cyan") +
+                colors.textColor("Would you like to continue as " +
+                character.getName() + "\nThis decision is final. [") +
+                        colors.textColor("y", "b/green") +
+                        colors.textColor("] or [") + colors.textColor("n","b/red") +
+                        colors.textColor("]")
         );
     }
 
     public void gameDescription() {
-        System.out.println("""
+        System.out.println(colors.textColor("""
                 On an alternate earth in the year 1515. A mysterious cataclysm has claimed the world, giving rise to
                 beasts, monsters, zombies, demons, and everything in between. On year 5 of the apocalypse, our story
                 picks up following a group of four survivors - who between uncertain circumstances - have come to
@@ -79,11 +98,11 @@ public class ConsoleView {
                 No sound can be heard from outside, and there is no sign of the rest of the group through the 
                 windows. What happened? Where are the others? The only way is forward, since we now have to 
                 Escape from Honthin Estate.\s
-                """);
+                """));
     }
 
     public void saveGame() {
-        System.out.println("Saved.");
+        System.out.println(colors.textColor("Saved.","b/green"));
     }
 
     @Override

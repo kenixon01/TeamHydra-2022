@@ -86,10 +86,3 @@ public class ItemReader implements Serializable {
         return items;
     }
 }
-
-class ItemReaderTester {
-    public static void main(String[] args) {
-        ItemReader itemReader = new ItemReader();
-        itemReader.CreateItems();
-    }
-}

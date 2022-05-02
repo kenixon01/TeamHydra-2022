@@ -68,7 +68,6 @@ public class CharacterController implements Serializable {
 
     }
 
-    // TODO this may need to be removed after testing //
     public void pickUpItem(String item) {
         Room room = Room.getRoom(model.getRoomNumber());
         model.getInventoryController().transferItem(

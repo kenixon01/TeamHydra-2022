@@ -45,80 +45,36 @@ public class Item implements Serializable {
         this.itemUnlocked = itemUnlocked;
     }
 
-    public int get_itemNumber() {
-        return _itemNumber;
-    }
-
     public static LinkedList<Item> getItemList() {
         return itemList;
-    }
-
-    public void set_itemNumber(int _itemNumber) {
-        this._itemNumber = _itemNumber;
     }
 
     public String get_itemName() {
         return _itemName;
     }
 
-    public void set_itemName(String _itemName) {
-        this._itemName = _itemName;
-    }
-
     public String get_itemDescription() {
         return _itemDescription;
-    }
-
-    public void set_itemDescription(String _itemDescription) {
-        this._itemDescription = _itemDescription;
     }
 
     public String get_itemRoom() {
         return _itemRoom;
     }
 
-    public void set_itemRoom(String _itemRoom) {
-        this._itemRoom = _itemRoom;
-    }
-
     public int get_damageValue() {
         return _damageValue;
-    }
-
-    public void set_damageValue(int _damageValue) {
-        this._damageValue = _damageValue;
     }
 
     public int get_healValue() {
         return _healValue;
     }
 
-    public void set_healValue(int _healValue) {
-        this._healValue = _healValue;
-    }
-
     public String get_itemType() {
         return _itemType;
     }
 
-    public void set_itemType(String _itemType) {
-        this._itemType = _itemType;
-    }
-
     public int get_totalHpModifier() {
         return _totalHpModifier;
-    }
-
-    public void set_totalHpModifier(int _totalHpModifier) {
-        this._totalHpModifier = _totalHpModifier;
-    }
-
-    public float get_criticalHitChance() {
-        return _criticalHitChance;
-    }
-
-    public void set_criticalHitChance(int _criticalHitChance) {
-        this._criticalHitChance = _criticalHitChance;
     }
 
     public Boolean getEquipped() {
@@ -127,10 +83,6 @@ public class Item implements Serializable {
 
     public void setEquipped(Boolean equipped) {
         isEquipped = equipped;
-    }
-
-    public boolean isWearable() {
-        return wearable;
     }
 
     public boolean isRestoreHealthOnPickUp() {

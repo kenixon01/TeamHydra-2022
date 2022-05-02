@@ -19,10 +19,6 @@ public class MonsterController implements Serializable {
         view.monsterInfo(model.get(key));
     }
 
-    public MonsterView getView() {
-        return view;
-    }
-
     public HashMap<Integer, Monster> getModel() {
         return model;
     }

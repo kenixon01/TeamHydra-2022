@@ -66,8 +66,4 @@ public class ReadRoomConnections  implements Serializable {
             System.out.printf("The %s file was not found.%n", getFilePath());
         }
     }
-
-    public int getCurrentRoom() {
-        return currentRoom;
-    }
 }

@@ -1,24 +1,27 @@
 package Monster;
 
 import java.io.Serializable;
+import Utilities.ConsoleColors;
 
 /**
  * Prints all related information related to a Monster to the console
  * @author Khamilah Nixon
  */
 public final class MonsterView implements Serializable {
-    public void print(String message) {
-        System.out.println(message);
-    }
+    private ConsoleColors colors = new ConsoleColors();
 
+    public MonsterView() {
+        colors.setTextColor("red");
+    }
 
     public void monsterInfo(Monster monster) {
-        System.out.println(monster.getName() + ":");
-        System.out.println("Health: " + monster.getHp() + " HP");
-        System.out.println("Damage: " + monster.getDamage() + " DMG");
-        System.out.println(monster.getDescription());
-    }
-    public void itemDrop(Monster monster) {
-        System.out.println(monster.getName() + " dropped an item");
+        System.out.println(
+                colors.textColor(monster.getName()));
+        System.out.println(
+                colors.textColor("Health: ") + monster.getHp() + " HP");
+        System.out.println(
+                colors.textColor("Damage: ") + monster.getDamage() + " DMG");
+        System.out.println(
+                colors.textColor(monster.getDescription(), "b/red"));
     }
 }

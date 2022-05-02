@@ -33,9 +33,9 @@ public final class ConsoleColors implements Serializable {
      */
     private final String[][]ANSI_COLOR_NAME = new String[][]{
             {"BLACK", "RED","GREEN","YELLOW","BLUE","PURPLE","CYAN","WHITE",
-            "BBLACK", "BRED", "BGREEN", "BYELLOW", "BBLUE", "BPURPLE", "BCYAN", "BWHITE"},
+            "B/BLACK", "B/RED", "B/GREEN", "B/YELLOW", "B/BLUE", "B/PURPLE", "B/CYAN", "B/WHITE"},
             {"\u001B[30m","\u001B[31m","\u001B[32m","\u001B[33m","\u001B[34m","\u001B[35m","\u001B[36m","\u001B[37m",
-                    "\u001b[90m","\u001B[91m","\u001B[92m","\u001B[93m", "\u001B94m","\u001B[95m",
+                    "\u001b[90m","\u001B[91m","\u001B[92m","\u001B[93m", "\u001B[94m","\u001B[95m",
                     "\u001B[96m","\u001B[97m"},
             {"\u001B[40m","\u001B[41m","\u001B[42m","\u001B[43m","\u001B[44m","\u001B[45m","\u001B[46m","\u001B[47m"}
     };
@@ -121,6 +121,15 @@ public final class ConsoleColors implements Serializable {
      */
     public String textColor(String msg) {
         return textColor + msg + ANSI_RESET;
+    }
+
+    /**
+     * Returns a String of text with the appended ANSI color code to change the text color
+     * @return a String with a varied color
+     */
+    public String textColor(String msg, String textColor) {
+        String color = checkColor(textColor, "TXT");
+        return color + msg + ANSI_RESET;
     }
     /**
      * Method: toString

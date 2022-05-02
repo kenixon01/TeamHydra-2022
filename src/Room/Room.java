@@ -69,10 +69,6 @@ public class Room implements Serializable {
         return isLocked;
     }
 
-    public void setIsLocked(boolean status) {
-        this.isLocked = status;
-    }
-
 //    public Inventory getRoomInventory() {
 //        return roomInventory;
 //    }
