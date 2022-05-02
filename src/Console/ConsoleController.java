@@ -405,7 +405,7 @@ public class ConsoleController {
             // TODO pickup is for testing purposes right now
             case "pickup" -> characterController.pickUpItem(console.getItem());
             case "stats" -> characterController.printPlayerDetails();
-            case "use" -> itemController.useItem(characterController.getModel());
+            case "use" -> itemController.useItem(characterController.getModel(), console.getItem());
             case "equip" -> characterController.equip(console.getItem());
             case "unequip" -> characterController.unEquipItem(console.getItem());
             case "n", "s", "e", "w" -> {
