@@ -159,7 +159,7 @@ public class Character implements Serializable {
         if (wearable != null) {
             if (wearable.get_itemName().equalsIgnoreCase(itemName)) {
                 // remove health
-                setMaxHitPoints(getMaxHitPoints() - weapon.get_totalHpModifier());
+                setMaxHitPoints(getMaxHitPoints() - item.get_totalHpModifier());
                 if (currentHitPoints > maxHitPoints) {
                     currentHitPoints = maxHitPoints;
                 }
